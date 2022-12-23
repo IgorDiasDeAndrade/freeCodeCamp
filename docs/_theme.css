@@ -5,6 +5,10 @@
   --text-color-base: #2e2e46;
   --text-color-secondary: #646473;
   --text-color-tertiary: #81818e;
+
+  --line-height: 2rem;
+  --bg-color: #ffffff;
+  --size: 1.5rem;
 }
 
 body {
@@ -26,29 +30,29 @@ body .content {
 /****** Nav ****/
 
 .universal-nav {
-  margin: 0px;
+  margin: 0;
   width: 100vw;
   height: 38px;
   background-color: var(--theme-color);
   position: fixed;
-  top: 0px;
+  top: 0;
   display: flex;
   justify-content: center;
   z-index: 100;
 }
 
 .universal-nav a.translations-link {
-  color: #ffffff;
+  color: var(--bg-color);
   position: fixed;
   right: 50px;
   line-height: 24px;
   font-size: 16px;
   margin: 6px 0;
-  padding: 0 0;
+  padding: 0;
 }
 
 .universal-nav img {
-  margin: 7px 0px;
+  margin: 7px 0;
   height: 24px;
 }
 
@@ -72,7 +76,7 @@ section.cover {
   padding-bottom: 112px;
   height: auto;
   min-height: 100vh;
-  background: #ffffff !important;
+  background: var(--bg-color) !important;
   color: var(--theme-color);
 }
 
@@ -118,8 +122,8 @@ section.cover a.anchor {
 }
 
 section.cover ul {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: var(--size);
+  line-height: var(--line-height);
   display: grid;
   text-align: left;
   grid-column-gap: 16px;
@@ -130,17 +134,17 @@ section.cover ul {
 }
 
 section.cover .cover-main > p:last-child a:last-child {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: var(--size);
+  line-height: var(--line-height);
   background-color: var(--theme-color);
-  color: #fff;
+  color: var(--bg-color);
 }
 
 section.cover .cover-main > p:last-child a:last-child:hover {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: var(--size);
+  line-height: var(--line-height);
   background-color: var(--theme-color-dark);
-  color: #fff;
+  color: var(--bg-color);
   opacity: 1;
 }
 
@@ -172,6 +176,7 @@ section.cover.show ~ .sidebar-toggle {
 }
 
 /****** Sidebar ******/
+
 .sidebar ul li a:hover {
   color: var(--theme-color);
 }
@@ -189,7 +194,7 @@ section.cover.show ~ .sidebar-toggle {
 }
 
 .sidebar {
-  padding: 0px;
+  padding: 0;
 }
 
 .sidebar-toggle {
@@ -198,11 +203,11 @@ section.cover.show ~ .sidebar-toggle {
 
 body .sidebar-toggle {
   background: none;
-  top: 1.5rem;
+  top: var(--size);
   left: calc(300px + 1.5rem);
   cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: var(--size);
+  height: var(--size);
   padding: 0;
   transition: left 0.25s ease-out;
 }
@@ -210,7 +215,7 @@ body .sidebar-toggle {
 body .sidebar-toggle span {
   background-color: var(--theme-color);
   height: 0.2rem;
-  width: 1.5rem;
+  width: var(--size);
   position: absolute;
   left: 0;
   margin: 0;
@@ -220,9 +225,9 @@ body .sidebar-toggle span {
 
 body.close .sidebar-toggle {
   transition: left 0.25s ease-out;
-  width: 1.5rem;
-  height: 1.5rem;
-  left: 1.5rem;
+  width: var(--size);
+  height: var(--size);
+  left: var(--size);
 }
 
 body.close .sidebar-toggle span {
@@ -276,7 +281,7 @@ body.close .github-corner {
 .markdown-section code {
   background-color: #f8f8f8;
   color: #525252;
-  padding: 0.05em 0.15em 0.15em 0.15em;
+  padding: 0.05em 0.15em 0.15em;
   margin: 0.05em;
   font-size: 16px;
   line-height: 24px;
@@ -301,7 +306,7 @@ body.close .github-corner {
 .markdown-section a > strong > code {
   background-color: #f8f8f8;
   color: #525252;
-  padding: 0.05em 0.15em 0 0.15em;
+  padding: 0.05em 0.15em 0;
   margin: 0.05em;
 }
 
@@ -311,7 +316,7 @@ body.close .github-corner {
 .markdown-section a > strong > code:active {
   background-color: #525252;
   color: #f8f8f8;
-  padding: 0.05em 0.15em 0 0.15em;
+  padding: 0.05em 0.15em 0;
   margin: 0.05em;
 }
 
@@ -323,11 +328,12 @@ body.close .github-corner {
 @media screen and (max-width: 768px) {
   .markdown-section {
     max-width: 90%;
-    padding: 40px 15px 40px 15px;
+    padding: 40px 15px;
   }
 }
 
 /****** CODE HIGHLIGHTING ******/
+
 .token.string {
   color: #42b983;
 }
@@ -343,6 +349,7 @@ body.close .github-corner {
 }
 
 /****** COPY TO CLIPBOARD ******/
+
 .docsify-copy-code-button {
   font-size: 0.7em !important;
 }
@@ -367,5 +374,5 @@ body.close .github-corner {
 
 .i18n-lang-list li {
   text-align: left;
-  width: 5em;
+  width: 10em;
 }

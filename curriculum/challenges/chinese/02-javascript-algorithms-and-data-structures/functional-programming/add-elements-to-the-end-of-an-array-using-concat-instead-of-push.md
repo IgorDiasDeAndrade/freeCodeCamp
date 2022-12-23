@@ -10,20 +10,20 @@ dashedName: add-elements-to-the-end-of-an-array-using-concat-instead-of-push
 
 函数式编程就是创建和使用具有不变性的函数。
 
-上一个挑战介绍了 `concat` 方法，这是一种在不改变原始数组的前提下，将数组组合成新数组的方法。 将 `concat` 方法与 `push` 方法做比较。 `push` 将元素添加到调用它的数组的末尾，这样会改变该数组。 举个例子：
+上一个挑战介绍了 `concat` 方法，这是一种在不改变原始数组的前提下，将数组组合成一个新数组的方法。 将 `concat` 方法与 `push` 方法做比较。 `push` 将一个元素添加到调用它的数组的末尾，这样会改变该数组。 举个例子：
 
 ```js
-var arr = [1, 2, 3];
-arr.push([4, 5, 6]);
+const arr = [1, 2, 3];
+arr.push(4, 5, 6);
 ```
 
-`arr` 的值被修改为 `[1, 2, 3, [4, 5, 6]]`，这不是函数编程方式。
+`arr` 的值被修改为 `[1, 2, 3, 4, 5, 6]`，这不是函数编程方式。
 
-`concat` 方法可以将新项目添加到数组末尾，而不产生副作用。
+`concat` 方法可以将新项目添加到数组末尾，而不附带改变数组。
 
 # --instructions--
 
-修改 `nonMutatingPush` 函数，用 `concat` 替代 `push` 将 `newItem` 添加到 `original` 末尾。 该函数应返回一个数组。
+修改 `nonMutatingPush` 函数，用 `concat` 将 `newItem` 添加到 `original` 末尾，而不改变 `original` 或 `newItem` 数组。 该函数应返回一个数组。
 
 # --hints--
 
@@ -71,8 +71,9 @@ function nonMutatingPush(original, newItem) {
 
   // Only change code above this line
 }
-var first = [1, 2, 3];
-var second = [4, 5];
+
+const first = [1, 2, 3];
+const second = [4, 5];
 nonMutatingPush(first, second);
 ```
 
@@ -82,7 +83,6 @@ nonMutatingPush(first, second);
 function nonMutatingPush(original, newItem) {
   return original.concat(newItem);
 }
-var first = [1, 2, 3];
-var second = [4, 5];
-nonMutatingPush(first, second);
+const first = [1, 2, 3];
+const second = [4, 5];
 ```

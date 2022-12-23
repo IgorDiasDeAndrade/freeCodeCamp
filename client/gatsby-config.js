@@ -6,13 +6,11 @@ const {
   localeChallengesRootDir
 } = require('./utils/build-challenges');
 
-const { clientLocale, curriculumLocale, homeLocation } = envData;
+const { clientLocale, curriculumLocale, homeLocation, sentryClientDSN } =
+  envData;
 
 const curriculumIntroRoot = path.resolve(__dirname, './src/pages');
-const pathPrefix =
-  clientLocale === 'english' || clientLocale === 'chinese'
-    ? ''
-    : '/' + clientLocale;
+const pathPrefix = clientLocale === 'english' ? '' : '/' + clientLocale;
 
 module.exports = {
   flags: {
@@ -24,6 +22,12 @@ module.exports = {
   },
   pathPrefix: pathPrefix,
   plugins: [
+    {
+      resolve: '@sentry/gatsby',
+      options: {
+        dsn: sentryClientDSN
+      }
+    },
     {
       resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
       options: {
@@ -108,12 +112,10 @@ module.exports = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'freeCodeCamp',
-        /* eslint-disable camelcase */
         short_name: 'fCC',
         start_url: '/',
         theme_color: '#0a0a23',
         background_color: '#fff',
-        /* eslint-enable camelcase */
         display: 'minimal-ui',
         icon: 'src/assets/images/square_puck.png'
       }

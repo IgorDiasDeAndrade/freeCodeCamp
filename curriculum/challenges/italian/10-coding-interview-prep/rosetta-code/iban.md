@@ -1,68 +1,68 @@
 ---
 id: 5a23c84252665b21eecc7eaf
 title: IBAN
-challengeType: 5
+challengeType: 1
 forumTopicId: 302289
 dashedName: iban
 ---
 
 # --description--
 
-The [International Bank Account Number (IBAN)](https://en.wikipedia.org/wiki/International_Bank_Account_Number) is an internationally agreed means of identifying bank accounts across national borders with a reduced risk of propagating [transcription errors](https://en.wikipedia.org/wiki/Transcription_error).
+L'IBAN (International Bank Account Number) è un modo concordato internazionalmente per identificare i conti bancari attraverso confini internazionali con un rischio ridotto di propagare errori di trascrizione.
 
-The IBAN consists of up to 34 alphanumeric characters:
+L'<abbr title="International Bank Account Number">IBAN</abbr> contiene fino a 34 caratteri alfanumerici:
 
 <ul>
-  <li>first the two-letter ISO 3166-1 alpha-2 country code</li>
-  <li>then two check digits, and</li>
-  <li>finally a country-specific Basic Bank Account Number (BBAN).</li>
+  <li>prima il codice paese a due lettere <abbr title="International Organization for Standardization">ISO</abbr> 3166-1 alpha-2</li>
+  <li>poi due cifre di controllo, e</li>
+  <li>infine un numero di conto bancario di base specifico per paese (BBAN).</li>
 </ul>
 
-The check digits enable a sanity check of the bank account number to confirm its integrity even before submitting a transaction.
+Le cifre di controllo consentono un controllo di sanità del numero di conto bancario per confermare la sua integrità anche prima di inviare una transazione.
 
 # --instructions--
 
-Write a function that takes IBAN string as parameter. If it is valid return true. Otherwise, return false.
+Scrivi una funzione che prende come parametro la stringa IBAN. Se è valido restituisci true. Altrimenti, restituisci false.
 
 # --hints--
 
-`isValid` should be a function.
+`isValid` dovrebbe essere una funzione.
 
 ```js
 assert(typeof isValid == 'function');
 ```
 
-`isValid("GB82 WEST 1234 5698 7654 32")` should return a boolean.
+`isValid("GB82 WEST 1234 5698 7654 32")` dovrebbe restituire un booleano.
 
 ```js
 assert(typeof isValid('GB82 WEST 1234 5698 7654 32') == 'boolean');
 ```
 
-`isValid("GB82 WEST 1234 5698 7654 32")` should return `true`.
+`isValid("GB82 WEST 1234 5698 7654 32")` dovrebbe restituire `true`.
 
 ```js
 assert.equal(isValid('GB82 WEST 1234 5698 7654 32'), true);
 ```
 
-`isValid("GB82 WEST 1.34 5698 7654 32")` should return `false`.
+`isValid("GB82 WEST 1.34 5698 7654 32")` dovrebbe restituire `false`.
 
 ```js
 assert.equal(isValid('GB82 WEST 1.34 5698 7654 32'), false);
 ```
 
-`isValid("GB82 WEST 1234 5698 7654 325")` should return `false`.
+`isValid("GB82 WEST 1234 5698 7654 325")` dovrebbe restituire `false`.
 
 ```js
 assert.equal(isValid('GB82 WEST 1234 5698 7654 325'), false);
 ```
 
-`isValid("GB82 TEST 1234 5698 7654 32")` should return `false`.
+`isValid("GB82 TEST 1234 5698 7654 32")` dovrebbe restituire `false`.
 
 ```js
 assert.equal(isValid('GB82 TEST 1234 5698 7654 32'), false);
 ```
 
-`isValid("SA03 8000 0000 6080 1016 7519")` should return `true`.
+`isValid("SA03 8000 0000 6080 1016 7519")` dovrebbe restituire `true`.
 
 ```js
 assert.equal(isValid('SA03 8000 0000 6080 1016 7519'), true);
@@ -95,10 +95,10 @@ function isValid(iban) {
     iban = __helpers.removeWhiteSpace(iban)
     if (!iban.match(/^[\dA-Z]+$/)) return false
     var len = iban.length
-    if (len != ibanLen[iban.substr(0,2)]) return false
-    iban = iban.substr(4) + iban.substr(0,4)
+    if (len != ibanLen[iban.substring(0,2)]) return false
+    iban = iban.substring(4) + iban.substring(0,4)
     for (var s='', i=0; i<len; i+=1) s+=parseInt(iban.charAt(i),36)
-    for (var m=s.substr(0,15)%97, s=s.substr(15); s; s=s.substr(13)) m=(m+s.substr(0,13))%97
+    for (var m=s.substring(0,15)%97, s=s.substring(15); s; s=s.substring(13)) m=(m+s.substring(0,13))%97
     return m == 1
 }
 ```

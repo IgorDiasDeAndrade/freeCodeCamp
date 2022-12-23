@@ -2,19 +2,17 @@ La comunità [freeCodeCamp.org](https://freecodecamp.org) è composta da migliai
 
 > [!NOTE] Prima di procedere, prenditi due minuti per leggere il nostro [Codice di condotta](https://www.freecodecamp.org/code-of-conduct). Lo applichiamo rigorosamente in tutta la nostra comunità in modo che contribuire a freeCodeCamp.org sia un'esperienza sicura e inclusiva per tutti.
 
-Happy contributing.
-
-Sei invitato a:
-
-- Creare, aggiornare e correggere bug nel nostro [curriculum](#curriculum).
-- Aiutarci a correggere i bug nella [piattaforma di apprendimento](#piattaforma-di-apprendimento) di freeCodeCamp.org.
-- [Aiutarci a tradurre](#traduzioni) freeCodeCamp.org in tutte le lingue del mondo.
+Siete invitati a creare, aggiornare e correggere i bug nel nostro [curriculum](#curriculum), aiutarci a correggere i bug nella [piattaforma di apprendimento](#piattaforma-di-apprendimento) di freeCodeCamp.org, o [aiutarci a tradurre](#traduzioni) freeCodeCamp.org nelle diverse lingue del mondo.
 
 Rispondiamo alle domande più comuni su come contribuire [nelle nostre FAQ per i contributori](FAQ.md).
 
+Buon lavoro.
+
+---
+
 ## Curriculum
 
-Il nostro curriculum è curato dalla comunità globale freeCodeCamp. In questo modo, siamo in grado di incorporare conoscenze esperte da volontari come te.
+Il nostro curriculum è curato dalla comunità globale freeCodeCamp. In questo modo, siamo in grado di incorporare le utili conoscenze di volontari come te.
 
 Puoi aiutare ad espandere e migliorare il curriculum. Puoi anche aggiornare le user story del progetto per spiegare meglio i concetti. E puoi migliorare i nostri test automatici in modo da poter testare più accuratamente il codice degli studenti.
 
@@ -22,28 +20,26 @@ Puoi aiutare ad espandere e migliorare il curriculum. Puoi anche aggiornare le u
 
 ## Traduzioni
 
-Stiamo traducendo freeCodeCamp.org nelle maggiori lingue del mondo. Alcune delle certificazioni sono già attive in [Cinese (中文)](https://chinese.freecodecamp.org/learn) e [Spagnolo (Español)](https://www.freecodecamp.org/espanol/learn/). Ti raccomandiamo di leggere [questo annuncio](https://www.freecodecamp.org/news/world-language-translation-effort) e di condividerlo con i tuoi amici per coinvolgerli in questa iniziativa.
+Stiamo traducendo freeCodeCamp.org nelle maggiori lingue del mondo.
 
-**Se sei interessato a tradurre qui trovi [ come tradurre le risorse di freeCodeCamp](how-to-translate-files.md).**
+Le certificazioni sono già disponibili in alcuni delle principali lingue, come:
+
+- [Cinese (中文)](https://www.freecodecamp.org/chinese/learn)
+- [Spagnolo (Español)](https://www.freecodecamp.org/espanol/learn)
+- [Italiano](https://www.freecodecamp.org/italian/learn)
+- [Portoghese (Português)](https://www.freecodecamp.org/portuguese/learn)
+- [Ucraino (Українська)](https://www.freecodecamp.org/ukrainian/learn)
+- [Giapponese (日本語)](https://www.freecodecamp.org/japanese/learn)
+- [Tedesco (Deutsch)](https://www.freecodecamp.org/german/learn)
+
+Ti incoraggiamo a leggere l'[annuncio qui](https://www.freecodecamp.org/italian/news/come-aiutare-a-tradurre-freecodecamp-nella-tua-lingua/) e a condividerlo con i tuoi amici.
+
+**Se sei interessato a tradurre, ecco [come tradurre le risorse di freeCodeCamp](how-to-translate-files.md).**
 
 ## Piattaforma di apprendimento
 
-la nostra piattaforma di apprendimento è basata su un moderno stack JavaScript. Ha vari componenti, strumenti e librerie. Queste includono Node.js, MongoDB, OAuth 2.0, React, Gatsby, Webpack, ecc.
+La nostra piattaforma di apprendimento esegue uno stack JavaScript moderno. Ha vari componenti, strumenti e librerie. Questi comprendono Node.js, MongoDB, OAuth 2.0, React, Gatsby, Webpack e altro.
 
-In linea di massima utilizziamo
+In generale, abbiamo un server API basato su Node.js, un set di applicazioni client basate su React, script per i test di valutazione dei progetti degli utenti del curriculum e altro. Se vuoi contribuire produttivamente alla piattaforma di apprendimento, raccomandiamo di avere familiarità con questi strumenti.
 
-- un server API basato su Node.js
-- un insieme di applicazioni client basate su React
-- e gli script di prova per valutare i progetti di curriculum presentati dai camper.
-
-Se vuoi contribuire attivamente alla piattaforma di apprendimento, ti raccomandiamo di familiarizzare con questi strumenti.
-
-Se vuoi aiutarci a migliorare il codice sorgente...
-
-**Puoi anche usare Gitpod, una piattaforma gratuita che avvia un ambiente di sviluppo pronto per l'uso con freeCodeCamp nel tuo browser.**
-
-[![Apri in Gipod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/freeCodeCamp/freeCodeCamp)
-
-Oppure puoi...
-
-**[eseguire freeCodeCamp localmente](how-to-setup-freecodecamp-locally.md) nella tua macchina.**
+**Se vuoi aiutarci a migliorare il nostro codebase, ecco [come impostare freeCodeCamp](how-to-setup-freecodecamp-locally.md).**

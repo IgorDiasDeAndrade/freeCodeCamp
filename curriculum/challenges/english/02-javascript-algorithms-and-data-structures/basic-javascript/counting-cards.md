@@ -9,7 +9,7 @@ dashedName: counting-cards
 
 # --description--
 
-In the casino game Blackjack, a player can gain an advantage over the house by keeping track of the relative number of high and low cards remaining in the deck. This is called [Card Counting](https://en.wikipedia.org/wiki/Card_counting).
+In the casino game Blackjack, a player can determine whether they have an advantage on the next hand over the house by keeping track of the relative number of high and low cards remaining in the deck. This is called Card Counting.
 
 Having more high cards remaining in the deck favors the player. Each card is assigned a value according to the table below. When the count is positive, the player should bet high. When the count is zero or negative, the player should bet low.
 
@@ -26,7 +26,20 @@ Do NOT include quotes (single or double) in the output.
 
 # --hints--
 
-Cards Sequence 2, 3, 4, 5, 6 should return `5 Bet`
+Your function should return a value for count and the text (`Bet` or `Hold`) with one space character between them.
+
+```js
+assert(//
+  (function () {
+    count = 0;
+    let out = cc(10);
+    const hasSpace = /-?\d+ (Bet|Hold)/.test('' + out);
+    return hasSpace;
+  })()
+);
+```
+
+Cards Sequence 2, 3, 4, 5, 6 should return the string `5 Bet`
 
 ```js
 assert(
@@ -160,7 +173,7 @@ assert(
 ## --seed-contents--
 
 ```js
-var count = 0;
+let count = 0;
 
 function cc(card) {
   // Only change code below this line
@@ -176,7 +189,7 @@ cc(2); cc(3); cc(7); cc('K'); cc('A');
 # --solutions--
 
 ```js
-var count = 0;
+let count = 0;
 function cc(card) {
   switch(card) {
     case 2:

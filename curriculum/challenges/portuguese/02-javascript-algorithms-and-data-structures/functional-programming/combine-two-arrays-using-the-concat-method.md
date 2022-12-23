@@ -8,7 +8,7 @@ dashedName: combine-two-arrays-using-the-concat-method
 
 # --description--
 
-<dfn>Concatenação</dfn> significa juntar itens de ponta a ponta. Em JavaScript, ambos strings e arrays possuem o método `concat` e ele funciona igualmente para os dois. Para arrays, o método é chamado em uma instância e um segundo array é passado como argumento. `concat` então junta os dois arrays em um só. O método retorna um novo array e deixa os dois originais intactos. Exemplo:
+<dfn>Concatenação</dfn> significa juntar itens de ponta a ponta. Em JavaScript, strings e arrays possuem o método `concat` e ele funciona igualmente para os dois. Para arrays, o método é chamado em uma instância e um segundo array é passado como argumento. `concat` então junta os dois arrays em um só. O método retorna um novo array e deixa os dois originais intactos. Exemplo:
 
 ```js
 [1, 2, 3].concat([4, 5, 6]);
@@ -60,8 +60,9 @@ function nonMutatingConcat(original, attach) {
 
   // Only change code above this line
 }
-var first = [1, 2, 3];
-var second = [4, 5];
+
+const first = [1, 2, 3];
+const second = [4, 5];
 nonMutatingConcat(first, second);
 ```
 
@@ -69,11 +70,8 @@ nonMutatingConcat(first, second);
 
 ```js
 function nonMutatingConcat(original, attach) {
-  // Only change code below this line
   return original.concat(attach);
-  // Only change code above this line
 }
-var first = [1, 2, 3];
-var second = [4, 5];
-nonMutatingConcat(first, second);
+const first = [1, 2, 3];
+const second = [4, 5];
 ```

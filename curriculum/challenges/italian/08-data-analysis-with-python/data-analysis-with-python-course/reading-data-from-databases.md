@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c163
 title: Leggere i dati dal database
 challengeType: 11
 videoId: MtgXS1MofRw
+bilibiliIds:
+  aid: 890546354
+  bvid: BV1JP4y1h7gk
+  cid: 409020851
 dashedName: reading-data-from-databases
 ---
 
@@ -12,8 +16,8 @@ dashedName: reading-data-from-databases
 
 Altre risorse:
 
--   [Notebook su GitHub](https://github.com/ine-rmotr-curriculum/RDP-Reading-Data-with-Python-and-Pandas/tree/master/unit-1-reading-data-with-python-and-pandas/lesson-11-reading-data-from-relational-databases/files)
--   [Come aprire Notebooks da GitHub usando Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/krishnatray/RDP-Reading-Data-with-Python-and-Pandas" target="_blank" rel="noopener noreferrer nofollow">Notebook su GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Come aprire Notebooks da GitHub usando Google Colab.</a>
 
 # --question--
 

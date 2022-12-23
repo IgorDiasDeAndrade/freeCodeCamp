@@ -1,78 +1,10 @@
 import PropTypes from 'prop-types';
 import { HandlerProps } from 'react-reflex';
+import { SuperBlocks } from '../../../config/certification-settings';
+import { Themes } from '../components/settings/theme';
+import { certMap } from '../resources/cert-and-project-map';
 
-export const FileType = PropTypes.shape({
-  key: PropTypes.string,
-  ext: PropTypes.string,
-  name: PropTypes.string,
-  contents: PropTypes.string,
-  head: PropTypes.string,
-  tail: PropTypes.string
-});
-
-export const MarkdownRemark = PropTypes.shape({
-  html: PropTypes.string,
-  frontmatter: PropTypes.shape({
-    title: PropTypes.string,
-    block: PropTypes.string,
-    superBlock: PropTypes.string
-  })
-});
-
-export const ChallengeNode = PropTypes.shape({
-  block: PropTypes.string,
-  challengeOrder: PropTypes.number,
-  challengeType: PropTypes.number,
-  dashedName: PropTypes.string,
-  description: PropTypes.string,
-  challengeFiles: PropTypes.array,
-  fields: PropTypes.shape({
-    slug: PropTypes.string,
-    blockName: PropTypes.string
-  }),
-  forumTopicId: PropTypes.number,
-  guideUrl: PropTypes.string,
-  head: PropTypes.arrayOf(PropTypes.string),
-  helpCategory: PropTypes.string,
-  instructions: PropTypes.string,
-  isComingSoon: PropTypes.bool,
-  removeComments: PropTypes.bool,
-  isLocked: PropTypes.bool,
-  isPrivate: PropTypes.bool,
-  order: PropTypes.number,
-  required: PropTypes.arrayOf(
-    PropTypes.shape({
-      link: PropTypes.string,
-      raw: PropTypes.string,
-      src: PropTypes.string
-    })
-  ),
-  superOrder: PropTypes.number,
-  superBlock: PropTypes.string,
-  tail: PropTypes.arrayOf(PropTypes.string),
-  time: PropTypes.string,
-  title: PropTypes.string,
-  translationPending: PropTypes.bool,
-  videoUrl: PropTypes.string
-});
-
-export const AllChallengeNode = PropTypes.shape({
-  edges: PropTypes.arrayOf(
-    PropTypes.shape({
-      node: ChallengeNode
-    })
-  )
-});
-
-export const AllMarkdownRemark = PropTypes.shape({
-  edges: PropTypes.arrayOf(
-    PropTypes.shape({
-      node: MarkdownRemark
-    })
-  )
-});
-
-export const User = PropTypes.shape({
+export const UserPropType = PropTypes.shape({
   about: PropTypes.string,
   completedChallenges: PropTypes.arrayOf(
     PropTypes.shape({
@@ -99,6 +31,7 @@ export const User = PropTypes.shape({
   isQaCertV7: PropTypes.bool,
   isInfosecCertV7: PropTypes.bool,
   isJsAlgoDataStructCert: PropTypes.bool,
+  isRelationalDatabaseCertV8: PropTypes.bool,
   isRespWebDesignCert: PropTypes.bool,
   isSciCompPyCertV7: PropTypes.bool,
   isDataAnalysisPyCertV7: PropTypes.bool,
@@ -117,14 +50,22 @@ export const User = PropTypes.shape({
       description: PropTypes.string
     })
   ),
+  savedChallenges: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      challengeFiles: PropTypes.array
+    })
+  ),
   sendQuincyEmail: PropTypes.bool,
+  sound: PropTypes.bool,
   theme: PropTypes.string,
+  keyboardShortcuts: PropTypes.bool,
   twitter: PropTypes.string,
   username: PropTypes.string,
   website: PropTypes.string
 });
 
-export const CurrentCertsType = PropTypes.arrayOf(
+export const CurrentCertsPropType = PropTypes.arrayOf(
   PropTypes.shape({
     show: PropTypes.bool,
     title: PropTypes.string,
@@ -132,29 +73,30 @@ export const CurrentCertsType = PropTypes.arrayOf(
   })
 );
 
-export const StepsType = PropTypes.shape({
-  currentCerts: CurrentCertsType,
-  isShowCerts: PropTypes.bool,
-  isShowName: PropTypes.bool,
-  isShowProfile: PropTypes.bool
-});
+export type Steps = {
+  isHonest?: boolean;
+  currentCerts?: Array<CurrentCert>;
+  isShowCerts?: boolean;
+  isShowName?: boolean;
+  isShowProfile?: boolean;
+};
 
-// TYPESCRIPT TYPES
-
-export type CurrentCertType = {
+export type CurrentCert = {
   show: boolean;
   title: string;
   certSlug: string;
 };
 
-export type MarkdownRemarkType = {
+export type MarkdownRemark = {
   fields: [{ component: string; nodeIdentity: string; slug: string }];
   fileAbsolutePath: string;
   frontmatter: {
     block: string;
     isBeta: boolean;
-    superBlock: string;
-    title: string;
+    superBlock: SuperBlocks;
+    // TODO: make enum like superBlock
+    certification: string;
+    title: typeof certMap[number]['title'];
   };
   headings: [
     {
@@ -183,61 +125,102 @@ type Required = {
   src: string;
   crossDomain?: boolean;
 };
+export interface BilibiliIds {
+  aid: string;
+  bvid: string;
+  cid: string;
+}
 
-export type ChallengeNodeType = {
+export interface VideoLocaleIds {
+  espanol?: string;
+  italian?: string;
+  portuguese?: string;
+}
+
+export type ChallengeWithCompletedNode = {
   block: string;
-  challengeOrder: number;
   challengeType: number;
   dashedName: string;
-  description: string;
-  challengeFiles: ChallengeFiles;
-  fields: Fields;
-  forumTopicId: number;
-  guideUrl: string;
-  head: string[];
-  helpCategory: string;
+  fields: {
+    slug: string;
+  };
   id: string;
-  instructions: string;
-  isComingSoon: boolean;
-  removeComments: boolean;
-  isLocked: boolean;
-  isPrivate: boolean;
+  isCompleted: boolean;
   order: number;
-  question: Question;
-  required: Required[];
-  superOrder: number;
-  superBlock: string;
-  tail: string[];
-  time: string;
+  superBlock: SuperBlocks;
   title: string;
-  translationPending: boolean;
-  url: string;
-  videoId: string;
-  videoUrl: string;
 };
 
-export type AllChallengeNodeType = {
+export type ChallengeNode = {
+  challenge: {
+    block: string;
+    certification: string;
+    challengeOrder: number;
+    challengeType: number;
+    dashedName: string;
+    description: string;
+    challengeFiles: ChallengeFiles;
+    fields: Fields;
+    forumTopicId: number;
+    guideUrl: string;
+    head: string[];
+    hasEditableBoundaries: boolean;
+    helpCategory: string;
+    id: string;
+    instructions: string;
+    isComingSoon: boolean;
+    internal?: {
+      content: string;
+      contentDigest: string;
+      description: string;
+      fieldOwners: string[];
+      ignoreType: boolean | null;
+      mediaType: string;
+      owner: string;
+      type: string;
+    };
+    notes: string;
+    removeComments: boolean;
+    isLocked: boolean;
+    isPrivate: boolean;
+    order: number;
+    question: Question;
+    required: Required[];
+    solutions: {
+      [T in FileKey]: FileKeyChallenge;
+    };
+    sourceInstanceName: string;
+    superOrder: number;
+    superBlock: SuperBlocks;
+    tail: string[];
+    template: string;
+    tests: Test[];
+    time: string;
+    title: string;
+    translationPending: boolean;
+    url: string;
+    usesMultifileEditor: boolean;
+    videoId: string;
+    videoLocaleIds?: VideoLocaleIds;
+    bilibiliIds?: BilibiliIds;
+    videoUrl: string;
+  };
+};
+
+export type AllChallengeNode = {
   edges: [
     {
-      node: ChallengeNodeType;
+      node: ChallengeNode;
     }
   ];
 };
 
-export type AllMarkdownRemarkType = {
-  edges: [
-    {
-      node: MarkdownRemarkType;
-    }
-  ];
-};
-
-export type ResizePropsType = {
+export type ResizeProps = {
   onStopResize: (arg0: HandlerProps) => void;
   onResize: () => void;
 };
 
-export type DimensionsType = {
+export type Dimensions = {
   height: number;
   width: number;
 };
@@ -252,12 +235,13 @@ export type ChallengeTest = {
   testString: string;
 };
 
-export type CertTest = {
+type CertTest = {
   id: string;
   title: string;
 };
 
-export type UserType = {
+export type User = {
+  calendar: Record<string, number>;
   about: string;
   acceptedPrivacyTerms: boolean;
   completedChallenges: CompletedChallenge[];
@@ -267,27 +251,43 @@ export type UserType = {
   githubProfile: string;
   isBanned: boolean;
   isCheater: boolean;
+  isDonating: boolean;
   isHonest: boolean;
+  joinDate: string;
   linkedin: string;
   location: string;
   name: string;
   picture: string;
   points: number;
-  portfolio: PortfolioType[];
-  profileUI: {
-    isLocked: boolean;
-    showCerts: boolean;
-    showName: boolean;
-  };
+  portfolio: Portfolio[];
+  profileUI: ProfileUI;
   progressTimestamps: Array<unknown>;
+  savedChallenges: SavedChallenges;
   sendQuincyEmail: boolean;
-  theme: string;
+  sound: boolean;
+  theme: Themes;
+  keyboardShortcuts: boolean;
   twitter: string;
   username: string;
   website: string;
-} & isCertifiedTypes;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  yearsTopContributor: any[];
+} & ClaimedCertifications;
 
-export type isCertifiedTypes = {
+export type ProfileUI = {
+  isLocked: boolean;
+  showAbout: boolean;
+  showCerts: boolean;
+  showDonation: boolean;
+  showHeatMap: boolean;
+  showLocation: boolean;
+  showName: boolean;
+  showPoints: boolean;
+  showPortfolio: boolean;
+  showTimeLine: boolean;
+};
+
+type ClaimedCertifications = {
   is2018DataVisCert: boolean;
   isApisMicroservicesCert: boolean;
   isBackEndCert: boolean;
@@ -300,11 +300,29 @@ export type isCertifiedTypes = {
   isQaCertV7: boolean;
   isInfosecCertV7: boolean;
   isJsAlgoDataStructCert: boolean;
+  isRelationalDatabaseCertV8: boolean;
   isRespWebDesignCert: boolean;
   isSciCompPyCertV7: boolean;
   isDataAnalysisPyCertV7: boolean;
   isMachineLearningPyCertV7: boolean;
 };
+
+type SavedChallenges = SavedChallenge[];
+
+export type SavedChallenge = {
+  id: string;
+  challengeFiles: SavedChallengeFiles;
+};
+
+export type SavedChallengeFile = {
+  fileKey: string;
+  ext: Ext;
+  name: string;
+  history?: string[];
+  contents: string;
+};
+
+export type SavedChallengeFiles = SavedChallengeFile[];
 
 export type CompletedChallenge = {
   id: string;
@@ -312,26 +330,28 @@ export type CompletedChallenge = {
   githubLink?: string;
   challengeType?: number;
   completedDate: number;
-  challengeFiles: ChallengeFiles;
+  challengeFiles:
+    | Pick<ChallengeFile, 'contents' | 'ext' | 'fileKey' | 'name'>[]
+    | null;
 };
 
-export type ExtTypes = 'js' | 'html' | 'css' | 'jsx';
-export type FileKeyTypes = 'indexjs' | 'indexhtml' | 'indexcss';
+export type Ext = 'js' | 'html' | 'css' | 'jsx';
+export type FileKey = 'scriptjs' | 'indexhtml' | 'stylescss' | 'indexjsx';
 
-export type ChallengeMetaType = {
+export type ChallengeMeta = {
   block: string;
   id: string;
   introPath: string;
   nextChallengePath: string;
   prevChallengePath: string;
   removeComments: boolean;
-  superBlock: string;
+  superBlock: SuperBlocks;
   title?: string;
   challengeType?: number;
   helpCategory: string;
 };
 
-export type PortfolioType = {
+export type Portfolio = {
   id: string;
   title?: string;
   url?: string;
@@ -339,137 +359,36 @@ export type PortfolioType = {
   description?: string;
 };
 
-export type FileKeyChallengeType = {
+type FileKeyChallenge = {
   contents: string;
-  ext: ExtTypes;
+  ext: Ext;
   head: string;
   id: string;
-  key: FileKeyTypes;
+  key: FileKey;
   name: string;
   tail: string;
 };
 
-// This looks redundant - same as ChallengeNodeType above?
-// TODO: @moT01 Yes, it is an almost duplicate because @ojeytonwilliams
-// does not allow us to add 'Type' at the end...
-// The below is more accurate, because it was built based on graphql's
-// interpretation of what we have. The props commented out are what we
-// think are on the node, but actually do not exist.
-export type ChallengeNode = {
-  block: string;
-  challengeFiles: ChallengeFiles;
-  challengeOrder: number;
-  challengeType: number;
-  dashedName: string;
-  description: string;
-  fields: {
-    slug: string;
-    blockName: string;
-    tests: Test[];
-  };
-  forumTopicId: number;
-  // guideUrl: string;
-  // head: string[];
-  helpCategory: string;
-  id: string;
-  instructions: string;
-  internal?: {
-    content: string;
-    contentDigest: string;
-    description: string;
-    fieldOwners: string[];
-    ignoreType: boolean | null;
-    mediaType: string;
-    owner: string;
-    type: string;
-  };
-  order: number;
-  question: {
-    answers: string[];
-    solution: number;
-    text: string;
-  } | null;
-  removeComments: boolean;
-  required: [
-    {
-      link: string;
-      raw: string;
-      src: string;
-    }
-  ];
-  solutions: {
-    [T in FileKeyTypes]: FileKeyChallengeType;
-  };
-  sourceInstanceName: string;
-  superBlock: string;
-  superOrder: number;
-  template: string;
-  tests: Test[];
-  time: string;
-  title: string;
-  translationPending: boolean;
-  videoId?: string;
-  videoUrl?: string;
-  // isComingSoon: boolean;
-  // isLocked: boolean;
-  // isPrivate: boolean;
-  // tail: string[];
-};
-
-// Extra types built from challengeSchema
-
 export type ChallengeFile = {
   fileKey: string;
-  ext: ExtTypes;
+  ext: Ext;
   name: string;
-  editableRegionBoundaries: number[];
-  path: string;
-  error: null | string;
+  editableRegionBoundaries?: number[];
+  usesMultifileEditor?: boolean;
+  error: null | string | unknown;
   head: string;
   tail: string;
   seed: string;
   contents: string;
   id: string;
-  history: [[string], string];
+  history: string[];
 };
 
 export type ChallengeFiles = ChallengeFile[] | null;
 
-export interface ChallengeSchema {
-  block: string;
-  blockId: string;
-  challengeOrder: number;
-  removeComments: boolean;
-  // TODO: should be typed with possible values
-  challengeType: number;
-  checksum: number;
-  __commentCounts: Record<string, unknown>;
-  dashedName: string;
-  description: string;
-  challengeFiles: ChallengeFiles;
-  guideUrl: string;
-  // TODO: should be typed with possible values
-  helpCategory: string;
-  videoUrl: string;
-  forumTopicId: number;
-  id: string;
-  instructions: string;
-  isComingSoon: boolean;
-  // TODO: Do we still use this
-  isLocked: boolean;
-  isPrivate: boolean;
-  order: number;
-  videoId?: string;
-  question: Question;
-  required: Required[];
-  solutions: ChallengeFile[][];
-  superBlock: string;
-  superOrder: number;
-  suborder: number;
-  tests: Test[];
-  template: string;
-  time: string;
-  title: string;
-  translationPending: boolean;
-  url?: string;
+export interface UserFetchState {
+  pending: boolean;
+  complete: boolean;
+  errored: boolean;
+  error: string | null;
 }

@@ -1,168 +1,132 @@
-import { graphql, useStaticQuery } from 'gatsby';
 import i18next from 'i18next';
 import React from 'react';
 
+import { SuperBlocks } from '../../../../config/certification-settings';
+import {
+  CurriculumMaps,
+  getAuditedSuperBlocks,
+  getNotAuditedSuperBlocks,
+  superBlockOrder
+} from '../../../../config/superblock-order';
+import { Languages } from '../../../../config/i18n';
 import envData from '../../../../config/env.json';
-import { isAuditedCert } from '../../../../utils/is-audited';
-import { generateIconComponent, SuperBlock } from '../../assets/icons';
+import { generateIconComponent } from '../../assets/icons';
 import LinkButton from '../../assets/icons/link-button';
-import { ChallengeNodeType } from '../../redux/prop-types';
 import { Link, Spacer } from '../helpers';
+import { getSuperBlockTitleForMap } from '../../utils/superblock-map-titles';
 
 import './map.css';
 
-const { curriculumLocale } = envData;
+const { curriculumLocale, showNewCurriculum, showUpcomingChanges } = envData;
 
 interface MapProps {
-  currentSuperBlock?: string;
+  currentSuperBlock?: SuperBlocks | null;
   forLanding?: boolean;
-}
-
-interface MapData {
-  allChallengeNode: {
-    nodes: ChallengeNodeType[];
-  };
-}
-
-function createSuperBlockTitle(superBlock: string) {
-  const superBlockTitle = i18next.t(`intro:${superBlock}.title`);
-  return superBlock === 'coding-interview-prep'
-    ? i18next.t('learn.cert-map-estimates.coding-prep', {
-        title: superBlockTitle
-      })
-    : i18next.t('learn.cert-map-estimates.certs', { title: superBlockTitle });
 }
 
 const linkSpacingStyle = {
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems: 'center'
+  alignItems: 'center',
+  gap: '15px'
 };
 
-function renderLandingMap(nodes: ChallengeNodeType[]) {
-  nodes = nodes.filter(node => node.superBlock !== 'coding-interview-prep');
+function MapLi({
+  superBlock,
+  landing = false
+}: {
+  superBlock: SuperBlocks;
+  landing: boolean;
+}) {
+  return (
+    <li>
+      <Link className='btn link-btn btn-lg' to={`/learn/${superBlock}/`}>
+        <div style={linkSpacingStyle}>
+          {generateIconComponent(superBlock, 'map-icon')}
+          {getSuperBlockTitleForMap(superBlock)}
+        </div>
+        {landing && <LinkButton />}
+      </Link>
+    </li>
+  );
+}
+
+function renderLandingMap() {
+  const landingSuperOrder =
+    superBlockOrder[curriculumLocale as Languages][CurriculumMaps.Landing];
+
   return (
     <ul data-test-label='certifications'>
-      {nodes.map((node, i) => (
-        <li key={i}>
-          <Link
-            className='btn link-btn btn-lg'
-            to={`/learn/${node.superBlock}/`}
-          >
-            <div style={linkSpacingStyle}>
-              {generateIconComponent(node.superBlock as SuperBlock, 'map-icon')}
-              {i18next.t(`intro:${node.superBlock}.title`)}
-            </div>
-            <LinkButton />
-          </Link>
-        </li>
+      {landingSuperOrder.map((superBlock, i) => (
+        <MapLi superBlock={superBlock} key={i} landing={true} />
       ))}
     </ul>
   );
 }
 
-function renderLearnMap(nodes: ChallengeNodeType[], currentSuperBlock = '') {
-  nodes = nodes.filter(node => node.superBlock !== currentSuperBlock);
-  return curriculumLocale === 'english' ? (
+function renderLearnMap(currentSuperBlock: MapProps['currentSuperBlock']) {
+  const tempAuditedSuperBlocks = getAuditedSuperBlocks({
+    language: curriculumLocale,
+    showNewCurriculum: showNewCurriculum.toString(),
+    showUpcomingChanges: showUpcomingChanges.toString()
+  });
+  const tempNotAuditedSuperBlocks = getNotAuditedSuperBlocks({
+    language: curriculumLocale,
+    showNewCurriculum: showNewCurriculum.toString(),
+    showUpcomingChanges: showUpcomingChanges.toString()
+  });
+
+  const auditedSuperBlocks = tempAuditedSuperBlocks.filter(
+    superBlock => superBlock !== currentSuperBlock
+  );
+
+  const notAuditedSuperBlocks = tempNotAuditedSuperBlocks.filter(
+    superBlock => superBlock !== currentSuperBlock
+  );
+
+  return (
     <ul data-test-label='learn-curriculum-map'>
-      {nodes.map((node, i) => (
-        <li key={i}>
-          <Link
-            className='btn link-btn btn-lg'
-            to={`/learn/${node.superBlock}/`}
-          >
-            <div style={linkSpacingStyle}>
-              {generateIconComponent(node.superBlock as SuperBlock, 'map-icon')}
-              {createSuperBlockTitle(node.superBlock)}
-            </div>
-          </Link>
-        </li>
+      {/* audited superblocks */}
+      {auditedSuperBlocks.map((superBlock, i) => (
+        <MapLi key={i} superBlock={superBlock} landing={false} />
       ))}
-    </ul>
-  ) : (
-    <ul data-test-label='learn-curriculum-map'>
-      {nodes
-        .filter(node => isAuditedCert(curriculumLocale, node.superBlock))
-        .map((node, i) => (
-          <li key={i}>
+
+      {/* has not audited superblocks */}
+      {notAuditedSuperBlocks.length > 0 && (
+        <>
+          {' '}
+          <hr />
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ marginBottom: 0 }}>
+              {i18next.t('learn.help-translate')}{' '}
+            </p>
             <Link
-              className='btn link-btn btn-lg'
-              to={`/learn/${node.superBlock}/`}
+              external={true}
+              sameTab={false}
+              to={i18next.t('links:help-translate-link-url')}
             >
-              <div style={linkSpacingStyle}>
-                {generateIconComponent(
-                  node.superBlock as SuperBlock,
-                  'map-icon'
-                )}
-                {createSuperBlockTitle(node.superBlock)}
-              </div>
+              {i18next.t('learn.help-translate-link')}
             </Link>
-          </li>
-        ))}
-      <hr />
-      <div style={{ textAlign: 'center' }}>
-        <p style={{ marginBottom: 0 }}>{i18next.t('learn.help-translate')} </p>
-        <Link
-          external={true}
-          sameTab={false}
-          to={i18next.t('links:help-translate-link-url')}
-        >
-          {i18next.t('learn.help-translate-link')}
-        </Link>
-        <Spacer />
-      </div>
-      {nodes
-        .filter(node => !isAuditedCert(curriculumLocale, node.superBlock))
-        .map((node, i) => (
-          <li key={i}>
-            <Link
-              className='btn link-btn btn-lg'
-              to={`/learn/${node.superBlock}/`}
-            >
-              <div style={linkSpacingStyle}>
-                {generateIconComponent(
-                  node.superBlock as SuperBlock,
-                  'map-icon'
-                )}
-                {createSuperBlockTitle(node.superBlock)}
-              </div>
-            </Link>
-          </li>
-        ))}
+            <Spacer />
+          </div>
+        </>
+      )}
+
+      {/* not audited superblocks */}
+      {notAuditedSuperBlocks.map((superBlock, i) => (
+        <MapLi key={i} superBlock={superBlock} landing={false} />
+      ))}
     </ul>
   );
 }
 
 export function Map({
   forLanding = false,
-  currentSuperBlock = ''
+  currentSuperBlock = null
 }: MapProps): React.ReactElement {
-  /*
-   * this query gets the first challenge from each block and the second block
-   * from each superblock, leaving you with one challenge from each
-   * superblock
-   */
-  const data: MapData = useStaticQuery(graphql`
-    query SuperBlockNodes {
-      allChallengeNode(
-        sort: { fields: [superOrder] }
-        filter: { order: { eq: 2 }, challengeOrder: { eq: 1 } }
-      ) {
-        nodes {
-          superBlock
-          dashedName
-        }
-      }
-    }
-  `);
-
-  const nodes = data.allChallengeNode.nodes;
-
   return (
     <div className='map-ui' data-test-label='learn-curriculum-map'>
-      {forLanding
-        ? renderLandingMap(nodes)
-        : renderLearnMap(nodes, currentSuperBlock)}
+      {forLanding ? renderLandingMap() : renderLearnMap(currentSuperBlock)}
     </div>
   );
 }

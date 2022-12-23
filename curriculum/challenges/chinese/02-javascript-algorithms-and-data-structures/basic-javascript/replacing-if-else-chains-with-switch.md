@@ -24,7 +24,7 @@ if (val === 1) {
 可以被下面替代：
 
 ```js
-switch(val) {
+switch (val) {
   case 1:
     answer = "a";
     break;
@@ -108,7 +108,7 @@ assert(chainToSwitch(156) === '');
 
 ```js
 function chainToSwitch(val) {
-  var answer = "";
+  let answer = "";
   // Only change code below this line
 
   if (val === "bob") {
@@ -134,9 +134,9 @@ chainToSwitch(7);
 
 ```js
 function chainToSwitch(val) {
-  var answer = "";
+  let answer = "";
 
-  switch(val) {
+  switch (val) {
     case "bob":
       answer = "Marley";
       break;

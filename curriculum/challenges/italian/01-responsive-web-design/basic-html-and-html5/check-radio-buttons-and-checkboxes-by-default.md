@@ -11,7 +11,7 @@ dashedName: check-radio-buttons-and-checkboxes-by-default
 
 Puoi settare una casella di spunta o un pulsante di opzione in modo che sia spuntato di default usando l'attributo`checked`.
 
-Per fare questo puoi semplicemente aggiungere la parola `checked`all'interno di un elemento input. Per esempio:
+Per fare questo puoi semplicemente aggiungere la parola `checked`all'interno di un elemento `input`. Per esempio:
 
 ```html
 <input type="radio" name="test-name" checked>
@@ -33,6 +33,18 @@ La prima casella di spunta del tuo modulo dovrebbe essere spuntata di default.
 
 ```js
 assert($('input[type="checkbox"]').prop('checked'));
+```
+
+Non dovresti cambiare il testo all'interno dell'etichetta `Indoor`.
+
+```js
+assert.equal(document.querySelector('label[for="indoor"]')?.innerText?.trim(), 'Indoor');
+```
+
+Non dovresti cambiare il testo all'interno dell'etichetta `Loving`.
+
+```js
+assert.equal(document.querySelector('label[for="loving"]')?.innerText?.trim(), 'Loving');
 ```
 
 # --seed--

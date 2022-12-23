@@ -10,7 +10,7 @@ dashedName: refactor-global-variables-out-of-functions
 
 目前为止，我们已经看到了函数式编程的两个原则：
 
-1) 不要更改变量或对象 - 创建新变量和对象，并在需要时从函数返回它们。 提示：使用类似 `var newArr = arrVar` 时 `arrVar` 是一个数组，代码只是创建一个对现有变量的引用，而不是副本。 所以更改 `newArr` 中的值会同时更改 `arrVar` 中的值。
+1) 不要更改变量或对象 - 创建新变量和对象，并在需要时从函数返回它们。 提示：使用类似 `const newArr = arrVar` 的东西，其中 `arrVar` 是一个数组，只会创建对现有变量的引用，而不是副本。 所以更改 `newArr` 中的值会同时更改 `arrVar` 中的值。
 
 2) 声明函数参数 - 函数内的任何计算仅取决于参数，而不取决于任何全局对象或变量。
 
@@ -27,6 +27,8 @@ dashedName: refactor-global-variables-out-of-functions
 `bookList` 应等于 `["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"]`.
 
 ```js
+add(bookList, "Test");
+remove(bookList, "The Hound of the Baskervilles");
 assert(
   JSON.stringify(bookList) ===
     JSON.stringify([
@@ -38,11 +40,11 @@ assert(
 );
 ```
 
-`newBookList` 应等于 `["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae", "A Brief History of Time"]`.
+`add(bookList, "A Brief History of Time")` 应该返回 `["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae", "A Brief History of Time"]`。
 
 ```js
 assert(
-  JSON.stringify(newBookList) ===
+  JSON.stringify(add(bookList, "A Brief History of Time")) ===
     JSON.stringify([
       'The Hound of the Baskervilles',
       'On The Electrodynamics of Moving Bodies',
@@ -53,11 +55,11 @@ assert(
 );
 ```
 
-`newerBookList` 应等于 `["The Hound of the Baskervilles", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"]`.
+`remove(bookList, "On The Electrodynamics of Moving Bodies")` 应该返回 `["The Hound of the Baskervilles", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"]`。
 
 ```js
 assert(
-  JSON.stringify(newerBookList) ===
+  JSON.stringify(remove(bookList, 'On The Electrodynamics of Moving Bodies')) ===
     JSON.stringify([
       'The Hound of the Baskervilles',
       'Philosophiæ Naturalis Principia Mathematica',
@@ -66,11 +68,11 @@ assert(
 );
 ```
 
-`newestBookList` 应等于 `["The Hound of the Baskervilles", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae", "A Brief History of Time"]`.
+`remove(add(bookList, "A Brief History of Time"), "On The Electrodynamics of Moving Bodies");` 应该返回 `["The Hound of the Baskervilles", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae", "A Brief History of Time"]`。
 
 ```js
 assert(
-  JSON.stringify(newestBookList) ===
+  JSON.stringify(remove(add(bookList, 'A Brief History of Time'), 'On The Electrodynamics of Moving Bodies')) ===
     JSON.stringify([
       'The Hound of the Baskervilles',
       'Philosophiæ Naturalis Principia Mathematica',
@@ -86,10 +88,10 @@ assert(
 
 ```js
 // The global variable
-var bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
+const bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
 
 // Change code below this line
-function add (bookName) {
+function add(bookName) {
 
   bookList.push(bookName);
   return bookList;
@@ -98,8 +100,8 @@ function add (bookName) {
 }
 
 // Change code below this line
-function remove (bookName) {
-  var book_index = bookList.indexOf(bookName);
+function remove(bookName) {
+  const book_index = bookList.indexOf(bookName);
   if (book_index >= 0) {
 
     bookList.splice(book_index, 1);
@@ -108,25 +110,19 @@ function remove (bookName) {
     // Change code above this line
     }
 }
-
-var newBookList = add(bookList, 'A Brief History of Time');
-var newerBookList = remove(bookList, 'On The Electrodynamics of Moving Bodies');
-var newestBookList = remove(add(bookList, 'A Brief History of Time'), 'On The Electrodynamics of Moving Bodies');
-
-console.log(bookList);
 ```
 
 # --solutions--
 
 ```js
 // The global variable
-var bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
+const bookList = ["The Hound of the Baskervilles", "On The Electrodynamics of Moving Bodies", "Philosophiæ Naturalis Principia Mathematica", "Disquisitiones Arithmeticae"];
 
-function add (bookList, bookName) {
+function add(bookList, bookName) {
   return [...bookList, bookName];
 }
 
-function remove (bookList, bookName) {
+function remove(bookList, bookName) {
   const bookListCopy = [...bookList];
   const bookNameIndex = bookList.indexOf(bookName);
   if (bookNameIndex >= 0) {
@@ -134,8 +130,4 @@ function remove (bookList, bookName) {
   }
   return bookListCopy;
 }
-
-var newBookList = add(bookList, 'A Brief History of Time');
-var newerBookList = remove(bookList, 'On The Electrodynamics of Moving Bodies');
-var newestBookList = remove(add(bookList, 'A Brief History of Time'), 'On The Electrodynamics of Moving Bodies');
 ```

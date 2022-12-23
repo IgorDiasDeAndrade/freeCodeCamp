@@ -1,6 +1,6 @@
 ---
 id: 589fc831f9fc0f352b528e77
-title: Authentication with Socket.IO
+title: Autenticación con Socket.IO
 challengeType: 2
 forumTopicId: 301548
 dashedName: authentication-with-socket-io
@@ -8,9 +8,9 @@ dashedName: authentication-with-socket-io
 
 # --description--
 
-Currently, you cannot determine who is connected to your web socket. While `req.user` contains the user object, that's only when your user interacts with the web server, and with web sockets you have no `req` (request) and therefore no user data. One way to solve the problem of knowing who is connected to your web socket is by parsing and decoding the cookie that contains the passport session then deserializing it to obtain the user object. Luckily, there is a package on NPM just for this that turns a once complex task into something simple!
+Actualmente, no puedes determinar quién está conectado a tu web socket. Mientras que `req.user` contiene el objeto user, eso es sólo cuando tu usuario interactúa con el servidor web, y con los web sockets no tienes la `req` (petición) y por lo tanto no hay datos del usuario. Una forma de resolver el problema de saber quién está conectado a tu socket web es analizando (parsing) y decodificando la cookie que contiene la sesión del pasaporte y luego deserializándola para obtener el objeto user. Por suerte, ¡hay un paquete en NPM sólo para esto que convierte una tarea antes compleja en algo sencillo!
 
-Add `passport.socketio@~3.7.0`, `connect-mongo@~3.2.0`, and `cookie-parser@~1.4.5` as dependencies and require them as `passportSocketIo`, `MongoStore`, and `cookieParser` respectively. Also, we need to initialize a new memory store, from `express-session` which we previously required. It should look like this:
+`passport.socketio@~3.7.0`, `connect-mongo@~3.2.0`, y `cookie-parser@~1.4.5` ya han sido añadidas como dependencias. Requerirlas como `passportSocketIo`, `MongoStore`y `cookieParser` respectivamente. También, necesitamos inicializar un nuevo almacenamiento de memoria, desde `express-session` que previamente requerimos. Debería verse así:
 
 ```js
 const MongoStore = require('connect-mongo')(session);
@@ -18,7 +18,7 @@ const URI = process.env.MONGO_URI;
 const store = new MongoStore({ url: URI });
 ```
 
-Now we just have to tell Socket.IO to use it and set the options. Be sure this is added before the existing socket code and not in the existing connection listener. For your server, it should look like this:
+Ahora sólo tenemos que decirle a Socket.IO que lo utilice y establezca las opciones. Asegúrate de que esto se agrega antes del código de socket existente y no en el oyente de conexión existente. Para tu servidor, debe verse así:
 
 ```js
 io.use(
@@ -33,11 +33,15 @@ io.use(
 );
 ```
 
-Be sure to add the `key` and `store` to the `session` middleware mounted on the app. This is necessary to tell *SocketIO* which session to relate to.
+Ten en cuenta que configurar la autenticación de Passport para Socket.IO es muy similar a la forma en que configuramos el middleware de `session` para la API. Esto se debe a que deben usar el mismo método de autenticación: obtener el session id de una cookie y validarlo.
+
+Anteriormente, cuando configuramos el middleware de `session`, no establecíamos explícitamente el nombre de la cookie para la sesión (`key`). Esto se debe a que el paquete `session` estaba usando el valor predeterminado. Ahora que hemos añadido otro paquete que necesita acceso al mismo valor desde las cookies, necesitamos establecer explícitamente el valor `key` en ambos objetos de configuración.
+
+Asegúrate de añadir la `key` con el nombre de la cookie al middleware `session` que coincida con la clave Socket.IO. Además, añade la referencia `store` a las opciones, cerca de donde establecemos `saveUninitialized: true`. Esto es necesario para decirle a Socket.IO con qué sesión relacionarse.
 
 <hr />
 
-Now, define the `success`, and `fail` callback functions:
+Ahora, define las funciones callback de `success` y `fail`:
 
 ```js
 function onAuthorizeSuccess(data, accept) {
@@ -53,90 +57,76 @@ function onAuthorizeFail(data, message, error, accept) {
 }
 ```
 
-The user object is now accessible on your socket object as `socket.request.user`. For example, now you can add the following:
+El objeto user ahora es accesible en su objeto socket como `socket.request.user`. Por ejemplo, ahora puedes añadir lo siguiente:
 
 ```js
-console.log('user ' + socket.request.user.name + ' connected');
+console.log('user ' + socket.request.user.username + ' connected');
 ```
 
-It will log to the server console who has connected!
+¡Se registrará en la consola del servidor quién se ha conectado!
 
-Submit your page when you think you've got it right. If you're running into errors, you can check out the project up to this point [here](https://gist.github.com/camperbot/1414cc9433044e306dd7fd0caa1c6254).
+Envía tu página cuando creas que lo has hecho bien. Si te encuentras con errores, puedes <a href="https://forum.freecodecamp.org/t/advanced-node-and-express/567135#authentication-with-socketio-9" target="_blank" rel="noopener noreferrer nofollow">consultar el proyecto realizado hasta este momento</a>.
 
 # --hints--
 
-`passport.socketio` should be a dependency.
+`passport.socketio` debe ser una dependencia.
 
 ```js
-(getUserInput) =>
-  $.get(getUserInput('url') + '/_api/package.json').then(
-    (data) => {
-      var packJson = JSON.parse(data);
-      assert.property(
-        packJson.dependencies,
-        'passport.socketio',
-        'Your project should list "passport.socketio" as a dependency'
-      );
-    },
-    (xhr) => {
-      throw new Error(xhr.statusText);
-    }
+async (getUserInput) => {
+  const url = new URL("/_api/package.json", getUserInput("url"));
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'passport.socketio',
+    'Your project should list "passport.socketio" as a dependency'
   );
+}
 ```
 
-`cookie-parser` should be a dependency.
+`cookie-parser` debe ser una dependencia.
 
 ```js
-(getUserInput) =>
-  $.get(getUserInput('url') + '/_api/package.json').then(
-    (data) => {
-      var packJson = JSON.parse(data);
-      assert.property(
-        packJson.dependencies,
-        'cookie-parser',
-        'Your project should list "cookie-parser" as a dependency'
-      );
-    },
-    (xhr) => {
-      throw new Error(xhr.statusText);
-    }
+async (getUserInput) => {
+  const url = new URL("/_api/package.json", getUserInput("url"));
+  const res = await fetch(url);
+  const packJson = await res.json();
+  assert.property(
+    packJson.dependencies,
+    'cookie-parser',
+    'Your project should list "cookie-parser" as a dependency'
   );
+}
 ```
 
-passportSocketIo should be properly required.
+passportSocketIo debe ser requerido correctamente.
 
 ```js
-(getUserInput) =>
-  $.get(getUserInput('url') + '/_api/server.js').then(
-    (data) => {
-      assert.match(
-        data,
-        /require\((['"])passport\.socketio\1\)/gi,
-        'You should correctly require and instantiate "passport.socketio"'
-      );
-    },
-    (xhr) => {
-      throw new Error(xhr.statusText);
-    }
+async (getUserInput) => {
+  const url = new URL("/_api/server.js", getUserInput("url"));
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /require\((['"])passport\.socketio\1\)/gi,
+    'You should correctly require and instantiate "passport.socketio"'
   );
+}
 ```
 
-passportSocketIo should be properly setup.
+passportSocketIo debe estar configurado correctamente.
 
 ```js
-(getUserInput) =>
-  $.get(getUserInput('url') + '/_api/server.js').then(
-    (data) => {
-      assert.match(
-        data,
-        /io\.use\(\s*\w+\.authorize\(/,
-        'You should register "passport.socketio" as socket.io middleware and provide it correct options'
-      );
-    },
-    (xhr) => {
-      throw new Error(xhr.statusText);
-    }
+async (getUserInput) => {
+  const url = new URL("/_api/server.js", getUserInput("url"));
+  const res = await fetch(url);
+  const data = await res.text();
+  assert.match(
+    data,
+    /io\.use\(\s*\w+\.authorize\(/,
+    'You should register "passport.socketio" as socket.io middleware and provide it correct options'
   );
+}
 ```
 
 # --solutions--

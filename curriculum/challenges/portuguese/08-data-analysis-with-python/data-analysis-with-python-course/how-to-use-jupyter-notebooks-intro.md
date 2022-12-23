@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c14f
 title: Como usar a introdução aos Jupyter Notebooks
 challengeType: 11
 videoId: h8caJq2Bb9w
+bilibiliIds:
+  aid: 293035919
+  bvid: BV1Hf4y1n7qr
+  cid: 409002965
 dashedName: how-to-use-jupyter-notebooks-intro
 ---
 
@@ -12,8 +16,8 @@ dashedName: how-to-use-jupyter-notebooks-intro
 
 Mais recursos:
 
--   [Notebooks no GitHub](https://github.com/ine-rmotr-curriculum/ds-content-interactive-jupyterlab-tutorial)
--   [Como abrir notebooks do GitHub usando o Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/ds-content-interactive-jupyterlab-tutorial" target="_blank" rel="noopener noreferrer nofollow">Notebooks no GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Como abrir notebooks do GitHub usando o Google Colab.</a>
 
 # --question--
 

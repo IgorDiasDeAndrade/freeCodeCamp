@@ -1,26 +1,27 @@
 import { uniqBy } from 'lodash-es';
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import store from 'store';
 
-import { actionTypes as challengeTypes } from '../templates/Challenges/redux/action-types';
-import { CURRENT_CHALLENGE_KEY } from '../templates/Challenges/redux/current-challenge-saga';
+import {
+  actionTypes as challengeTypes,
+  CURRENT_CHALLENGE_KEY
+} from '../templates/Challenges/redux/action-types';
 import { createAcceptTermsSaga } from './accept-terms-saga';
-import { actionTypes, ns } from './action-types';
+import { actionTypes, ns as MainApp } from './action-types';
 import { createAppMountSaga } from './app-mount-saga';
+import { createCodeAllySaga } from './codeally-saga';
 import { createDonationSaga } from './donation-saga';
 import failedUpdatesEpic from './failed-updates-epic';
 import { createFetchUserSaga } from './fetch-user-saga';
 import { createGaSaga } from './ga-saga';
-
 import hardGoToEpic from './hard-go-to-epic';
-import { createNightModeSaga } from './night-mode-saga';
 import { createReportUserSaga } from './report-user-saga';
-
+import { createSaveChallengeSaga } from './save-challenge-saga';
+import { savedChallengesSelector } from './selectors';
 import { actionTypes as settingsTypes } from './settings/action-types';
 import { createShowCertSaga } from './show-cert-saga';
 import updateCompleteEpic from './update-complete-epic';
-
-export { ns };
+import { createUserTokenSaga } from './user-token-saga';
 
 export const defaultFetchState = {
   pending: true,
@@ -40,7 +41,7 @@ export const defaultDonationFormState = {
   }
 };
 
-const initialState = {
+export const initialState = {
   appUsername: '',
   recentlyClaimedBlock: null,
   canRequestProgressDonation: true,
@@ -50,6 +51,7 @@ const initialState = {
   showCertFetchState: {
     ...defaultFetchState
   },
+  showCodeAlly: false,
   user: {},
   userFetchState: {
     ...defaultFetchState
@@ -59,7 +61,9 @@ const initialState = {
   },
   sessionMeta: { activeDonations: 0 },
   showDonationModal: false,
+  showSignoutModal: false,
   isOnline: true,
+  isServerOnline: true,
   donationFormState: {
     ...defaultDonationFormState
   }
@@ -70,302 +74,15 @@ export const epics = [hardGoToEpic, failedUpdatesEpic, updateCompleteEpic];
 export const sagas = [
   ...createAcceptTermsSaga(actionTypes),
   ...createAppMountSaga(actionTypes),
+  ...createCodeAllySaga(actionTypes),
   ...createDonationSaga(actionTypes),
   ...createGaSaga(actionTypes),
   ...createFetchUserSaga(actionTypes),
   ...createShowCertSaga(actionTypes),
   ...createReportUserSaga(actionTypes),
-  ...createNightModeSaga({ ...actionTypes, ...settingsTypes })
+  ...createUserTokenSaga(actionTypes),
+  ...createSaveChallengeSaga(actionTypes)
 ];
-
-export const appMount = createAction(actionTypes.appMount);
-
-export const tryToShowDonationModal = createAction(
-  actionTypes.tryToShowDonationModal
-);
-
-export const executeGA = createAction(actionTypes.executeGA);
-
-export const allowBlockDonationRequests = createAction(
-  actionTypes.allowBlockDonationRequests
-);
-export const closeDonationModal = createAction(actionTypes.closeDonationModal);
-export const openDonationModal = createAction(actionTypes.openDonationModal);
-export const preventBlockDonationRequests = createAction(
-  actionTypes.preventBlockDonationRequests
-);
-export const preventProgressDonationRequests = createAction(
-  actionTypes.preventProgressDonationRequests
-);
-export const updateDonationFormState = createAction(
-  actionTypes.updateDonationFormState
-);
-
-export const onlineStatusChange = createAction(actionTypes.onlineStatusChange);
-
-// TODO: re-evaluate this since /internal is no longer used.
-// `hardGoTo` is used to hit the API server directly
-// without going through /internal
-// used for things like /signin and /signout
-export const hardGoTo = createAction(actionTypes.hardGoTo);
-
-export const submitComplete = createAction(actionTypes.submitComplete);
-export const updateComplete = createAction(actionTypes.updateComplete);
-export const updateFailed = createAction(actionTypes.updateFailed);
-
-export const acceptTerms = createAction(actionTypes.acceptTerms);
-export const acceptTermsComplete = createAction(
-  actionTypes.acceptTermsComplete
-);
-export const acceptTermsError = createAction(actionTypes.acceptTermsError);
-
-export const fetchUser = createAction(actionTypes.fetchUser);
-export const fetchUserComplete = createAction(actionTypes.fetchUserComplete);
-export const fetchUserError = createAction(actionTypes.fetchUserError);
-
-export const addDonation = createAction(actionTypes.addDonation);
-export const addDonationComplete = createAction(
-  actionTypes.addDonationComplete
-);
-export const addDonationError = createAction(actionTypes.addDonationError);
-
-export const postChargeStripe = createAction(actionTypes.postChargeStripe);
-export const postChargeStripeComplete = createAction(
-  actionTypes.postChargeStripeComplete
-);
-export const postChargeStripeError = createAction(
-  actionTypes.postChargeStripeError
-);
-export const postChargeStripeCard = createAction(
-  actionTypes.postChargeStripeCard
-);
-export const postChargeStripeCardComplete = createAction(
-  actionTypes.postChargeStripeCardComplete
-);
-export const postChargeStripeCardError = createAction(
-  actionTypes.postChargeStripeCardError
-);
-
-export const fetchProfileForUser = createAction(
-  actionTypes.fetchProfileForUser
-);
-export const fetchProfileForUserComplete = createAction(
-  actionTypes.fetchProfileForUserComplete
-);
-export const fetchProfileForUserError = createAction(
-  actionTypes.fetchProfileForUserError
-);
-
-export const reportUser = createAction(actionTypes.reportUser);
-export const reportUserComplete = createAction(actionTypes.reportUserComplete);
-export const reportUserError = createAction(actionTypes.reportUserError);
-
-export const resetUserData = createAction(actionTypes.resetUserData);
-
-export const showCert = createAction(actionTypes.showCert);
-export const showCertComplete = createAction(actionTypes.showCertComplete);
-export const showCertError = createAction(actionTypes.showCertError);
-
-export const updateCurrentChallengeId = createAction(
-  actionTypes.updateCurrentChallengeId
-);
-
-export const completedChallengesSelector = state =>
-  userSelector(state).completedChallenges || [];
-export const completionCountSelector = state => state[ns].completionCount;
-export const currentChallengeIdSelector = state => state[ns].currentChallengeId;
-export const stepsToClaimSelector = state => {
-  const user = userSelector(state);
-  const currentCerts = certificatesByNameSelector(user.username)(
-    state
-  ).currentCerts;
-  return {
-    currentCerts: currentCerts,
-    isHonest: user?.isHonest,
-    isShowName: user?.profileUI?.showName,
-    isShowCerts: user?.profileUI?.showCerts,
-    isShowProfile: !user?.profileUI?.isLocked
-  };
-};
-export const isDonatingSelector = state => userSelector(state).isDonating;
-export const isOnlineSelector = state => state[ns].isOnline;
-export const isSignedInSelector = state => !!state[ns].appUsername;
-export const isDonationModalOpenSelector = state => state[ns].showDonationModal;
-export const recentlyClaimedBlockSelector = state =>
-  state[ns].recentlyClaimedBlock;
-export const donationFormStateSelector = state => state[ns].donationFormState;
-export const signInLoadingSelector = state =>
-  userFetchStateSelector(state).pending;
-export const showCertSelector = state => state[ns].showCert;
-export const showCertFetchStateSelector = state => state[ns].showCertFetchState;
-export const shouldRequestDonationSelector = state => {
-  const completedChallenges = completedChallengesSelector(state);
-  const completionCount = completionCountSelector(state);
-  const canRequestProgressDonation = state[ns].canRequestProgressDonation;
-  const isDonating = isDonatingSelector(state);
-  const recentlyClaimedBlock = recentlyClaimedBlockSelector(state);
-
-  // don't request donation if already donating
-  if (isDonating) return false;
-
-  // a block has been completed
-  if (recentlyClaimedBlock) return true;
-
-  // a donation has already been requested
-  if (!canRequestProgressDonation) return false;
-
-  // donations only appear after the user has completed ten challenges (i.e.
-  // not before the 11th challenge has mounted)
-  if (completedChallenges.length < 10) {
-    return false;
-  }
-  // this will mean we have completed 3 or more challenges this browser session
-  // and enough challenges overall to not be new
-  return completionCount >= 3;
-};
-
-export const userByNameSelector = username => state => {
-  const { user } = state[ns];
-  // TODO: Why return a string or empty objet literal?
-  return username in user ? user[username] : {};
-};
-
-export const certificatesByNameSelector = username => state => {
-  const {
-    isRespWebDesignCert,
-    is2018DataVisCert,
-    isFrontEndLibsCert,
-    isJsAlgoDataStructCert,
-    isApisMicroservicesCert,
-    isInfosecQaCert,
-    isQaCertV7,
-    isInfosecCertV7,
-    isFrontEndCert,
-    isBackEndCert,
-    isDataVisCert,
-    isFullStackCert,
-    isSciCompPyCertV7,
-    isDataAnalysisPyCertV7,
-    isMachineLearningPyCertV7,
-    isRelationalDatabasesCertV8
-  } = userByNameSelector(username)(state);
-  return {
-    hasModernCert:
-      isRespWebDesignCert ||
-      is2018DataVisCert ||
-      isFrontEndLibsCert ||
-      isJsAlgoDataStructCert ||
-      isApisMicroservicesCert ||
-      isQaCertV7 ||
-      isInfosecCertV7 ||
-      isFullStackCert ||
-      isSciCompPyCertV7 ||
-      isDataAnalysisPyCertV7 ||
-      isMachineLearningPyCertV7 ||
-      isRelationalDatabasesCertV8,
-    hasLegacyCert:
-      isFrontEndCert || isBackEndCert || isDataVisCert || isInfosecQaCert,
-    isFullStackCert,
-    currentCerts: [
-      {
-        show: isRespWebDesignCert,
-        title: 'Responsive Web Design Certification',
-        certSlug: 'responsive-web-design'
-      },
-      {
-        show: isJsAlgoDataStructCert,
-        title: 'JavaScript Algorithms and Data Structures Certification',
-        certSlug: 'javascript-algorithms-and-data-structures'
-      },
-      {
-        show: isFrontEndLibsCert,
-        title: 'Front End Development Libraries Certification',
-        certSlug: 'front-end-development-libraries'
-      },
-      {
-        show: is2018DataVisCert,
-        title: 'Data Visualization Certification',
-        certSlug: 'data-visualization'
-      },
-      {
-        show: isApisMicroservicesCert,
-        title: 'Back End Development and APIs Certification',
-        certSlug: 'back-end-development-and-apis'
-      },
-      {
-        show: isQaCertV7,
-        title: ' Quality Assurance Certification',
-        certSlug: 'quality-assurance-v7'
-      },
-      {
-        show: isInfosecCertV7,
-        title: 'Information Security Certification',
-        certSlug: 'information-security-v7'
-      },
-      {
-        show: isSciCompPyCertV7,
-        title: 'Scientific Computing with Python Certification',
-        certSlug: 'scientific-computing-with-python-v7'
-      },
-      {
-        show: isDataAnalysisPyCertV7,
-        title: 'Data Analysis with Python Certification',
-        certSlug: 'data-analysis-with-python-v7'
-      },
-      {
-        show: isMachineLearningPyCertV7,
-        title: 'Machine Learning with Python Certification',
-        certSlug: 'machine-learning-with-python-v7'
-      },
-      {
-        show: isRelationalDatabasesCertV8,
-        title: 'Relational Databases Certification',
-        certSlug: 'relational-databases-v8'
-      }
-    ],
-    legacyCerts: [
-      {
-        show: isFrontEndCert,
-        title: 'Front End Certification',
-        certSlug: 'legacy-front-end'
-      },
-      {
-        show: isBackEndCert,
-        title: 'Back End Certification',
-        certSlug: 'legacy-back-end'
-      },
-      {
-        show: isDataVisCert,
-        title: 'Data Visualization Certification',
-        certSlug: 'legacy-data-visualization'
-      },
-      {
-        show: isInfosecQaCert,
-        title: 'Information Security and Quality Assurance Certification',
-        // Keep the current public profile cert slug
-        certSlug: 'information-security-and-quality-assurance'
-      },
-      {
-        show: isFullStackCert,
-        title: 'Full Stack Certification',
-        // Keep the current public profile cert slug
-        certSlug: 'full-stack'
-      }
-    ]
-  };
-};
-
-export const userFetchStateSelector = state => state[ns].userFetchState;
-export const userProfileFetchStateSelector = state =>
-  state[ns].userProfileFetchState;
-export const usernameSelector = state => state[ns].appUsername;
-export const userSelector = state => {
-  const username = usernameSelector(state);
-
-  return state[ns].user[username] || {};
-};
-
-export const sessionMetaSelector = state => state[ns].sessionMeta;
 
 function spreadThePayloadOnUser(state, payload) {
   return {
@@ -553,6 +270,10 @@ export const reducer = handleActions(
       ...state,
       isOnline
     }),
+    [actionTypes.serverStatusChange]: (state, { payload: isServerOnline }) => ({
+      ...state,
+      isServerOnline
+    }),
     [actionTypes.closeDonationModal]: state => ({
       ...state,
       showDonationModal: false
@@ -573,6 +294,14 @@ export const reducer = handleActions(
       ...state,
       appUsername: '',
       user: {}
+    }),
+    [actionTypes.openSignoutModal]: state => ({
+      ...state,
+      showSignoutModal: true
+    }),
+    [actionTypes.closeSignoutModal]: state => ({
+      ...state,
+      showSignoutModal: false
     }),
     [actionTypes.showCert]: state => ({
       ...state,
@@ -599,9 +328,12 @@ export const reducer = handleActions(
       }
     }),
     [actionTypes.submitComplete]: (state, { payload }) => {
-      let submittedchallenges = [{ ...payload, completedDate: Date.now() }];
-      if (payload.challArray) {
-        submittedchallenges = payload.challArray;
+      const { submittedChallenge, savedChallenges } = payload;
+      let submittedchallenges = [
+        { ...submittedChallenge, completedDate: Date.now() }
+      ];
+      if (submittedChallenge.challArray) {
+        submittedchallenges = submittedChallenge.challArray;
       }
       const { appUsername } = state;
       return {
@@ -617,28 +349,64 @@ export const reducer = handleActions(
                 ...state.user[appUsername].completedChallenges
               ],
               'id'
-            )
+            ),
+            savedChallenges:
+              savedChallenges ?? savedChallengesSelector(state[MainApp])
           }
         }
+      };
+    },
+    [actionTypes.updateUserToken]: (state, { payload }) => {
+      const { appUsername } = state;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          [appUsername]: {
+            ...state.user[appUsername],
+            userToken: payload
+          }
+        }
+      };
+    },
+    [actionTypes.deleteUserTokenComplete]: state => {
+      const { appUsername } = state;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          [appUsername]: {
+            ...state.user[appUsername],
+            userToken: null
+          }
+        }
+      };
+    },
+    [actionTypes.hideCodeAlly]: state => {
+      return {
+        ...state,
+        showCodeAlly: false
+      };
+    },
+    [actionTypes.showCodeAlly]: state => {
+      return {
+        ...state,
+        showCodeAlly: true
       };
     },
     [challengeTypes.challengeMounted]: (state, { payload }) => ({
       ...state,
       currentChallengeId: payload
     }),
-    [settingsTypes.updateLegacyCertComplete]: (state, { payload }) => {
+    [actionTypes.saveChallengeComplete]: (state, { payload }) => {
       const { appUsername } = state;
       return {
         ...state,
-        completionCount: state.completionCount + 1,
         user: {
           ...state.user,
           [appUsername]: {
             ...state.user[appUsername],
-            completedChallenges: uniqBy(
-              [...state.user[appUsername].completedChallenges, payload],
-              'id'
-            )
+            savedChallenges: payload
           }
         }
       };
@@ -660,7 +428,19 @@ export const reducer = handleActions(
       payload ? spreadThePayloadOnUser(state, payload) : state,
     [settingsTypes.updateMyEmailComplete]: (state, { payload }) =>
       payload ? spreadThePayloadOnUser(state, payload) : state,
-    [settingsTypes.updateUserFlagComplete]: (state, { payload }) =>
+    [settingsTypes.updateMySocialsComplete]: (state, { payload }) =>
+      payload ? spreadThePayloadOnUser(state, payload) : state,
+    [settingsTypes.updateMySoundComplete]: (state, { payload }) =>
+      payload ? spreadThePayloadOnUser(state, payload) : state,
+    [settingsTypes.updateMyThemeComplete]: (state, { payload }) =>
+      payload ? spreadThePayloadOnUser(state, payload) : state,
+    [settingsTypes.updateMyKeyboardShortcutsComplete]: (state, { payload }) =>
+      payload ? spreadThePayloadOnUser(state, payload) : state,
+    [settingsTypes.updateMyHonestyComplete]: (state, { payload }) =>
+      payload ? spreadThePayloadOnUser(state, payload) : state,
+    [settingsTypes.updateMyQuincyEmailComplete]: (state, { payload }) =>
+      payload ? spreadThePayloadOnUser(state, payload) : state,
+    [settingsTypes.updateMyPortfolioComplete]: (state, { payload }) =>
       payload ? spreadThePayloadOnUser(state, payload) : state,
     [settingsTypes.verifyCertComplete]: (state, { payload }) =>
       payload ? spreadThePayloadOnUser(state, payload) : state,

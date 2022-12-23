@@ -3,14 +3,19 @@ id: 5e9a093a74c4063ca6f7c14c
 title: Introduzione all'analisi dei dati
 challengeType: 11
 videoId: VJrP2FUzKP0
+bilibiliIds:
+  aid: 378034466
+  bvid: BV19f4y1c7nu
+  cid: 409001487
 dashedName: introduction-to-data-analysis
 ---
 
 # --description--
+L'analisi dei dati è l'atto di convertire dati disordinati in dati utili pulendoli, trasformandoli, manipolandoli e analizzandoli.
 
 Altre risorse:
 
-\- [Presentazione](https://docs.google.com/presentation/d/1cUIt8b2ySz-85_ykfeuuWsurccwTAuFPn782pZBzFsU/edit?usp=sharing)
+\- <a href="https://www.freecodecamp.org/news/what-is-data-analysis/" rel="noopener noreferrer nofollow">News article</a>
 
 # --question--
 

@@ -11,17 +11,17 @@ dashedName: understand-string-immutability
 
 In JavaScript, le stringhe (`String`) sono <dfn>immutabili</dfn>, il che significa che non possono essere modificate una volta create.
 
-Ad esempio, il codice seguente:
+Ad esempio, il seguente codice produrrà un errore perché la lettera `B` nella stringa `Bob` non può essere cambiata nella lettera `J`:
 
 ```js
-var myStr = "Bob";
+let myStr = "Bob";
 myStr[0] = "J";
 ```
 
-non può modificare il valore di `myStr` in `Job`, poiché il contenuto di `myStr` non può essere modificato. Tieni presente che questo *non* significa che `myStr` non può essere modificato, ma solo che i singoli caratteri di una <dfn>stringa letterale</dfn> non possono essere cambiati. L'unico modo per modificare `myStr` è di assegnargli una nuova stringa, in questo modo:
+Nota che ciò *non* significa che `myStr` non può essere riassegnata. L'unico modo per cambiare `myStr` è assegnarle un nuovo valore, in questo modo:
 
 ```js
-var myStr = "Bob";
+let myStr = "Bob";
 myStr = "Job";
 ```
 
@@ -55,7 +55,7 @@ assert(/myStr = "Jello World"/.test(code));
 
 ```js
 // Setup
-var myStr = "Jello World";
+let myStr = "Jello World";
 
 // Only change code below this line
 myStr[0] = "H"; // Change this line
@@ -65,6 +65,6 @@ myStr[0] = "H"; // Change this line
 # --solutions--
 
 ```js
-var myStr = "Jello World";
+let myStr = "Jello World";
 myStr = "Hello World";
 ```

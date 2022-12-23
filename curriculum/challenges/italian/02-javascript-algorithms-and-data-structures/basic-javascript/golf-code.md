@@ -9,7 +9,7 @@ dashedName: golf-code
 
 # --description--
 
-Nel gioco del [golf](https://en.wikipedia.org/wiki/Golf), ogni buca ha un `par`, che rappresenta il numero medio di `strokes` (colpi) che un golfista dovrebbe fare per mandare la palla in buca per completare il gioco. A seconda di quanto sopra o sotto al valore di `par` sono i tuoi `strokes`, c'è un soprannome diverso.
+Nel gioco del Golf, ogni buca ha un `par`, che è il numero medio di tiri (`strokes`) che un golfista dovrebbe fare per riuscire a fare buca. A seconda di quanto sopra o sotto al valore di `par` sono i tuoi `strokes`, c'è un soprannome diverso.
 
 Alla tua funzione saranno passati gli argomenti `par` e `strokes`. Restituisci la stringa corretta in base a questa tabella che elenca i colpi in ordine di priorità; dall'alto (maggiore priorità) al basso (minore):
 
@@ -90,7 +90,8 @@ assert(golfScore(5, 9) === 'Go Home!');
 ## --seed-contents--
 
 ```js
-var names = ["Hole-in-one!", "Eagle", "Birdie", "Par", "Bogey", "Double Bogey", "Go Home!"];
+const names = ["Hole-in-one!", "Eagle", "Birdie", "Par", "Bogey", "Double Bogey", "Go Home!"];
+
 function golfScore(par, strokes) {
   // Only change code below this line
 

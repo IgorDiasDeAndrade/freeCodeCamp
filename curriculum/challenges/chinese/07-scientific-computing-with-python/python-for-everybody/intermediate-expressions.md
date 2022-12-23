@@ -3,6 +3,10 @@ id: 5e7b9f050b6c005b0e76f057
 title: 中间表达式
 challengeType: 11
 videoId: dKgUaIa5ATg
+bilibiliIds:
+  aid: 334428894
+  bvid: BV1uw411R7gH
+  cid: 376318468
 dashedName: intermediate-expressions
 ---
 
@@ -10,9 +14,9 @@ dashedName: intermediate-expressions
 
 更多资源：
 
-\- [练习 1](https://youtu.be/t_4DPwsaGDY)
+\- <a href="https://youtu.be/t_4DPwsaGDY" target="_blank" rel="noopener noreferrer nofollow">练习 1</a>
 
-\- [练习 2](https://youtu.be/wgkC8SxraAQ)
+\- <a href="https://youtu.be/wgkC8SxraAQ" target="_blank" rel="noopener noreferrer nofollow">练习 2</a>
 
 # --question--
 

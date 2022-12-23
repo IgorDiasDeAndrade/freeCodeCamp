@@ -14,71 +14,58 @@ dashedName: accessing-object-properties-with-variables
 以下是一個使用變量來訪問屬性的例子：
 
 ```js
-var dogs = {
-  Fido: "Mutt",  Hunter: "Doberman",  Snoopie: "Beagle"
+const dogs = {
+  Fido: "Mutt",
+  Hunter: "Doberman",
+  Snoopie: "Beagle"
 };
-var myDog = "Hunter";
-var myBreed = dogs[myDog];
+
+const myDog = "Hunter";
+const myBreed = dogs[myDog];
 console.log(myBreed);
 ```
 
 字符串 `Doberman` 將會出現在控制檯中。
 
-使用這一概念的另一種情況是：屬性的名字是在程序運行期間動態收集得到的。如下所示：
-
-```js
-var someObj = {
-  propName: "John"
-};
-function propPrefix(str) {
-  var s = "prop";
-  return s + str;
-}
-var someProp = propPrefix("Name");
-console.log(someObj[someProp]);
-```
-
-`someProp` 的值將爲字符串 `propName`，並且字符串 `John` 將會出現在控制檯中。
-
-注意，當使用變量名訪問屬性時，我們*沒有*使用引號包裹它，因爲我們正在使用的是變量的*值*，而不是變量的*名字*。
+請注意，我們在使用變量名訪問屬性時，*不要*使用引號引起來，因爲我們使用的是 *值*，而不是 *屬性名*。
 
 # --instructions--
 
-將變量 `playerNumber` 設置爲 `16`。 然後，使用該變量查找玩家的名字，並將其賦值給`player`。
+將 `playerNumber` 變量設置爲 `16`。 然後，使用該變量查找播放器的名稱並將其分配給 `player`。
 
 # --hints--
 
-`playerNumber` 應該是一個數字
+`playerNumber` 應該是一個數字。
 
 ```js
 assert(typeof playerNumber === 'number');
 ```
 
-變量 `player` 應該是一個字符串
+變量 `player` 應該是一個字符串。
 
 ```js
 assert(typeof player === 'string');
 ```
 
-`player` 的值應該爲字符串 `Montana`
+`player` 的值應該是字符串 `Montana`。
 
 ```js
 assert(player === 'Montana');
 ```
 
-你應該使用方括號訪問 `testObj`
+你應該使用括號表示法來訪問 `testObj`。
 
 ```js
 assert(/testObj\s*?\[.*?\]/.test(code));
 ```
 
-你不應該直接將值 `Montana` 賦給變量 `player`。
+你不應將值 `Montana` 直接分配給變量 `player`。
 
 ```js
 assert(!code.match(/player\s*=\s*"|\'\s*Montana\s*"|\'\s*;/gi));
 ```
 
-你應該在你的方括號內使用變量 `playerNumber`。
+你應該在括號符號中使用變量 `playerNumber`。
 
 ```js
 assert(/testObj\s*?\[\s*playerNumber\s*\]/.test(code));
@@ -96,26 +83,25 @@ if(typeof player !== "undefined"){(function(v){return v;})(player);}
 
 ```js
 // Setup
-var testObj = {
+const testObj = {
   12: "Namath",
   16: "Montana",
   19: "Unitas"
 };
 
 // Only change code below this line
-
-var playerNumber;       // Change this line
-var player = testObj;   // Change this line
+const playerNumber = 42;  // Change this line
+const player = testObj;   // Change this line
 ```
 
 # --solutions--
 
 ```js
-var testObj = {
+const testObj = {
   12: "Namath",
   16: "Montana",
   19: "Unitas"
 };
-var playerNumber = 16;
-var player = testObj[playerNumber];
+const playerNumber = 16;
+const player = testObj[playerNumber];
 ```

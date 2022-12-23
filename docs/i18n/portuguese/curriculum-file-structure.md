@@ -8,13 +8,14 @@ Existem alguns termos que usamos quando discutimos o conteúdo do nosso currícu
 
 - `certification` : Quando nos referimos a uma certificação neste caso, estamos falando de um certificado factual que os usuários podem solicitar. Não estamos falando do nome do superBlock específico.
 - `superBlock` : Um superbloco é a coleção de desafios em nível superior. Cada superbloco corresponde a uma certificação no currículo (por exemplo, Design responsivo para a web).
-- `block` : Um bloco é uma seção dentro de um superbloco. Um bloco corresponde a um grupo de desafios em uma certificação determinada (por exemplo, HTML e HTML5 básicos)
-- `challenge` : Um desafio é uma lição única dentro do currículo (por exemplo, Conhecer os elementos HTML)
+- `block` : Um bloco é uma seção dentro de um superbloco. Um bloco corresponde a um grupo de desafios em uma certificação determinada (por exemplo, HTML e HTML5 básico)
+- `challenge` : um desafio é uma lição única dentro do currículo (por exemplo, Conhecer os elementos HTML)
 
 ## Árvore de arquivos
 
 Ao usarmos esses termos, é assim que a estrutura de arquivos deve ser definida:
 
+<!-- prettier-ignore -->
 ```md
 
 curriculum/
@@ -62,7 +63,7 @@ Ao renomear uma certificação, você provavelmente vai querer renomear o superb
 Além disso, você provavelmente vai querer renomear o certificado e o bloco `{superBlock}-projects` quando renomear um superbloco, já que todos compartilham um mesmo nome. Faça o seguinte para renomear somente um superbloco:
 
 1. Renomeie a pasta do superbloco no diretório `curriculum/challenges/english`.
-1. Renomeie a pasta do superbloco em *todos* os outros diretórios `curriculum/challenges/{language}`.
+1. Renomeie a pasta do superbloco em _todos_ os outros diretórios `curriculum/challenges/{language}`.
 1. Para cada bloco naquele superbloco, atualize o valor de `superBlock` no arquivo `meta.json` até seu dashedName. Você não precisa renomear as pastas aqui. Faça isso ao renomear um bloco.
 1. Renomeie a pasta do superbloco em `client/src/pages/learn`.
 1. Atualize o arquivo `index.md` na pasta acima, alterando os valores de `title` e `superBlock` com o novo nome.
@@ -79,7 +80,7 @@ Além disso, você provavelmente vai querer renomear o certificado e o bloco `{s
 Faça o seguinte para renomear um bloco do currículo:
 
 1. Mude o nome da pasta do bloco no diretório `curriculum/challenges/english/{superBlock}`.
-1. Mude o nome da mesma pasta do bloco em *todos* os outros diretórios de idioma para que correspondam. Eles devem ter a mesma estrutura que a do inglês ou haverá um erro na build.
+1. Mude o nome da mesma pasta do bloco em _todos_ os outros diretórios de idioma para que correspondam. Eles devem ter a mesma estrutura que a do inglês ou haverá um erro na build.
 1. Mude o nome da pasta do bloco no diretório `_meta`.
 1. Atualize as propriedades `name` e `dashedName` para aquele arquivo `meta.json` do bloco.
 1. Atualize `client/utils/help-category-map.json` para que use o novo nome do bloco como chave.
@@ -94,7 +95,7 @@ Faça o seguinte para renomear um único arquivo de desafio:
 
 1. Mude o nome do arquivo do desafio no diretório `curriculum/challenges/english/`.
 1. Mude o nome de `title` e de `dashedName` naquele arquivo.
-1. Mude o nome do arquivo e o `dashedName` naqueles arquivos para *todos* os outros diretórios de idiomas para que correspondam.
+1. Mude o nome do arquivo e o `dashedName` naqueles arquivos para _todos_ os outros diretórios de idiomas para que correspondam.
 1. Atualize o nome do desafio no arquivo `meta.json` relevante. Os nomes dos desafios não são usados na build, mas fornecem uma alternativa mais fácil de identificar a ordem dos desafios.
 1. Se o desafio for um projeto de certificado, atualize o arquivo YAML em `curriculum/english/12-certificates/<superBlock>` para o novo nome.
 1. Se o desafio for um projeto de certificação, atualize o `title` e o `link` em `client/src/resources/cert-and-project-map.ts`
@@ -102,4 +103,4 @@ Faça o seguinte para renomear um único arquivo de desafio:
 
 ## A propriedade `dashedName`
 
-A propriedade `dashedName` é usada para gerar o caminho do URL para o superbloco, bloco, ou desafio. Ela deve corresponder em geral ao que o assistente `/utils/dasherize.js` daria como resultado para o nome do arquivo.
+A propriedade `dashedName` é usada para gerar o caminho do URL para o superbloco, bloco, ou desafio. Ela deve corresponder em geral ao que o assistente `/utils/slugs.js` daria como resultado para o nome do arquivo.

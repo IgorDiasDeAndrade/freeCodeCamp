@@ -9,23 +9,24 @@ dashedName: access-multi-dimensional-arrays-with-indexes
 
 # --description--
 
-我们可以把<dfn>多维</dfn>数组看作成是*数组中的数组*。 使用方括号表示法访问数组时，第一个方括号访问的是数组的最外层（第一层），第二个方括号访问的是数组的第二层，以此类推。
+我们可以把<dfn>多维</dfn>数组看作成是*数组中的数组*。 当你使用括号访问你的数组时，第一组括号指的是最外层（第一层）数组中的条目，而每一对额外的括号指的是里面下一层的条目。
 
 **例如：**
 
 ```js
-var arr = [
-  [1,2,3],
-  [4,5,6],
-  [7,8,9],
-  [[10,11,12], 13, 14]
+const arr = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [[10, 11, 12], 13, 14]
 ];
-arr[3];
-arr[3][0];
-arr[3][0][1];
+
+const subarray = arr[3];
+const nestedSubarray = arr[3][0];
+const element = arr[3][0][1];
 ```
 
-`arr[3]` 为 `[[10, 11, 12], 13, 14]`，`arr[3][0]` 为 `[10, 11, 12]`，并且 `arr[3][0][1]` 为 `11`。
+在这个例子中，`subarray` 的值为 `[[10, 11, 12], 13, 14]`， `nestedSubarray` 的值为 `[10, 11, 12]`，`element` 的值为 `11` 。
 
 **注意：** 数组名与方括号之间不应该有任何空格，比如 `array [0][0]` 甚至是 `array [0] [0]` 都是不允许的。 尽管 JavaScript 能够正确处理这种情况，但是当其他程序员阅读你写的代码时，这可能让他们感到困惑。
 
@@ -58,14 +59,19 @@ if(typeof myArray !== "undefined"){(function(){return "myData: " + myData + " my
 ## --seed-contents--
 
 ```js
-var myArray = [[1,2,3], [4,5,6], [7,8,9], [[10,11,12], 13, 14]];
+const myArray = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [[10, 11, 12], 13, 14],
+];
 
-var myData = myArray[0][0];
+const myData = myArray[0][0];
 ```
 
 # --solutions--
 
 ```js
-var myArray = [[1,2,3],[4,5,6], [7,8,9], [[10,11,12], 13, 14]];
-var myData = myArray[2][1];
+const myArray = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [[10, 11, 12], 13, 14]];
+const myData = myArray[2][1];
 ```

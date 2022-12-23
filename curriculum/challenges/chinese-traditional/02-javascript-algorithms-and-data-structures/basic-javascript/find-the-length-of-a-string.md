@@ -15,13 +15,13 @@ dashedName: find-the-length-of-a-string
 console.log("Alan Peter".length);
 ```
 
-字符串 `10` 將會出現在控制檯中。
+值 `10` 將顯示在控制檯中。 請注意，“Alan” 和 “Peter” 之間的空格字符也被計算在內。
 
-例如，如果我們創建了一個變量 `var firstName = "Ada"`，我們就可以通過使用 `firstName.length` 屬性來獲得字符串 `Ada` 的長度。
+例如，如果我們創建了一個變量 `const firstName = "Ada"`，我們可以通過使用 `firstName.length` 找出字符串 `Ada` 的長度屬性。
 
 # --instructions--
 
-使用 `.length` 屬性來獲得變量 `lastName` 的長度，並把它賦值給變量 `lastNameLength`。
+使用 `.length` 屬性將 `lastNameLength` 設置爲 `lastName` 中的字符數。
 
 # --hints--
 
@@ -29,8 +29,8 @@ console.log("Alan Peter".length);
 
 ```js
 assert(
-  code.match(/var lastNameLength = 0;/) &&
-    code.match(/var lastName = "Lovelace";/)
+  code.match(/let lastNameLength = 0;/) &&
+    code.match(/const lastName = "Lovelace";/)
 );
 ```
 
@@ -52,18 +52,17 @@ assert(code.match(/=\s*lastName\.length/g) && !code.match(/lastName\s*=\s*8/));
 
 ```js
 // Setup
-var lastNameLength = 0;
-var lastName = "Lovelace";
+let lastNameLength = 0;
+const lastName = "Lovelace";
 
 // Only change code below this line
-
 lastNameLength = lastName;
 ```
 
 # --solutions--
 
 ```js
-var lastNameLength = 0;
-var lastName = "Lovelace";
+let lastNameLength = 0;
+const lastName = "Lovelace";
 lastNameLength = lastName.length;
 ```

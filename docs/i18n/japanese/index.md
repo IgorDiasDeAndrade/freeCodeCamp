@@ -1,49 +1,45 @@
-The [freeCodeCamp.org](https://freecodecamp.org) community is possible thanks to thousands of kind volunteers like you. If you want to contribute your time and expertise, we would be excited to welcome you aboard.
+[freeCodeCamp.org](https://freecodecamp.org) コミュニティは、皆さんのような親切な何千人ものボランティアのおかげで成り立っています。 貴重な時間や専門知識を提供してくださる方々を、喜んで歓迎しています。
 
-> [!NOTE] Before you proceed, please take a quick 2 minutes to read our [Code of Conduct](https://www.freecodecamp.org/code-of-conduct). We strictly enforce it across our community so that contributing to freeCodeCamp.org is a safe, inclusive experience for everyone.
+> [!NOTE] 先に進まれる前に、私たちの [行動規範](https://www.freecodecamp.org/japanese/news/code-of-conduct/) をご一読ください。2 分ほどでお読みいただけます。 freeCodeCamp.org に貢献することが誰にとっても安全でインクルーシブな体験になるよう、コミュニティ全体でこの規範を厳守します。
 
-Happy contributing.
+私たちの [カリキュラム](#カリキュラム) の作成、更新、バグの解消や、freeCodeCamp.org の [学習プラットフォーム](#学習プラットフォーム) のバグの解消、freeCodeCamp.org の世界言語への [翻訳](#翻訳) にご協力いただけると助かります。
 
-You are welcome to:
+貢献に関する一般的なご質問には、[コントリビューターのよくある質問](FAQ.md) でお答えします。
 
-- Create, update and fix bugs in our [curriculum](#curriculum).
-- Help us fix bugs in freeCodeCamp.org's [learning platform](#learning-platform).
-- [Help us translate](#translations) freeCodeCamp.org to world languages.
+貢献をお楽しみください。
 
-We answer the most common questions about contributing [in our contributor FAQ](FAQ.md).
+---
 
-## Curriculum
+## カリキュラム
 
-Our curriculum is curated by the global freeCodeCamp community. This way, we are able to incorporate expert knowledge from volunteers like you.
+私たちのカリキュラムは、世界中の freeCodeCamp コミュニティによってキュレーションされています。 こうすることで、皆さんのようなボランティアから専門的な知識を取り入れることができます。
 
-You can help expand and improve the curriculum. You can also update project user stories to better-explain concepts. And you can improve our automated tests so that we can more accurately test people's code.
+皆さんは、カリキュラムを拡張したり改善したりする支援ができます。 プロジェクトのユーザーストーリーをより良い概念の説明に更新することもできます。 また、より正確にコードをテストするために、テスト自動化を改善することができます。
 
-**If you're interested in improving our curriculum, here's [how to contribute to the curriculum](how-to-work-on-coding-challenges.md).**
+**カリキュラムの改善にご興味があれば、[カリキュラムに貢献する方法](how-to-work-on-coding-challenges.md) をご覧ください。**
 
-## Translations
+## 翻訳
 
-We are localizing freeCodeCamp.org to major world languages. Some of the certifications are already live in [Chinese (中文)](https://chinese.freecodecamp.org/learn) and [Spanish (Español)](https://www.freecodecamp.org/espanol/learn/). We encourage you to read the [announcement here](https://www.freecodecamp.org/news/world-language-translation-effort) and share it your friends to get them excited about this.
+私たちは freeCodeCamp.org を世界中の主要言語へローカライズしています。
+
+Certifications are already live in some major world languages like below:
+
+- [Chinese (中文)](https://www.freecodecamp.org/chinese/learn)
+- [Spanish (Español)](https://www.freecodecamp.org/espanol/learn)
+- [Italian (Italiano)](https://www.freecodecamp.org/italian/learn)
+- [Portuguese (Português)](https://www.freecodecamp.org/portuguese/learn)
+- [Ukrainian (Українська)](https://www.freecodecamp.org/ukrainian/learn)
+- [Japanese (日本語)](https://www.freecodecamp.org/japanese/learn)
+- [German (Deutsch)](https://www.freecodecamp.org/german/learn)
+
+We encourage you to read the [announcement here](https://www.freecodecamp.org/news/help-translate-freecodecamp-language/) and share it with your friends to get them excited about this.
 
 **If you're interested in translating, here's [how to translate freeCodeCamp's resources](how-to-translate-files.md).**
 
-## Learning Platform
+## 学習プラットフォーム
 
 Our learning platform runs on a modern JavaScript stack. It has various components, tools, and libraries. These include Node.js, MongoDB, OAuth 2.0, React, Gatsby, Webpack, and more.
 
-Broadly, we use
+Broadly, we have a Node.js based API server, a set of React-based client applications, testing scripts to evaluate camper-submitted curriculum projects, and more. If you want to productively contribute to the learning platform, we recommend some familiarity with these tools.
 
-- a Node.js based API server
-- a set of React-based client applications
-- and testing scripts to evaluate camper-submitted curriculum projects.
-
-If you want to productively contribute to the learning platform, we recommend some familiarity with these tools.
-
-If you want to help us improve our codebase...
-
-**you can either use Gitpod, a free online dev environment that starts a ready-to-code dev environment for freeCodeCamp in your browser.**
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/freeCodeCamp/freeCodeCamp)
-
-Or you can...
-
-**[set up freeCodeCamp locally](how-to-setup-freecodecamp-locally.md) on your machine.**
+**If you want to help us improve our codebase here's [how to set up freeCodeCamp](how-to-setup-freecodecamp-locally.md).**

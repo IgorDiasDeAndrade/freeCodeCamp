@@ -9,12 +9,12 @@ dashedName: returning-boolean-values-from-functions
 
 # --description--
 
-你应该还记得[相等运算符](/learn/javascript-algorithms-and-data-structures/basic-javascript/comparison-with-the-equality-operator)这道挑战题。 在那里我们提到，所有比较操作符都会返回 boolean：要么是 `true` 要么是 `false`。
+你应该还记得 <a href="javascript-algorithms-and-data-structures/basic-javascript/comparison-with-the-equality-operator" target="_blank" rel="noopener noreferrer nofollow">相等运算符</a> 这道挑战题。在那里我们提到，所有比较操作符都会返回布尔值：要么是`true`，要么是`false`。
 
 有时人们通过 `if/else` 语句来做比较，像这样。
 
 ```js
-function isEqual(a,b) {
+function isEqual(a, b) {
   if (a === b) {
     return true;
   } else {
@@ -26,7 +26,7 @@ function isEqual(a,b) {
 但有更好的方式来达到相同的效果。 既然 `===` 返回 `true` 或 `false` 我们可以直接返回比较结果：
 
 ```js
-function isEqual(a,b) {
+function isEqual(a, b) {
   return a === b;
 }
 ```
@@ -37,13 +37,13 @@ function isEqual(a,b) {
 
 # --hints--
 
-`isLess(10,15)` 应该返回 `true`
+`isLess(10, 15)` 应该返回 `true`
 
 ```js
 assert(isLess(10, 15) === true);
 ```
 
-`isLess(15,10)` 应该返回 `false`
+`isLess(15, 10)` 应该返回 `false`
 
 ```js
 assert(isLess(15, 10) === false);

@@ -17,7 +17,7 @@ export const mockFirstChallenge = {
   superBlock: 'the',
   dashedName: 'challenge',
   challengeOrder: 0,
-  superOrder: 1,
+  superOrder: 0,
   order: 0
 };
 
@@ -33,6 +33,12 @@ export const mockCompletedChallenge = {
       ext: 'file'
     }
   ],
+  completedDate: Date.now()
+};
+
+export const mockCompletedChallengeNoFiles = {
+  id: '123abc456def',
+  challengeType: 0,
   completedDate: Date.now()
 };
 
@@ -161,11 +167,6 @@ export const matchSubscriptionIdQuery = {
 };
 export const matchUserIdQuery = {
   where: { id: mockUser.id }
-};
-
-export const firstChallengeQuery = {
-  // first challenge of the first block of the first superBlock
-  where: { challengeOrder: 0, superOrder: 1, order: 0 }
 };
 
 export const fullStackChallenges = [

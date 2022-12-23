@@ -8,15 +8,21 @@ dashedName: stock-price-checker
 
 # --description--
 
-Crie um aplicativo full stack em JavaScript que seja funcionalmente semelhante a este: <https://stock-price-checker.freecodecamp.rocks/>.
+Crie um aplicativo full stack em JavaScript que seja funcionalmente semelhante a este: <a href="https://stock-price-checker.freecodecamp.rocks/" target="_blank" rel="noopener noreferrer nofollow">https://stock-price-checker.freecodecamp.rocks/</a>.
 
-Como todas as APIs de preço de ações confiáveis requerem uma chave de API, criamos uma solução alternativa. Use <https://stock-price-checker-proxy.freecodecamp.rocks/> para obter informações atualizadas sobre o preço das ações sem precisar se inscrever para ter sua própria chave.
+Como todas as APIs de preço de ações confiáveis requerem uma chave de API, criamos uma solução alternativa. Use <a href="https://stock-price-checker-proxy.freecodecamp.rocks/" target="_blank" rel="noopener noreferrer nofollow">https://stock-price-checker-proxy.freecodecamp.rocks/</a> para obter informações atualizadas sobre o preço das ações sem precisar se inscrever para ter sua própria chave.
 
 Trabalhar nesse projeto vai fazer com que você escreva seu código usando um dos seguintes métodos:
 
--   Clone [este repositório do GitHub](https://github.com/freeCodeCamp/boilerplate-project-stockchecker/) e complete o projeto localmente.
--   Use [nosso projeto inicial do Replit](https://replit.com/github/freeCodeCamp/boilerplate-project-stockchecker) para completar o projeto.
+-   Clone <a href="https://github.com/freeCodeCamp/boilerplate-project-stockchecker/" target="_blank" rel="noopener noreferrer nofollow">este repositório do GitHub</a> e complete o projeto localmente.
+-   Use <a href="https://replit.com/github/freeCodeCamp/boilerplate-project-stockchecker" target="_blank" rel="noopener noreferrer nofollow">nosso projeto inicial do Replit</a> para completar o projeto.
 -   Use um construtor de site de sua escolha para completar o projeto. Certifique-se de incorporar todos os arquivos do nosso repositório no GitHub.
+
+Se você usa o Replit, siga estas etapas para configurar o projeto:
+
+-   Comece importando o projeto no Replit.
+-   Em seguida, você verá uma janela `.replit`.
+-   Selecione `Use run command` e clique no botão `Done`.
 
 Quando terminar, certifique-se de que uma demonstração funcional do seu projeto está hospedada em algum lugar público. Em seguida, envie o URL para ela no campo `Solution Link`. Como opção, envie também um link para o código-fonte do projeto no campo `GitHub Link`.
 
@@ -26,6 +32,8 @@ Quando terminar, certifique-se de que uma demonstração funcional do seu projet
 2.  Complete o projeto em `routes/api.js` ou criando um manipulador/controlador
 3.  Você adicionará todas as funcionalidades de segurança ao `server.js`
 4.  Você criará todos os testes funcionais em `tests/2_functional-tests.js`
+
+**Observação** Considerações de privacidade: devido à exigência de que apenas uma curtida por IP deve ser aceita, você terá que salvar endereços IP. É importante manter a conformidade com as leis relativas à privacidade de dados, como o Regulamento Geral para a Proteção de Dados. Uma opção é obter permissão para salvar os dados do usuário, mas é muito mais simples deixar os dados anônimos. Para este desafio, lembre-se de anonimizar endereços IP antes de salvá-los no banco de dados. Se você precisa de ideias sobre como fazer isso, você pode optar por criptografar os dados (algoritmo hash), omitir parte deles, ou definir parte do endereço IP como 0.
 
 Escreva os testes a seguir em `tests/2_functional-tests.js`:
 
@@ -62,7 +70,7 @@ async (getUserInput) => {
 };
 ```
 
-Você pode enviar uma solicitação de `GET` para `/api/stock-prices`, passando um símbolo da ação na NASDAQ para um parâmetro de consulta de `stock`. O objeto retornado conterá uma propriedade chamada `stockData`.
+Você pode enviar uma requisição do tipo `GET` para `/api/stock-prices`, passando um símbolo de ação NASDAQ para um parâmetro de consulta `stock`. O objeto retornado conterá uma propriedade chamada `stockData`.
 
 ```js
 async (getUserInput) => {
@@ -74,7 +82,7 @@ async (getUserInput) => {
 };
 ```
 
-A propriedade `stockData` inclui o símbolo de `stock` como uma string, o `price` como um número e `likes` como um número.
+A propriedade `stockData` inclui o símbolo da ação `stock` como uma string, o preço `price` como um número e o número de curtidas `likes` como um número.
 
 ```js
 async (getUserInput) => {
@@ -89,13 +97,13 @@ async (getUserInput) => {
 };
 ```
 
-Você também pode passar adiante um campo `like` como `true` (booleano) para ter sua curtida adicionada ao(s) estoque(s). Apenas 1 curtida por IP deve ser aceita.
+Você também pode passar um campo `like` como `true` (booleano) para ter sua curtida adicionada à ação. Apenas 1 curtida por IP deve ser aceita.
 
 ```js
 
 ```
 
-Se você passar 2 ações, o valor retornado será um array com informações sobre as duas. Em vez de `likes`, será exibido `rel_likes` (a diferença entre curtidas entre ambas as ações) para os dois objetos de `stockData`.
+Se você passar 2 ações, o valor retornado será um array com informações sobre as duas. Em vez do número de curtidas `likes`, será exibida a propriedade `rel_likes` (a diferença de curtidas entre ambas as ações) para os dois objetos `stockData`.
 
 ```js
 async (getUserInput) => {
@@ -110,7 +118,7 @@ async (getUserInput) => {
 };
 ```
 
-Todos os 5 testes funcionais foram concluídos e deram aprovação.
+Todos os 5 testes funcionais estão completos e passando.
 
 ```js
 async (getUserInput) => {

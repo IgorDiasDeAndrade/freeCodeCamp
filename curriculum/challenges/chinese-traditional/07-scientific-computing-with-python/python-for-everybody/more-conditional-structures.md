@@ -3,6 +3,10 @@ id: 5e7b9f060b6c005b0e76f059
 title: 更多條件結構
 challengeType: 11
 videoId: HdL82tAZR20
+bilibiliIds:
+  aid: 631930118
+  bvid: BV1Nb4y1r7z2
+  cid: 376337449
 dashedName: more-conditional-structures
 ---
 
@@ -10,9 +14,9 @@ dashedName: more-conditional-structures
 
 更多資源：
 
-\- [練習 1](https://www.youtube.com/watch?v=crLerB4ZxMI)
+\- <a href="https://www.youtube.com/watch?v=crLerB4ZxMI" target="_blank" rel="noopener noreferrer nofollow">練習 1</a>
 
-\- [練習 2](https://www.youtube.com/watch?v=KJN3-7HH6yk)
+\- <a href="https://www.youtube.com/watch?v=KJN3-7HH6yk" target="_blank" rel="noopener noreferrer nofollow">練習 2</a>
 
 # --question--
 

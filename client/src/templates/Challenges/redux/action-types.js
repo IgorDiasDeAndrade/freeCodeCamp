@@ -1,5 +1,7 @@
 import { createTypes } from '../../../utils/create-types';
 
+export const CURRENT_CHALLENGE_KEY = 'currentChallengeId';
+
 export const ns = 'challenge';
 
 export const actionTypes = createTypes(
@@ -32,13 +34,16 @@ export const actionTypes = createTypes(
     'openModal',
 
     'previewMounted',
+    'projectPreviewMounted',
+    'storePortalDocument',
+    'removePortalDocument',
     'challengeMounted',
     'checkChallenge',
     'executeChallenge',
     'resetChallenge',
+    'stopResetting',
     'submitChallenge',
-
-    'moveToTab',
+    'resetAttempts',
 
     'setEditorFocusability',
     'toggleVisibleEditor'

@@ -16,17 +16,15 @@ Se i valori confrontati hanno tipi diversi, sono considerati ineguali, e l'opera
 **Esempi**
 
 ```js
-3 ===  3
-3 === '3'
+3 ===  3  // true
+3 === '3' // false
 ```
-
-Queste condizioni restituiranno rispettivamente `true` e `false`.
 
 Nel secondo esempio, `3` è un tipo `Number` e `'3'` è un tipo `String`.
 
 # --instructions--
 
-Usa l'operatore di uguaglianza stretta nell'istruzione `if` in modo che la funzione restituisca la stringa `Equal` quando `val` è strettamente uguale a `7`
+Usa l'operatore di uguaglianza stretta nella condizione dell'`if` in modo che la funzione restituisca la stringa `Equal` quando `val` è strettamente uguale a `7`.
 
 # --hints--
 
@@ -48,7 +46,7 @@ assert(testStrict(7) === 'Equal');
 assert(testStrict('7') === 'Not Equal');
 ```
 
-È necessario utilizzare l'operatore `===`
+Dovresti usare l'operatore `===`
 
 ```js
 assert(code.match(/(val\s*===\s*\d+)|(\d+\s*===\s*val)/g).length > 0);

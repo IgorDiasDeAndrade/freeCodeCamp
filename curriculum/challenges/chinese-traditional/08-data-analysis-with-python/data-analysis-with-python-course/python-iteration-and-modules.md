@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c167
 title: Python 迭代和模塊
 challengeType: 11
 videoId: XzosGWLafrY
+bilibiliIds:
+  aid: 633068913
+  bvid: BV1db4y127M4
+  cid: 409024056
 dashedName: python-iteration-and-modules
 ---
 
@@ -12,8 +16,8 @@ dashedName: python-iteration-and-modules
 
 更多資源：
 
--   [在 GitHub 平臺的 Notebooks](https://github.com/ine-rmotr-curriculum/ds-content-python-under-10-minutes)
--   [如何使用 Google Colab 來打開 GitHub 上的 Notebooks](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/ds-content-python-under-10-minutes" target="_blank" rel="noopener noreferrer nofollow">在 GitHub 平臺的 Notebooks</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">如何使用 Google Colab 來打開 GitHub 上的 Notebooks</a>
 
 # --question--
 

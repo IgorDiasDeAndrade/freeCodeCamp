@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Grid, Col, Row } from '@freecodecamp/react-bootstrap';
 import { graphql } from 'gatsby';
 import React, { Component } from 'react';
@@ -12,10 +10,7 @@ import { createSelector } from 'reselect';
 
 import Spacer from '../../../../components/helpers/spacer';
 import LearnLayout from '../../../../components/layouts/learn';
-import {
-  ChallengeNodeType,
-  ChallengeMetaType
-} from '../../../../redux/prop-types';
+import { ChallengeNode, ChallengeMeta } from '../../../../redux/prop-types';
 import ChallengeDescription from '../../components/Challenge-Description';
 import Hotkeys from '../../components/Hotkeys';
 import ChallengeTitle from '../../components/challenge-title';
@@ -23,11 +18,11 @@ import CompletionModal from '../../components/completion-modal';
 import HelpModal from '../../components/help-modal';
 import {
   challengeMounted,
-  isChallengeCompletedSelector,
   updateChallengeMeta,
   openModal,
   updateSolutionFormValues
-} from '../../redux';
+} from '../../redux/actions';
+import { isChallengeCompletedSelector } from '../../redux/selectors';
 import { getGuideUrl } from '../../utils';
 import SolutionForm from '../solution-form';
 import ProjectToolPanel from '../tool-panel';
@@ -54,22 +49,21 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 // Types
 interface ProjectProps {
   challengeMounted: (arg0: string) => void;
-  data: { challengeNode: ChallengeNodeType };
+  data: { challengeNode: ChallengeNode };
   isChallengeCompleted: boolean;
   openCompletionModal: () => void;
   pageContext: {
-    challengeMeta: ChallengeMetaType;
+    challengeMeta: ChallengeMeta;
   };
   t: TFunction;
-  updateChallengeMeta: (arg0: ChallengeMetaType) => void;
+  updateChallengeMeta: (arg0: ChallengeMeta) => void;
   updateSolutionFormValues: () => void;
 }
 
 // Component
 class Project extends Component<ProjectProps> {
   static displayName: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _container: any;
+  private _container: HTMLElement | null = null;
 
   constructor(props: ProjectProps) {
     super(props);
@@ -79,7 +73,9 @@ class Project extends Component<ProjectProps> {
     const {
       challengeMounted,
       data: {
-        challengeNode: { title, challengeType, helpCategory }
+        challengeNode: {
+          challenge: { title, challengeType, helpCategory }
+        }
       },
       pageContext: { challengeMeta },
       updateChallengeMeta
@@ -91,19 +87,23 @@ class Project extends Component<ProjectProps> {
       helpCategory
     });
     challengeMounted(challengeMeta.id);
-    this._container.focus();
+    this._container?.focus();
   }
 
   componentDidUpdate(prevProps: ProjectProps): void {
     const {
       data: {
-        challengeNode: { title: prevTitle }
+        challengeNode: {
+          challenge: { title: prevTitle }
+        }
       }
     } = prevProps;
     const {
       challengeMounted,
       data: {
-        challengeNode: { title: currentTitle, challengeType, helpCategory }
+        challengeNode: {
+          challenge: { title: currentTitle, challengeType, helpCategory }
+        }
       },
       pageContext: { challengeMeta },
       updateChallengeMeta
@@ -120,11 +120,11 @@ class Project extends Component<ProjectProps> {
   }
 
   handleSubmit({
-    isShouldCompletionModalOpen
+    showCompletionModal
   }: {
-    isShouldCompletionModalOpen: boolean;
+    showCompletionModal: boolean;
   }): void {
-    if (isShouldCompletionModalOpen) {
+    if (showCompletionModal) {
       this.props.openCompletionModal();
     }
   }
@@ -133,14 +133,18 @@ class Project extends Component<ProjectProps> {
     const {
       data: {
         challengeNode: {
-          challengeType,
-          fields: { blockName },
-          forumTopicId,
-          title,
-          description,
-          superBlock,
-          block,
-          translationPending
+          challenge: {
+            challengeType,
+            fields: { blockName },
+            forumTopicId,
+            title,
+            description,
+            instructions,
+            superBlock,
+            certification,
+            block,
+            translationPending
+          }
         }
       },
       isChallengeCompleted,
@@ -151,7 +155,9 @@ class Project extends Component<ProjectProps> {
       updateSolutionFormValues
     } = this.props;
 
-    const blockNameTitle = `${blockName} - ${title}`;
+    const blockNameTitle = `${t(
+      `intro:${superBlock}.blocks.${block}.title`
+    )} - ${title}`;
 
     return (
       <Hotkeys
@@ -168,14 +174,15 @@ class Project extends Component<ProjectProps> {
               <Col md={8} mdOffset={2} sm={10} smOffset={1} xs={12}>
                 <Spacer />
                 <ChallengeTitle
-                  block={block}
                   isCompleted={isChallengeCompleted}
-                  superBlock={superBlock}
                   translationPending={translationPending}
                 >
                   {title}
                 </ChallengeTitle>
-                <ChallengeDescription description={description} />
+                <ChallengeDescription
+                  description={description}
+                  instructions={instructions}
+                />
                 <SolutionForm
                   challengeType={challengeType}
                   description={description}
@@ -192,9 +199,10 @@ class Project extends Component<ProjectProps> {
               <CompletionModal
                 block={block}
                 blockName={blockName}
+                certification={certification}
                 superBlock={superBlock}
               />
-              <HelpModal />
+              <HelpModal challengeTitle={title} challengeBlock={blockName} />
             </Row>
           </Grid>
         </LearnLayout>
@@ -212,18 +220,22 @@ export default connect(
 
 export const query = graphql`
   query ProjectChallenge($slug: String!) {
-    challengeNode(fields: { slug: { eq: $slug } }) {
-      forumTopicId
-      title
-      description
-      challengeType
-      helpCategory
-      superBlock
-      block
-      translationPending
-      fields {
-        blockName
-        slug
+    challengeNode(challenge: { fields: { slug: { eq: $slug } } }) {
+      challenge {
+        forumTopicId
+        title
+        description
+        instructions
+        challengeType
+        helpCategory
+        superBlock
+        certification
+        block
+        translationPending
+        fields {
+          blockName
+          slug
+        }
       }
     }
   }

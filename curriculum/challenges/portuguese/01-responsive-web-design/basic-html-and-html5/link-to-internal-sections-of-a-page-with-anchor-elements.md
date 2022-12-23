@@ -21,11 +21,11 @@ Abaixo, vemos um exemplo de um link vinculado a um elemento interno da página:
 <h2 id="contacts-header">Contacts</h2>
 ```
 
-Quando os usuários clicam no link `Contacts`, eles são levados à seção da página que contem o texto **Contacts**.
+Quando os usuários clicam no link `Contacts`, eles são levados à seção da página que contem o elemento de título **Contacts**.
 
 # --instructions--
 
-Troque o link externo por um link interno mudando o atributo `href` para o valor `"#footer"` e o texto de `cat photos` para `Jump to Bottom`.
+Troque o link externo por um link interno mudando o atributo `href` para o valor `#footer` e o texto de `cat photos` para `Jump to Bottom`.
 
 Remova o atributo `target="_blank"` da tag de âncora, pois ele faz com que o documento vinculado abra em uma nova aba do navegador.
 

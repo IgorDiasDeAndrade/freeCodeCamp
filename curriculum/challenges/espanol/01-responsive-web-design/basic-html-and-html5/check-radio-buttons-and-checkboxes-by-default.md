@@ -11,7 +11,7 @@ dashedName: check-radio-buttons-and-checkboxes-by-default
 
 Puedes hacer que una casilla de verificación o botón de radio se marque por defecto usando el atributo `checked`.
 
-Para hacer esto, simplemente agrega la palabra `checked` al interior de un elemento de entrada. Por ejemplo:
+Para hacer esto, simplemente agrega la palabra `checked` al interior de un elemento `input`. Por ejemplo:
 
 ```html
 <input type="radio" name="test-name" checked>
@@ -33,6 +33,18 @@ Tu primera casilla de verificación en tu formulario debe ser marcado por defect
 
 ```js
 assert($('input[type="checkbox"]').prop('checked'));
+```
+
+No debes cambiar el texto interno de la etiqueta `Indoor`.
+
+```js
+assert.equal(document.querySelector('label[for="indoor"]')?.innerText?.trim(), 'Indoor');
+```
+
+No debes cambiar el texto interno de la etiqueta `Loving`.
+
+```js
+assert.equal(document.querySelector('label[for="loving"]')?.innerText?.trim(), 'Loving');
 ```
 
 # --seed--

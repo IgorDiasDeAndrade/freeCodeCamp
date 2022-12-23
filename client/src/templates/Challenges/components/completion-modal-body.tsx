@@ -2,18 +2,22 @@ import BezierEasing from 'bezier-easing';
 import React, { PureComponent } from 'react';
 import { TFunction, withTranslation } from 'react-i18next';
 import GreenPass from '../../../assets/icons/green-pass';
+import { certMap } from '../../../resources/cert-and-project-map';
 
 interface CompletionModalBodyProps {
   block: string;
+  completedChallengesInBlock: number;
   completedPercent: number;
+  currentChallengeId: string;
   superBlock: string;
   t: TFunction;
+  totalChallengesInBlock: number;
 }
 
 interface CompletionModalBodyState {
   // This type was driving me nuts - seems like `NodeJS.Timeout | null;` should work
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  progressInterval: any;
+  progressInterval: number | null;
   shownPercent: number;
 }
 
@@ -45,7 +49,7 @@ export class CompletionModalBody extends PureComponent<
     const amountPerInterval = completedPercent / intervalsToFinish;
     let percent = 0;
 
-    const myInterval = setInterval(() => {
+    const myInterval = window.setInterval(() => {
       percent += amountPerInterval;
 
       if (percent > completedPercent) percent = completedPercent;
@@ -65,13 +69,28 @@ export class CompletionModalBody extends PureComponent<
   }
 
   componentWillUnmount(): void {
-    clearInterval(this.state.progressInterval);
+    if (this.state.progressInterval !== null)
+      clearInterval(this.state.progressInterval);
   }
 
   render(): JSX.Element {
-    const { block, completedPercent, superBlock, t } = this.props;
+    const {
+      block,
+      completedPercent,
+      totalChallengesInBlock,
+      completedChallengesInBlock,
+      currentChallengeId,
+      superBlock,
+      t
+    } = this.props;
     const blockTitle = t(`intro:${superBlock}.blocks.${block}.title`);
-
+    const isCertificationProject = certMap.some(cert => {
+      // @ts-expect-error If `projects` does not exist, no consequences
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      return cert.projects?.some(
+        (project: { id: string }) => project.id === currentChallengeId
+      );
+    });
     return (
       <>
         <div className='completion-challenge-details'>
@@ -87,13 +106,19 @@ export class CompletionModalBody extends PureComponent<
         </div>
         <div className='completion-block-details'>
           <div className='completion-block-name'>{blockTitle}</div>
-          <div className='progress-bar-wrap'>
-            <div className='progress-bar-background'>
+          <div
+            className='progress-bar-wrap'
+            aria-label={t('learn.percent-complete', {
+              percent: completedPercent
+            })}
+          >
+            <div className='progress-bar-background' aria-hidden='true'>
               {t('learn.percent-complete', {
                 percent: this.state.shownPercent
               })}
             </div>
             <div
+              aria-hidden='true'
               className='progress-bar-percent'
               data-testid='fcc-progress-bar-percent'
               style={{ width: `${this.state.shownPercent}%` }}
@@ -105,6 +130,14 @@ export class CompletionModalBody extends PureComponent<
               </div>
             </div>
           </div>
+          {isCertificationProject && (
+            <output>
+              {t('learn.project-complete', {
+                completedChallengesInBlock,
+                totalChallengesInBlock
+              })}
+            </output>
+          )}
         </div>
       </>
     );

@@ -11,27 +11,26 @@ dashedName: using-objects-for-lookups
 
 對象和字典一樣，可以用來存儲鍵/值對。 如果數據是扁平的，你可以用對象來查找你想要的值，而不是鏈式使用 `switch` 或 `if/else` 語句。 當你知道你的輸入數據在某個範圍時，這種查找方式極爲有效。
 
-這是簡單的反向字母表：
+這是一個文章對象的示例：
 
 ```js
-var alpha = {
-  1:"Z",
-  2:"Y",
-  3:"X",
-  4:"W",
-  ...
-  24:"C",
-  25:"B",
-  26:"A"
+const article = {
+  "title": "How to create objects in JavaScript",
+  "link": "https://www.freecodecamp.org/news/a-complete-guide-to-creating-objects-in-javascript-b0e2450655e8/",
+  "author": "Kaashan Hussain",
+  "language": "JavaScript",
+  "tags": "TECHNOLOGY",
+  "createdAt": "NOVEMBER 28, 2018"
 };
-alpha[2];
-alpha[24];
 
-var value = 2;
-alpha[value];
+const articleAuthor = article["author"];
+const articleLink = article["link"];
+
+const value = "title";
+const valueLookup = article[value];
 ```
 
-`alpha[2]` 是字符串 `Y`，`alpha[24]` 是字符串 `C`，`alpha[value]` 是字符串 `Y`。
+`articleAuthor` 是字符串 `Kaashan Hussain`，`articleLink` 是字符串 `https://www.freecodecamp.org/news/a-complete-guide-to-creating-objects-in-javascript-b0e2450655e8/`，`valueLookup` 是字符串 `How to create objects in JavaScript`。
 
 # --instructions--
 
@@ -102,7 +101,7 @@ assert(
 ```js
 // Setup
 function phoneticLookup(val) {
-  var result = "";
+  let result = "";
 
   // Only change code below this line
   switch(val) {
@@ -136,9 +135,9 @@ phoneticLookup("charlie");
 
 ```js
 function phoneticLookup(val) {
-  var result = "";
+  let result = "";
 
-  var lookup = {
+  const lookup = {
     alpha: "Adams",
     bravo: "Boston",
     charlie: "Chicago",

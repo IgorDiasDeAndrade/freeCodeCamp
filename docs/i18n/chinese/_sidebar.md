@@ -1,35 +1,43 @@
 - **准备开始**
   - [介绍](index.md "为 freeCodeCamp.org 社区贡献")
   - [常见问题](FAQ.md)
-- **代码贡献**
-  - [如何在本地系统中设置 freeCodeCamp 的编码环境](how-to-setup-freecodecamp-locally.md)
-  - [代码库最佳实践](codebase-best-practices.md)
-  - [拉取请求](how-to-open-a-pull-request.md)
-  - [参与编程挑战贡献](how-to-work-on-coding-challenges.md)
-  - [参与视频挑战贡献](how-to-help-with-video-challenges.md)
-  - [参与专栏贡献](how-to-work-on-the-news-theme.md)
-  - [参与文档贡献](how-to-work-on-the-docs-theme.md)
-  - [参与练习项目贡献](how-to-work-on-practice-projects.md)
-- **翻译贡献**
-  - [参与翻译](how-to-translate-files.md)
-  - [参与校对](how-to-proofread-files.md)
-- **可选指南**
-  - [在 Windows 上运行 freeCodeCamp（WSL）](how-to-setup-wsl.md)
-  - [添加 Cypress 测试](how-to-add-cypress-tests.md)
-  - [在本地运行客户端 web app](how-to-work-on-localized-client-webapp.md)
-  - [本地接收电子邮件](how-to-catch-outgoing-emails-locally.md)
-  - [测试本地翻译](how-to-test-translations-locally.md)
-  - [了解文件结构课程](curriculum-file-structure.md)
+  - [Reporting a Vulnerability](security.md)
+- **Translation Contribution**
+  - [Work on translating resources](how-to-translate-files.md)
+  - [Work on proofreading translations](how-to-proofread-files.md)
+- **Code Contribution**
+  - [Set up freeCodeCamp](how-to-setup-freecodecamp-locally.md)
+  - [Follow best-practices](codebase-best-practices.md)
+  - [Open a pull request](how-to-open-a-pull-request.md)
+  - [Work on Codebase](how-to-contribute-to-the-codebase.md)
+  - [Work on Coding Challenges](how-to-work-on-coding-challenges.md)
+  - [Work on Component Library](how-to-work-on-the-component-library.md)
+  - [Work on Practice Projects](how-to-work-on-practice-projects.md)
+  - [Work on Mobile app](how-to-setup-freecodecamp-mobile-app-locally.md)
+  - [Work on tutorials with CodeRoad](how-to-work-on-tutorials-that-use-coderoad.md)
+  - [Work on Localized Web App](how-to-work-on-localized-client-webapp.md)
+  - [Work on Cypress tests](how-to-add-cypress-tests.md)
+  - [Work on Video Challenges](how-to-help-with-video-challenges.md)
+  - [Work on Documentation](how-to-work-on-the-docs-theme.md)
+- **Additional Guides**
+  - [Understand the curriculum file structure](curriculum-file-structure.md)
+  - [Debug outgoing emails locally](how-to-catch-outgoing-emails-locally.md)
+  - [Set up freeCodeCamp on Windows (WSL)](how-to-setup-wsl.md)
+  - [User Token Workflow](user-token-workflow.md)
+  - [Troubleshooting Development Issues](troubleshooting-development-issues.md)
 
 ---
 
 - **飞行手册**（针对员工  &  维护人员）
   - [维护人员手册](moderator-handbook.md)
-  - [DevOps 手册](devops.md)
+  - [Language Lead Handbook](language-lead-handbook.md)
+  - [DevOps Handbook](devops.md)
+  - [Courses VSCode Extension](courses-vscode-extension.md)
+  - [Enable New Language](how-to-enable-new-languages.md)
 
 ---
 
 - **我们的社区**
   - [**GitHub**](https://github.com/freecodecamp/freecodecamp)
   - [**Discourse 论坛**](https://freecodecamp.org/forum/c/contributors)
-  - [**聊天室**](https://chat.freecodecamp.org/home)
+  - [**聊天室**](https://discord.gg/PRyKn3Vbay)

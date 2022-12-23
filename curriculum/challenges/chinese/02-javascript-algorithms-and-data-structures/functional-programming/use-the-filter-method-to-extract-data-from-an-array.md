@@ -10,7 +10,7 @@ dashedName: use-the-filter-method-to-extract-data-from-an-array
 
 另一个有用的数组方法是 `filter()`（即 `Array.prototype.filter()`）。
 
-`filter` 接收一个回调函数，将回调函数内的逻辑应用于数组的每个元素，新数组包含根据回调函数内条件返回 `true` 的元素。 换言之，它根据传递给它的函数过滤数组。  和 `map` 一样，filter 不会改变原始数组。
+`filter` 在一个数组的每个元素上调用一个函数，并返回一个新的数组，其中只包含该函数返回一个真值的元素，也就是说，一个被传递给 `Boolean()` 构造函数后返回 `true` 的值。 换言之，它根据传递给它的函数过滤数组。  和 `map` 一样，filter 不会改变原始数组。
 
 回调函数接收三个参数。 第一个参数是当前正在被处理的元素。 第二个参数是这个元素的索引，第三个参数是在其上调用 `filter` 方法的数组。
 
@@ -55,7 +55,7 @@ assert(code.match(/\s*\.\s*filter/g));
 assert(!code.match(/for\s*?\([\s\S]*?\)/g));
 ```
 
-`filteredList` 应等于 `[{"title": "Inception","rating": "8.8"},{"title": "Interstellar","rating": "8.6"},{"title": "The Dark Knight","rating": "9.0"},{"title": "Batman Begins","rating": "8.3"}]`。
+`filteredList` 应该等于 `[{"title": "Inception", "rating": "8.8"}, {"title": "Interstellar", "rating": "8.6"}, {"title": "The Dark Knight", "rating": "9.0"}, {"title": "Batman Begins", "rating": "8.3"}]`。
 
 ```js
 assert.deepEqual(filteredList, [
@@ -72,7 +72,7 @@ assert.deepEqual(filteredList, [
 
 ```js
 // The global variable
-var watchList = [
+const watchList = [
   {
     "Title": "Inception",
     "Year": "2010",
@@ -187,7 +187,7 @@ var watchList = [
 
 // Only change code below this line
 
-var filteredList;
+const filteredList = "";
 
 // Only change code above this line
 
@@ -197,8 +197,7 @@ console.log(filteredList);
 # --solutions--
 
 ```js
-// The global variable
-var watchList = [
+const watchList = [
   {
     "Title": "Inception",
     "Year": "2010",
@@ -311,7 +310,5 @@ var watchList = [
   }
 ];
 
-// Only change code below this line
-let filteredList = watchList.filter(e => e.imdbRating >= 8).map( ({Title: title, imdbRating: rating}) => ({title, rating}) );
-// Only change code above this line
+const filteredList = watchList.filter(e => e.imdbRating >= 8).map( ({Title: title, imdbRating: rating}) => ({title, rating}) );
 ```

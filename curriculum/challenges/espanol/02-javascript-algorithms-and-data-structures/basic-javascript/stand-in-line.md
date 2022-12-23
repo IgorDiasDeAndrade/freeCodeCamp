@@ -11,6 +11,8 @@ dashedName: stand-in-line
 
 En Informática una <dfn>cola</dfn> (queue) es una estructura de datos <dfn>abstracta</dfn> donde los elementos se mantienen en orden. Los nuevos elementos se pueden añadir en la parte posterior de la cola y los elementos antiguos se retiran de la parte delantera de la cola.
 
+# --instructions--
+
 Escribe una función `nextInLine` que tome un arreglo (`arr`) y un número (`item`) como argumentos.
 
 Agrega el número al final del arreglo, luego elimina el primer elemento del arreglo.
@@ -93,12 +95,10 @@ function nextInLine(arr, item) {
 
   return item;
   // Only change code above this line
-
-
 }
 
 // Setup
-var testArr = [1,2,3,4,5];
+let testArr = [1, 2, 3, 4, 5];
 
 // Display code
 console.log("Before: " + JSON.stringify(testArr));
@@ -109,7 +109,7 @@ console.log("After: " + JSON.stringify(testArr));
 # --solutions--
 
 ```js
-var testArr = [ 1,2,3,4,5];
+let testArr = [1, 2, 3, 4, 5];
 
 function nextInLine(arr, item) {
     arr.push(item);

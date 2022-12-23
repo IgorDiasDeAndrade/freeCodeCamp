@@ -43,14 +43,13 @@ const testEvaluator =
 const { getLines } = require('../../utils/get-lines');
 const { isAuditedCert } = require('../../utils/is-audited');
 
-const { toSortedArray } = require('../../utils/sort-files');
 const {
   getChallengesForLang,
   getMetaForBlock,
   getTranslatableComments
 } = require('../getChallenges');
 const { challengeSchemaValidator } = require('../schema/challengeSchema');
-const { testedLang } = require('../utils');
+const { testedLang, getSuperOrder } = require('../utils');
 const ChallengeTitles = require('./utils/challengeTitles');
 const MongoIds = require('./utils/mongoIds');
 const createPseudoWorker = require('./utils/pseudo-worker');
@@ -73,6 +72,14 @@ const { flatten, isEmpty, cloneDeep, isEqual } = lodash;
 
 // rethrow unhandled rejections to make sure the tests exit with -1
 process.on('unhandledRejection', err => handleRejection(err));
+// If an uncaught exception gets here, then mocha is in an unexpected state. All
+// we can do is log the exception and exit with a non-zero code.
+process.on('uncaughtException', err => {
+  console.error('Uncaught exception:', err.message);
+  console.error(err.stack);
+  // eslint-disable-next-line no-process-exit
+  process.exit(1);
+});
 
 const handleRejection = err => {
   // setting the error code because node does not (yet) exit with a non-zero
@@ -161,8 +168,10 @@ async function setup() {
   // as they appear in the list of challenges
   const blocks = challenges.map(({ block }) => block);
   const superBlocks = challenges.map(({ superBlock }) => superBlock);
-  const targetBlockStrings = [...new Set(blocks)];
-  const targetSuperBlockStrings = [...new Set(superBlocks)];
+  const targetBlockStrings = [...new Set(blocks.filter(el => Boolean(el)))];
+  const targetSuperBlockStrings = [
+    ...new Set(superBlocks.filter(el => Boolean(el)))
+  ];
 
   // the next few statements will filter challenges based on command variables
   if (process.env.npm_config_superblock) {
@@ -198,10 +207,11 @@ async function setup() {
   const meta = {};
   for (const challenge of challenges) {
     const dashedBlockName = challenge.block;
-    if (!meta[dashedBlockName]) {
-      meta[dashedBlockName] = (
-        await getMetaForBlock(dashedBlockName)
-      ).challengeOrder;
+    // certifications do not have dashedBlockName's and don't have metas so
+    // we can skip them.
+    // TODO: omit certifications from the list of challenges
+    if (dashedBlockName && !meta[dashedBlockName]) {
+      meta[dashedBlockName] = await getMetaForBlock(dashedBlockName);
     }
   }
   return {
@@ -253,22 +263,71 @@ function populateTestsForLang({ lang, challenges, meta }) {
   const challengeTitles = new ChallengeTitles();
   const validateChallenge = challengeSchemaValidator();
 
+  if (!process.env.npm_config_block) {
+    describe('Assert meta order', function () {
+      /** This array can be used to skip a superblock - we'll use this
+       * when we are working on the new project-based curriculum for
+       * a superblock (because keeping those challenges in order is
+       * tricky and needs cleaning up before deploying).
+       */
+      const superBlocksUnderDevelopment = [
+        '2022/javascript-algorithms-and-data-structures'
+      ];
+      const superBlocks = new Set([
+        ...Object.values(meta)
+          .map(el => el.superBlock)
+          .filter(el => !superBlocksUnderDevelopment.includes(el))
+      ]);
+      superBlocks.forEach(superBlock => {
+        const filteredMeta = Object.values(meta)
+          .filter(el => el.superBlock === superBlock)
+          .sort((a, b) => a.order - b.order);
+        if (!filteredMeta.length) {
+          return;
+        }
+        it(`${superBlock} should have the same order in every meta`, function () {
+          const firstOrder = getSuperOrder(filteredMeta[0].superBlock, {
+            showNewCurriculum: process.env.SHOW_NEW_CURRICULUM
+          });
+          assert.isNumber(firstOrder);
+          assert.isTrue(
+            filteredMeta.every(
+              el =>
+                getSuperOrder(el.superBlock, {
+                  showNewCurriculum: process.env.SHOW_NEW_CURRICULUM
+                }) === firstOrder
+            ),
+            'The superOrder properties are mismatched.'
+          );
+        });
+        filteredMeta.forEach((meta, index) => {
+          it(`${meta.superBlock} ${meta.name} must be in order`, function () {
+            assert.equal(meta.order, index);
+          });
+        });
+      });
+    });
+  }
+
   describe(`Check challenges (${lang})`, function () {
     this.timeout(5000);
     challenges.forEach((challenge, id) => {
       const dashedBlockName = challenge.block;
+      // TODO: once certifications are not included in the list of challenges,
+      // stop returning early here.
+      if (typeof dashedBlockName === 'undefined') return;
       describe(challenge.block || 'No block', function () {
         describe(challenge.title || 'No title', function () {
           // Note: the title in meta.json are purely for human readability and
           // do not include translations, so we do not validate against them.
           it('Matches an ID in meta.json', function () {
-            const index = meta[dashedBlockName].findIndex(
+            const index = meta[dashedBlockName]?.challengeOrder?.findIndex(
               arr => arr[0] === challenge.id
             );
 
             if (index < 0) {
               throw new AssertionError(
-                `Cannot find ID "${challenge.id}" in meta.json file`
+                `Cannot find ID "${challenge.id}" in meta.json file for block "${dashedBlockName}"`
               );
             }
           });
@@ -315,11 +374,14 @@ function populateTestsForLang({ lang, challenges, meta }) {
             //   currently have the text of a comment elsewhere. If that happens
             //   we can handle that challenge separately.
             TRANSLATABLE_COMMENTS.forEach(comment => {
+              const errorText = `English comment '${comment}' should be replaced with its translation`;
               challenge.challengeFiles.forEach(challengeFile => {
                 if (challengeFile.contents.includes(comment))
-                  throw Error(
-                    `English comment '${comment}' should be replaced with its translation`
-                  );
+                  if (process.env.SHOW_UPCOMING_CHANGES == 'true') {
+                    console.warn(errorText);
+                  } else {
+                    throw Error(errorText);
+                  }
               });
             });
 
@@ -347,17 +409,22 @@ function populateTestsForLang({ lang, challenges, meta }) {
                 );
               }
 
-              // Then we compare the number of times each comment appears in the
-              // translated text (commentMap) with the number of replacements
-              // made during translation (challenge.__commentCounts). If they
-              // differ, the translation must have gone wrong
+              /*
+               * Then we compare the number of times each comment appears in the
+               * translated text (commentMap) with the number of replacements
+               * made during translation (challenge.__commentCounts). If they
+               * differ, the translation must have gone wrong
+               */
 
               const commentMap = new Map(Object.entries(comments));
 
               if (isEmpty(challenge.__commentCounts) && isEmpty(commentMap))
                 return;
 
-              if (!isEqual(commentMap, challenge.__commentCounts))
+              if (
+                process.env.SHOW_NEW_CURRICULUM !== 'true' &&
+                !isEqual(commentMap, challenge.__commentCounts)
+              )
                 throw Error(`Mismatch in ${challenge.title}. Replaced comments:
 ${inspect(challenge.__commentCounts)}
 Comments in translated text:
@@ -370,7 +437,7 @@ ${inspect(commentMap)}
           if (
             challengeType !== challengeTypes.html &&
             challengeType !== challengeTypes.js &&
-            challengeType !== challengeTypes.bonfire &&
+            challengeType !== challengeTypes.jsProject &&
             challengeType !== challengeTypes.modern &&
             challengeType !== challengeTypes.backend
           ) {
@@ -399,7 +466,7 @@ ${inspect(commentMap)}
 
           const buildChallenge =
             challengeType === challengeTypes.js ||
-            challengeType === challengeTypes.bonfire
+            challengeType === challengeTypes.jsProject
               ? buildJSChallenge
               : buildDOMChallenge;
 
@@ -449,31 +516,33 @@ ${inspect(commentMap)}
             // This is expected to happen in the project based curriculum.
 
             const nextChallenge = challenges[id + 1];
-            // TODO: can this be dried out, ideally by removing the redux
-            // handler?
+
             if (nextChallenge) {
               const solutionFiles = cloneDeep(nextChallenge.challengeFiles);
-              solutionFiles.forEach(challengeFile => {
-                challengeFile.editableContents = getLines(
-                  challengeFile.contents,
-                  challenge.challengeFiles.find(
-                    x => x.fileKey === challengeFile.fileKey
-                  ).editableRegionBoundaries
-                );
-              });
-              solutions = [solutionFiles];
+              const solutionFilesWithEditableContents = solutionFiles.map(
+                file => ({
+                  ...file,
+                  editableContents: getLines(
+                    file.contents,
+                    file.editableRegionBoundaries
+                  )
+                })
+              );
+              // Since there is only one seed, there can only be one solution,
+              // but the tests assume solutions is an array.
+              solutions = [solutionFilesWithEditableContents];
               solutionFromNext = true;
             } else {
-              throw Error('solution omitted');
+              throw Error(
+                `solution omitted for ${challenge.superBlock} ${challenge.block} ${challenge.title}`
+              );
             }
           }
 
           // TODO: the no-solution filtering is a little convoluted:
           const noSolution = new RegExp('// solution required');
 
-          const solutionsAsArrays = solutions.map(toSortedArray);
-
-          const filteredSolutions = solutionsAsArrays.filter(solution => {
+          const filteredSolutions = solutions.filter(solution => {
             return !isEmpty(
               solution.filter(
                 challengeFile => !noSolution.test(challengeFile.contents)
@@ -517,21 +586,20 @@ async function createTestRunner(
   solutionFromNext
 ) {
   const { required = [], template, removeComments } = challenge;
-  // we should avoid modifying challenge, as it gets reused:
-  const challengeFiles = cloneDeep(challenge.challengeFiles);
-  solutionFiles.forEach(solutionFile => {
-    const challengeFile = challengeFiles.find(
-      x => x.fileKey === solutionFile.fileKey
-    );
-    challengeFile.contents = solutionFile.contents;
-    challengeFile.editableContents = solutionFile.editableContents;
-  });
 
-  const { build, sources, loadEnzyme } = await buildChallenge({
-    challengeFiles,
-    required,
-    template
-  });
+  const challengeFiles = replaceChallengeFilesContentsWithSolutions(
+    challenge.challengeFiles,
+    solutionFiles
+  );
+
+  const { build, sources, loadEnzyme } = await buildChallenge(
+    {
+      challengeFiles,
+      required,
+      template
+    },
+    { usesTestRunner: true }
+  );
 
   const code = {
     contents: sources.index,
@@ -563,6 +631,25 @@ async function createTestRunner(
       throw err;
     }
   };
+}
+
+function replaceChallengeFilesContentsWithSolutions(
+  challengeFiles,
+  solutionFiles
+) {
+  return challengeFiles.map(file => {
+    const matchingSolutionFile = solutionFiles.find(
+      ({ ext, name }) => ext === file.ext && file.name === name
+    );
+    if (!matchingSolutionFile) {
+      throw Error(`No matching solution file found`);
+    }
+    return {
+      ...file,
+      contents: matchingSolutionFile.contents,
+      editableContents: matchingSolutionFile.editableContents
+    };
+  });
 }
 
 async function getContextEvaluator(build, sources, code, loadEnzyme) {
@@ -598,7 +685,11 @@ async function initializeTestRunner(build, sources, code, loadEnzyme) {
   await page.evaluate(
     async (code, sources, loadEnzyme) => {
       const getUserInput = fileName => sources[fileName];
-      await document.__initTestFrame({ code, getUserInput, loadEnzyme });
+      await document.__initTestFrame({
+        code: sources,
+        getUserInput,
+        loadEnzyme
+      });
     },
     code,
     sources,

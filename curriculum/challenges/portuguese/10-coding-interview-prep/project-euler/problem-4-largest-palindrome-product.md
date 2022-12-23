@@ -1,7 +1,7 @@
 ---
 id: 5900f3701000cf542c50fe83
 title: 'Problema 4: Maior palíndromo de um produto'
-challengeType: 5
+challengeType: 1
 forumTopicId: 302065
 dashedName: problem-4-largest-palindrome-product
 ---
@@ -10,7 +10,7 @@ dashedName: problem-4-largest-palindrome-product
 
 Um número palíndromo é aquele que pode ser lido da esquerda para a direita e vice-versa. O maior palíndromo feito a partir do produto de dois algarismos é 9009 = 91 × 99.
 
-Encontre o maior palíndromo feito a partir do produto de dois números de `n` dígitos.
+Encontre o maior palíndromo feito a partir do produto de dois números de `n` algarismos.
 
 # --hints--
 

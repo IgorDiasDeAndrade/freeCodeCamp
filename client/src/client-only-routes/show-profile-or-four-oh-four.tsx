@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { isBrowser } from '../../utils/index';
 import FourOhFour from '../components/FourOhFour';
 import Loader from '../components/helpers/loader';
-import Profile from '../components/profile/Profile';
+import Profile from '../components/profile/profile';
+import { fetchProfileForUser } from '../redux/actions';
 import {
+  usernameSelector,
   userByNameSelector,
-  userProfileFetchStateSelector,
-  fetchProfileForUser,
-  usernameSelector
-} from '../redux';
-import { UserType } from '../redux/prop-types';
+  userProfileFetchStateSelector
+} from '../redux/selectors';
+import { User } from '../redux/prop-types';
 
-interface IShowProfileOrFourOhFourProps {
+interface ShowProfileOrFourOhFourProps {
   fetchProfileForUser: (username: string) => void;
   fetchState: {
     pending: boolean;
@@ -23,31 +23,28 @@ interface IShowProfileOrFourOhFourProps {
   };
   isSessionUser: boolean;
   maybeUser: string;
-  requestedUser: UserType;
+  requestedUser: User;
   showLoading: boolean;
 }
 
 const createRequestedUserSelector =
   () =>
   (state: unknown, { maybeUser = '' }) =>
-    userByNameSelector(maybeUser.toLowerCase())(state) as string;
+    userByNameSelector(maybeUser.toLowerCase())(state) as User;
 const createIsSessionUserSelector =
   () =>
   (state: unknown, { maybeUser = '' }) =>
     maybeUser.toLowerCase() === usernameSelector(state);
 
 const makeMapStateToProps =
-  () => (state: unknown, props: IShowProfileOrFourOhFourProps) => {
+  () => (state: unknown, props: ShowProfileOrFourOhFourProps) => {
     const requestedUserSelector = createRequestedUserSelector();
     const isSessionUserSelector = createIsSessionUserSelector();
     const fetchState = userProfileFetchStateSelector(
       state
-    ) as IShowProfileOrFourOhFourProps['fetchState'];
+    ) as ShowProfileOrFourOhFourProps['fetchState'];
     return {
-      requestedUser: requestedUserSelector(
-        state,
-        props
-      ) as IShowProfileOrFourOhFourProps['requestedUser'],
+      requestedUser: requestedUserSelector(state, props),
       isSessionUser: isSessionUserSelector(state, props),
       showLoading: fetchState.pending,
       fetchState
@@ -55,12 +52,12 @@ const makeMapStateToProps =
   };
 
 const mapDispatchToProps: {
-  fetchProfileForUser: IShowProfileOrFourOhFourProps['fetchProfileForUser'];
+  fetchProfileForUser: ShowProfileOrFourOhFourProps['fetchProfileForUser'];
 } = {
   fetchProfileForUser
 };
 
-class ShowProfileOrFourOhFour extends Component<IShowProfileOrFourOhFourProps> {
+class ShowProfileOrFourOhFour extends Component<ShowProfileOrFourOhFourProps> {
   componentDidMount() {
     const { requestedUser, maybeUser, fetchProfileForUser } = this.props;
     if (isEmpty(requestedUser)) {
@@ -88,15 +85,9 @@ class ShowProfileOrFourOhFour extends Component<IShowProfileOrFourOhFourProps> {
 
     // We have a response from the API, and we have some state in the
     // store for /:maybeUser, we now handover rendering to the Profile component
-    // eslint-disable-next-line
-    // @ts-ignore TODO: sort out whether user.portfolio is an array or obj. lit.
     return <Profile isSessionUser={isSessionUser} user={requestedUser} />;
   }
 }
-
-// eslint-disable-next-line
-// @ts-ignore
-ShowProfileOrFourOhFour.displayName = 'ShowProfileOrFourOhFour';
 
 export default connect(
   makeMapStateToProps,

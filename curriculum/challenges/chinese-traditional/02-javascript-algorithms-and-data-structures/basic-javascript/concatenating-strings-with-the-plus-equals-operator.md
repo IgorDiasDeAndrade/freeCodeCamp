@@ -16,7 +16,7 @@ dashedName: concatenating-strings-with-the-plus-equals-operator
 例如：
 
 ```js
-var ourStr = "I come first. ";
+let ourStr = "I come first. ";
 ourStr += "I come second.";
 ```
 
@@ -27,6 +27,12 @@ ourStr += "I come second.";
 使用 `+=` 操作符，多行合併字符串 `This is the first sentence.` 和 `This is the second sentence.` ，並賦值給 `myStr` 。 參照示例中顯示的方式使用 `+=` 操作符，並確保在兩個字符串之間包含一個空格。 先把第一個字符串賦值給 `myStr`，然後拼接第二個字符串。
 
 # --hints--
+
+`myStr` 應該在兩個字符串之間有一個空格字符。
+
+```js
+assert(/sentence\. This/.test(myStr));
+```
 
 `myStr` 的值應該是字符串 `This is the first sentence. This is the second sentence.`
 
@@ -57,14 +63,12 @@ assert(code.match(/myStr\s*\+=\s*(["']).*\1/g));
 ## --seed-contents--
 
 ```js
-// Only change code below this line
-
-var myStr;
+let myStr;
 ```
 
 # --solutions--
 
 ```js
-var myStr = "This is the first sentence. ";
+let myStr = "This is the first sentence. ";
 myStr += "This is the second sentence.";
 ```

@@ -1,50 +1,57 @@
 import { navigate } from 'gatsby';
+import { omit } from 'lodash-es';
 import { ofType } from 'redux-observable';
-import { of, empty } from 'rxjs';
-import {
-  switchMap,
-  retry,
-  catchError,
-  concat,
-  filter,
-  finalize
-} from 'rxjs/operators';
+import { empty, of } from 'rxjs';
+import { catchError, concat, retry, switchMap, tap } from 'rxjs/operators';
 
 import { challengeTypes, submitTypes } from '../../../../utils/challenge-types';
+import { actionTypes as submitActionTypes } from '../../../redux/action-types';
 import {
-  userSelector,
-  isSignedInSelector,
   submitComplete,
   updateComplete,
-  updateFailed,
-  usernameSelector
-} from '../../../redux';
-
-import { getVerifyCanClaimCert } from '../../../utils/ajax';
-import postUpdate$ from '../utils/postUpdate$';
+  updateFailed
+} from '../../../redux/actions';
+import { isSignedInSelector, userSelector } from '../../../redux/selectors';
+import { mapFilesToChallengeFiles } from '../../../utils/ajax';
+import { standardizeRequestBody } from '../../../utils/challenge-request-helpers';
+import postUpdate$ from '../utils/post-update';
 import { actionTypes } from './action-types';
+import { closeModal, updateSolutionFormValues } from './actions';
 import {
-  projectFormValuesSelector,
+  challengeFilesSelector,
   challengeMetaSelector,
   challengeTestsSelector,
-  closeModal,
-  challengeFilesSelector,
-  updateSolutionFormValues
-} from './';
+  projectFormValuesSelector
+} from './selectors';
 
 function postChallenge(update, username) {
   const saveChallenge = postUpdate$(update).pipe(
     retry(3),
-    switchMap(({ points }) =>
-      of(
+    switchMap(({ data }) => {
+      const { savedChallenges, points } = data;
+      const payloadWithClientProperties = {
+        ...omit(update.payload, ['files'])
+      };
+      if (update.payload.files) {
+        payloadWithClientProperties.challengeFiles = update.payload.files.map(
+          ({ key, ...rest }) => ({
+            ...rest,
+            fileKey: key
+          })
+        );
+      }
+      return of(
         submitComplete({
-          username,
-          points,
-          ...update.payload
+          submittedChallenge: {
+            username,
+            points,
+            ...payloadWithClientProperties
+          },
+          savedChallenges: mapFilesToChallengeFiles(savedChallenges)
         }),
         updateComplete()
-      )
-    ),
+      );
+    }),
     catchError(() => of(updateFailed(update)))
   );
   return saveChallenge;
@@ -62,19 +69,26 @@ function submitModern(type, state) {
     }
 
     if (type === actionTypes.submitChallenge) {
-      const { id } = challengeMetaSelector(state);
+      const { id, block } = challengeMetaSelector(state);
       const challengeFiles = challengeFilesSelector(state);
       const { username } = userSelector(state);
-      const challengeInfo = {
-        id,
-        files: challengeFiles.reduce(
-          (acc, { fileKey, ...curr }) => [...acc, { ...curr, key: fileKey }],
-          []
-        )
-      };
+
+      let body;
+      if (
+        block === 'javascript-algorithms-and-data-structures-projects' ||
+        challengeType === challengeTypes.multifileCertProject
+      ) {
+        body = standardizeRequestBody({ id, challengeType, challengeFiles });
+      } else {
+        body = {
+          id,
+          challengeType
+        };
+      }
+
       const update = {
         endpoint: '/modern-challenge-completed',
-        payload: challengeInfo
+        payload: body
       };
       return postChallenge(update, username);
     }
@@ -139,7 +153,6 @@ export default function completionEpic(action$, state$) {
       const state = state$.value;
       const meta = challengeMetaSelector(state);
       const { nextChallengePath, challengeType, superBlock } = meta;
-      const closeChallengeModal = of(closeModal('completion'));
 
       let submitter = () => of({ type: 'no-user-signed-in' });
       if (
@@ -155,55 +168,26 @@ export default function completionEpic(action$, state$) {
         submitter = submitters[submitTypes[challengeType]];
       }
 
-      const pathToNavigateTo = async () => {
-        return await findPathToNavigateTo(
-          nextChallengePath,
-          superBlock,
-          state,
-          challengeType
-        );
+      const pathToNavigateTo = () => {
+        return findPathToNavigateTo(nextChallengePath, superBlock);
       };
 
       return submitter(type, state).pipe(
-        concat(closeChallengeModal),
-        filter(Boolean),
-        finalize(async () => navigate(await pathToNavigateTo()))
+        tap(res => {
+          if (res.type !== submitActionTypes.updateFailed) {
+            navigate(pathToNavigateTo());
+          }
+        }),
+        concat(of(closeModal('completion')))
       );
     })
   );
 }
 
-async function findPathToNavigateTo(
-  nextChallengePath,
-  superBlock,
-  state,
-  challengeType
-) {
-  let canClaimCert = false;
-  const isProjectSubmission = [
-    challengeTypes.frontEndProject,
-    challengeTypes.backEndProject,
-    challengeTypes.pythonProject
-  ].includes(challengeType);
-  if (isProjectSubmission) {
-    const username = usernameSelector(state);
-    try {
-      const response = await getVerifyCanClaimCert(username, superBlock);
-      if (response.status === 200) {
-        canClaimCert = response.data?.response?.message === 'can-claim-cert';
-      }
-    } catch (err) {
-      console.error('failed to verify if user can claim certificate', err);
-    }
-  }
-  let pathToNavigateTo;
-
-  if (nextChallengePath.includes(superBlock) && !canClaimCert) {
-    pathToNavigateTo = nextChallengePath;
-  } else if (canClaimCert) {
-    pathToNavigateTo = `/learn/${superBlock}/#claim-cert-block`;
+function findPathToNavigateTo(nextChallengePath, superBlock) {
+  if (nextChallengePath.includes(superBlock)) {
+    return nextChallengePath;
   } else {
-    pathToNavigateTo = `/learn/${superBlock}/#${superBlock}-projects`;
+    return `/learn/${superBlock}/#${superBlock}-projects`;
   }
-  return pathToNavigateTo;
 }

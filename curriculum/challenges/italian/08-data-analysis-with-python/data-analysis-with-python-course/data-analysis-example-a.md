@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c14d
 title: Esempio A di analisi dei dati
 challengeType: 11
 videoId: nVAaxZ34khk
+bilibiliIds:
+  aid: 590571151
+  bvid: BV1sq4y1f7gr
+  cid: 409002372
 dashedName: data-analysis-example-a
 ---
 
@@ -12,8 +16,8 @@ dashedName: data-analysis-example-a
 
 Altre risorse:
 
--   [Notebook su GitHub](https://github.com/ine-rmotr-curriculum/FreeCodeCamp-Pandas-Real-Life-Example)
--   [Come aprire Notebooks da GitHub usando Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/FreeCodeCamp-Pandas-Real-Life-Example" target="_blank" rel="noopener noreferrer nofollow">Notebook su GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Come aprire Notebooks da GitHub usando Google Colab.</a>
 
 # --question--
 

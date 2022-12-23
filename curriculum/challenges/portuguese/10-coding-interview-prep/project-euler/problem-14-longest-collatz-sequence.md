@@ -1,7 +1,7 @@
 ---
 id: 5900f37a1000cf542c50fe8d
 title: 'Problema 14: Maior conjectura de Collatz'
-challengeType: 5
+challengeType: 1
 forumTopicId: 301768
 dashedName: problem-14-longest-collatz-sequence
 ---
@@ -22,7 +22,7 @@ Podemos ver que essa sequência (começando em 13 e terminando em 1) contém 10 
 
 Qual número inicial, sob o `limit` (limite) definido, produz a sequência mais longa?
 
-**Observação:** uma vez iniciada, os termos na sequência podem passar de um milhão.
+**Observação:** uma vez iniciada, os termos na sequência podem passar acima do `limit`.
 
 # --hints--
 

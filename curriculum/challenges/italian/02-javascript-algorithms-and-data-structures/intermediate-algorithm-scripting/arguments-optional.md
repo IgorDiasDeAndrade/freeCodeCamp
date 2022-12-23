@@ -1,7 +1,7 @@
 ---
 id: a97fd23d9b809dac9921074f
 title: Argomenti facoltativi
-challengeType: 5
+challengeType: 1
 forumTopicId: 14271
 dashedName: arguments-optional
 ---
@@ -42,10 +42,10 @@ assert.deepEqual(addTogether(23, 30), 53);
 assert.deepEqual(addTogether(5)(7), 12);
 ```
 
-`addTogether("http://bit.ly/IqT6zt")` dovrebbe restituire `undefined`.
+`addTogether("https://www.youtube.com/watch?v=dQw4w9WgXcQ")` dovrebbe restituire `undefined`.
 
 ```js
-assert.isUndefined(addTogether('http://bit.ly/IqT6zt'));
+assert.isUndefined(addTogether('https://www.youtube.com/watch?v=dQw4w9WgXcQ'));
 ```
 
 `addTogether(2, "3")` dovrebbe restituire `undefined`.
@@ -58,6 +58,18 @@ assert.isUndefined(addTogether(2, '3'));
 
 ```js
 assert.isUndefined(addTogether(2)([3]));
+```
+
+`addTogether("2", 3)` dovrebbe restituire `undefined`.
+
+```js
+assert.isUndefined(addTogether('2', 3));
+```
+
+`addTogether(5, undefined)` dovrebbe restituire `undefined`.
+
+```js
+assert.isUndefined(addTogether(5, undefined));
 ```
 
 # --seed--

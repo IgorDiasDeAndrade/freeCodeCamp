@@ -8,13 +8,15 @@ export const csrfOptions = {
 
 export default function getCsurf() {
   const protection = csurf({
-    cookie: csrfOptions
+    cookie: { ...csrfOptions, httpOnly: true }
   });
   return function csrf(req, res, next) {
     const { path } = req;
     if (
       // eslint-disable-next-line max-len
-      /^\/hooks\/update-paypal$|^\/donate\/charge-stripe$/.test(path)
+      /^\/hooks\/update-paypal$|^\/donate\/charge-stripe$|^\/coderoad-challenge-completed$/.test(
+        path
+      )
     ) {
       next();
     } else {

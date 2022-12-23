@@ -181,10 +181,10 @@ Atualmente uma versão pública de testes beta está disponível em:
 |:--------- |:--------- |:---------------------------------------- |
 | Aprenda   | Inglês    | <https://www.freecodecamp.dev>           |
 |           | Espanhol  | <https://www.freecodecamp.dev/espanol>   |
-|           | Chinês    | <https://chinese.freecodecamp.dev>       |
+|           | Chinês    | <https://www.freecodecamp.dev/chinese>   |
 | Novidades | Inglês    | <https://www.freecodecamp.dev/news>      |
 | Fórum     | Inglês    | <https://forum.freecodecamp.dev>         |
-|           | Chinês    | <https://chinese.freecodecamp.dev/forum> |
+|           | Chinês    | <https://freecodecamp.dev/chinese/forum> |
 | API       | -         | `https://api.freecodecamp.dev`           |
 
 > [!NOTE] O nome do domínio é diferente de **`freeCodeCamp.org`**. Isso é intencional para evitar que ferramentas de busca indexem e evitar confusões da parte dos usuários regulares da plataforma.
@@ -197,7 +197,7 @@ Atualmente uma versão pública de testes beta está disponível em:
 
 O time de desenvolvimento faz o merge nas mudanças da branch `prod-staging` para `prod-current` quando lançam mudanças. O commit principal deve ser o que você vê no site.
 
-Você pode identificar a versão exata implantada visitando os registros de compilação e implantação disponíveis na seção de estado. Alternativamente, você também pode entrar em contato na [sala de bate-papo dos contribuidores](https://chat.freecodecamp.org/channel/contributors).
+Você pode identificar a versão exata implantada visitando os registros de compilação e implantação disponíveis na seção de estado. Alternativamente, você também pode entrar em contato na [sala de bate-papo dos contribuidores](https://discord.gg/PRyKn3Vbay).
 
 ### Limitações conhecidas
 
@@ -432,7 +432,7 @@ Provisionando MVs com o código
 2. Atualize o `npm` instale o PM2 e a configuração `logrotate` e inicie no boot
 
    ```console
-   npm i -g npm@6
+   npm i -g npm@8
    npm i -g pm2
    pm2 install pm2-logrotate
    pm2 startup
@@ -459,14 +459,14 @@ Provisionando MVs com o código
 7. Compile o servidor
 
    ```console
-   npm run ensure-env && npm run build:curriculum && npm run build:server
+   npm run prebuild && npm run build:curriculum && npm run build:server
    ```
 
 8. Inicie instâncias
 
    ```console
    cd api-server
-   pm2 start ./lib/production-start.js -i max --max-memory-restart 600M --name org
+   pm2 reload ecosystem.config.js
    ```
 
 ### Registro e monitoramento
@@ -502,7 +502,7 @@ npm ci
 3. Compile o servidor
 
 ```console
-npm run ensure-env && npm run build:curriculum && npm run build:server
+npm run create:config && npm run build:curriculum && npm run build:server
 ```
 
 4. Inicie instâncias
@@ -536,9 +536,9 @@ Provisionando MVs com o código
 2. Atualize o `npm` e instale o PM2 e configure `logrotate` e inicie quando reiniciar
 
    ```console
-   npm i -g npm@6
-   npm i -g pm2
-   npm install -g serve
+   npm i -g npm@8
+   npm i -g pm2@4
+   npm install -g serve@13
    pm2 install pm2-logrotate
    pm2 startup
    ```
@@ -555,11 +555,11 @@ Provisionando MVs com o código
    > A fazer: Esta configuração precisa ser movida para S3 ou armazenamento Azure Blob 
    > 
    > ```console
-   >    echo "serve -c ../../serve.json www -p 50505" >> client-start-primary.sh
+   >    echo "serve -c ../serve.json -p 50505 www" > client-start-primary.sh
    >    chmod +x client-start-primary.sh
    >    pm2 delete client-primary
    >    pm2 start  ./client-start-primary.sh --name client-primary
-   >    echo "serve -c ../../serve.json www -p 52525" >> client-start-secondary.sh
+   >    echo "serve -c ../serve.json -p 52525 www" > client-start-secondary.sh
    >    chmod +x client-start-secondary.sh
    >    pm2 delete client-secondary
    >    pm2 start  ./client-start-secondary.sh --name client-secondary
@@ -779,6 +779,20 @@ As alterações na configuração das nossas instâncias NGINX são mantidas no 
 
    Selecione sim (y) para remover tudo que não está sendo usado. Isso vai remover todos os containers parados, todas as redes e volumes não usados por pelo menos um container e imagens pendentes e caches de compilação.
 
+## Trabalho com as ferramentas do colaborador
+
+### Implantar atualizações
+
+ssh na VM (hospedada na Digital Ocean).
+
+```console
+cd tools
+git pull origin master
+npm ci
+npm run build
+pm2 restart contribute-app
+```
+
 ## Atualize as versões do Node.js nas MVs
 
 Liste as versões do node e do npm instaladas
@@ -794,7 +808,7 @@ nvm ls
 Instale a versão LTS Node.js mais recente e reinstale qualquer pacote global
 
 ```console
-nvm install 'lts/*' --reinstall-packages-from=default
+nvm install --lts --reinstall-packages-from=default
 ```
 
 Verifique os pacotes instalados
@@ -803,10 +817,10 @@ Verifique os pacotes instalados
 npm ls -g --depth=0
 ```
 
-Crie um alias da versão `default`  do Node.js para a versão current LTS
+Coloque um alias na versão `default` do Node.js para que seja a LTS atual (marcada como a versão major mais recente)
 
 ```console
-nvm alias default lts/*
+nvm alias default 16
 ```
 
 (Opcional) Desinstale versões antigas
@@ -815,7 +829,21 @@ nvm alias default lts/*
 nvm uninstall <version>
 ```
 
-> [!WARNING] Se estiver usando PM2 para os processos você também vai precisar executar as aplicações e salvar a lista de processos para restaurações automáticas quando reiniciar.
+> [!ATTENTION] Para aplicações de client, o shell script não pode ser revivido entre versões do Node.js com `pm2 resurrect`. Implante processos de zero ao invés disso. Isso deve melhorar quando mudarmos para uma configuração baseada em docker.
+> 
+> Se estiver usando PM2 para os processos você também vai precisar executar as aplicações e salvar a lista de processos para restaurações automáticas quando reiniciar.
+
+Obtenha as instruções/comandos de desinstalação com o comando `unstartup` e use a saída para remover os serviços systemctl
+
+```console
+pm2 unstartup
+```
+
+Obtenha as instruções/comandos de instalação com o comando `startup` e use a saída para adicionar os serviços systemctl
+
+```console
+pm2 startup
+```
 
 Comandos rápidos PM2 para listar, reviver processos salvos, etc.
 
@@ -835,8 +863,6 @@ pm2 save
 pm2 logs
 ```
 
-> [!ATTENTION] Para aplicações de client, o script de shell não pode ser revivido entre as versões do Node.js com `pm2 resurrect`.  Implante processos de zero ao invés disso. Isso deve melhorar quando mudarmos para uma configuração baseada em docker.
-
 ## Instalando e atualizando agentes do Azure Pipeline
 
 Veja: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/v2-linux?view=azure-devops e siga as instruções para parar, remover e reinstalar os agentes. Em resumo, você pode seguir as etapas listadas aqui.
@@ -847,7 +873,7 @@ Você vai precisar de um PAT, que você pode pegar nesse link: https://dev.azure
 
 Vá para [Azure Devops](https://dev.azure.com/freeCodeCamp-org) e registre o agente do zero nos [grupos de implantação](https://dev.azure.com/freeCodeCamp-org/freeCodeCamp/_machinegroup) necessários.
 
-> [!NOTE] Você deve executar os scripts no diretório principal e garantir que nenhum outro diretório `azagent` existe.
+> [!NOTE] Você deve executar os scripts no diretório raiz e certificar-se de que nenhum outro diretório `azagent` existe.
 
 ### Atualizando agentes
 
@@ -885,7 +911,7 @@ Atualmente, atualizar os agentes requer que sejam removidos e reconfigurados. Is
    rm -rf ~/azagent
    ```
 
-Uma vez que você completar as etapas acima, você pode repetir as mesmas etapas na instalação do agente.
+Quando você completar as etapas acima, você pode repetir as mesmas etapas na instalação do agente.
 
 # Manual de Vôo - Disparo de e-mail
 
@@ -917,3 +943,20 @@ Nós usamos [uma ferramenta de linha de comando](https://github.com/freecodecamp
 6. Execute a ferramenta para enviar os e-mails, seguindo a [documentação](https://github.com/freeCodeCamp/sendgrid-email-blast/blob/main/docs/cli-steps.md).
 
 7. Quando o disparo de email estiver completo, verifique se nenhum e-mail falhou antes de destruir os droplets.
+
+# Manual de Voo - adicionando instâncias de notícias aos novos idiomas
+
+### Alterações nos temas
+
+Usamos um [tema personalizado](https://github.com/freeCodeCamp/news-theme) para nossa publicação de notícias. Adicionar as seguintes alterações ao tema permite a inserção de novos idiomas.
+
+1. Inclua a instrução `else if` para o novo [código de idioma ISO](https://www.loc.gov/standards/iso639-2/php/code_list.php) em [`setup-local.js`](https://github.com/freeCodeCamp/news-theme/blob/main/assets/config/setup-locale.js)
+2. Crie uma pasta inicial de configuração duplicando a pasta [`assets/config/en`](https://github.com/freeCodeCamp/news-theme/tree/main/assets/config/en) e alterando seu nome para o novo código de idioma. (`en` —> `es` para espanhol)
+3. Dentro da pasta do novo idioma, altere os nomes das variáveis no `main.js` e no `footer.js` para o código curto de idioma relevante (`enMain` —> `esMain` para o espanhol)
+4. Duplique o [`locales/en.json`](https://github.com/freeCodeCamp/news-theme/blob/main/locales/en.json) e renomeie-o para o código do novo idioma.
+5. Em [`partials/i18n.hbs`](https://github.com/freeCodeCamp/news-theme/blob/main/partials/i18n.hbs), adicione scripts para arquivos de configuração recém-criados.
+6. Adicionar o script `day.js` do idioma relacionado [cdnjs](https://cdnjs.com/libraries/dayjs/1.10.4) ao [CDN do freeCodeCamp](https://github.com/freeCodeCamp/cdn/tree/main/build/news-assets/dayjs/1.10.4/locale)
+
+### Alterações do painel do Ghost
+
+Atualize os itens de publicação indo no painel do Ghost > Settings > General e atualizando o [ícone](https://github.com/freeCodeCamp/design-style-guide/blob/master/assets/fcc-puck-500-favicon.png), [logotipo](https://github.com/freeCodeCamp/design-style-guide/blob/master/downloads/fcc_primary_large.png) e a [capa](https://github.com/freeCodeCamp/design-style-guide/blob/master/assets/fcc_ghost_publication_cover.png).

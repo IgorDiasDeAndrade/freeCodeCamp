@@ -1,35 +1,43 @@
 - **Comenzando**
   - [Introducción](index.md "Contribuye a la comunidad freeCodeCamp.org")
   - [Preguntas más frecuentes](FAQ.md)
-- **Contribución de Código**
-  - [Configurar freeCodeCamp localmente](how-to-setup-freecodecamp-locally.md)
-  - [Las mejores prácticas de la base de código](codebase-best-practices.md)
-  - [Abre un pull request](how-to-open-a-pull-request.md)
-  - [Trabaja en los desafíos de codificación](how-to-work-on-coding-challenges.md)
-  - [Trabaja en los desafíos de video](how-to-help-with-video-challenges.md)
-  - [Trabaja en el tema de noticias](how-to-work-on-the-news-theme.md)
-  - [Trabaja en el tema de documentaciones](how-to-work-on-the-docs-theme.md)
-  - [Trabaja en proyectos de práctica](how-to-work-on-practice-projects.md)
-- **Contribución a Traducción**
-  - [Trabaja en la traducción de recursos](how-to-translate-files.md)
-  - [Trabaja en la revisión de traducciones](how-to-proofread-files.md)
-- **Guías opcionales**
-  - [Configura freeCodeCamp en Windows (WSL)](how-to-setup-wsl.md)
-  - [Agregar pruebas de Cypress](how-to-add-cypress-tests.md)
-  - [Trabaja en la aplicación web de cliente localizada](how-to-work-on-localized-client-webapp.md)
-  - [Captura correos electrónicos salientes localmente](how-to-catch-outgoing-emails-locally.md)
-  - [Prueba traducciones localmente](how-to-test-translations-locally.md)
-  - [Entiende la estructura del archivo del curriculum](curriculum-file-structure.md)
+  - [Informar una vulnerabilidad](security.md)
+- **Contribución a la Traducción**
+  - [Trabajar en la traducción de recursos](how-to-translate-files.md)
+  - [Revisar las traducciones](how-to-proofread-files.md)
+- **Participa en la programación**
+  - [Set up freeCodeCamp](how-to-setup-freecodecamp-locally.md)
+  - [Follow best-practices](codebase-best-practices.md)
+  - [Open a pull request](how-to-open-a-pull-request.md)
+  - [Work on Codebase](how-to-contribute-to-the-codebase.md)
+  - [Work on Coding Challenges](how-to-work-on-coding-challenges.md)
+  - [Work on Component Library](how-to-work-on-the-component-library.md)
+  - [Work on Practice Projects](how-to-work-on-practice-projects.md)
+  - [Work on Mobile app](how-to-setup-freecodecamp-mobile-app-locally.md)
+  - [Work on tutorials with CodeRoad](how-to-work-on-tutorials-that-use-coderoad.md)
+  - [Work on Localized Web App](how-to-work-on-localized-client-webapp.md)
+  - [Work on Cypress tests](how-to-add-cypress-tests.md)
+  - [Work on Video Challenges](how-to-help-with-video-challenges.md)
+  - [Work on Documentation](how-to-work-on-the-docs-theme.md)
+- **Guías adicionales**
+  - [Entender la estructura de los archivos del currículo](curriculum-file-structure.md)
+  - [Depurar localmente los emails salientes](how-to-catch-outgoing-emails-locally.md)
+  - [Configurar freeCodeCamp en Windows (WSL)](how-to-setup-wsl.md)
+  - [Flujo de trabajo del Token del usuario](user-token-workflow.md)
+  - [Troubleshooting Development Issues](troubleshooting-development-issues.md)
 
 ---
 
 - **Manuales de Vuelo** (para el personal & moderadores)
   - [Manual del moderador](moderator-handbook.md)
+  - [Libro Principal de Idiomas](language-lead-handbook.md)
   - [Manual de DevOps](devops.md)
+  - [Extensión de cursos de VSCode](courses-vscode-extension.md)
+  - [Habilitar nuevo idioma](how-to-enable-new-languages.md)
 
 ---
 
 - **Nuestra Comunidad**
   - [**GitHub**](https://github.com/freecodecamp/freecodecamp)
   - [**Foro Discourse**](https://freecodecamp.org/forum/c/contributors)
-  - [**Servidor de chat**](https://chat.freecodecamp.org/home)
+  - [**Servidor de chat**](https://discord.gg/PRyKn3Vbay)

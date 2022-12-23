@@ -91,7 +91,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-lerna-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -163,13 +162,44 @@ config/client/sass-compile.json
 config/client/frame-runner.json
 config/client/test-evaluator.json
 config/curriculum.json
+config/i18n.js
+config/certification-settings.js
+config/superblock-order.js
+config/superblock-order.test.js
+
+### Generated utils files ###
+utils/block-nameify.js
+utils/block-nameify.test.js
+utils/slugs.js
+utils/slugs.test.js
+utils/index.js
+
+### vim ###
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
 
 ### Additional Files ###
 *.csv
 *.dat
 *.out
 *.gz
-*.swp
 curriculum/curricula.json
 client/static/js/frame-runner.js
 client/static/js/frame-runner.js.map
@@ -179,6 +209,9 @@ api-server/lib/*
 curriculum/dist
 curriculum/build
 client/static/_redirects
+client/static/mobile
+client/static/curriculum-data
+client/i18n/locales/**/trending.json
 
 ### UI Components ###
 tools/ui-components/dist

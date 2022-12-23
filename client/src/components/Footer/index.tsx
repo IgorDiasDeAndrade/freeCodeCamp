@@ -1,19 +1,7 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Link from '../helpers/link';
 import './footer.css';
-
-type ColHeaderProps = {
-  children: string | React.ReactNode | React.ReactElement;
-};
-
-// TODO: Figure out what ColHeader does: 'ColHeader' is declared but its value is never read.
-// eslint-disable-next-line
-const ColHeader = ({ children, ...other }: ColHeaderProps): JSX.Element => (
-  <div className='col-header' {...other}>
-    {children}
-  </div>
-);
 
 function Footer(): JSX.Element {
   const { t } = useTranslation();
@@ -27,15 +15,17 @@ function Footer(): JSX.Element {
             <p>{t('footer.mission-statement')}</p>
             <p>{t('footer.donation-initiatives')}</p>
             <p className='footer-donation'>
-              {t('footer.donate-text')}{' '}
-              <Link className='inline' to='/donate'>
-                {t('footer.donate-link')}
-              </Link>
-              .
+              <Trans i18nKey='footer.donate-text'>
+                You can
+                <Link className='inline' to='/donate'>
+                  make a tax-deductible donation here
+                </Link>
+                .
+              </Trans>
             </p>
           </div>
           <div className='trending-guides'>
-            <div className='col-header'>{t('footer.trending-guides')}</div>
+            <h2 className='col-header'>{t('footer.trending-guides')}</h2>
             <div className='trending-guides-row'>
               <div className='footer-col footer-col-1'>
                 <Link external={false} to={t('trending:article0link')}>
@@ -142,7 +132,7 @@ function Footer(): JSX.Element {
           </div>
         </div>
         <div className='footer-bottom'>
-          <div className='col-header'>{t('footer.our-nonprofit')}</div>
+          <h2 className='col-header'>{t('footer.our-nonprofit')}</h2>
           <div className='footer-divder' />
           <div className='our-nonprofit'>
             <Link external={false} to={t('links:footer.about-url')}>

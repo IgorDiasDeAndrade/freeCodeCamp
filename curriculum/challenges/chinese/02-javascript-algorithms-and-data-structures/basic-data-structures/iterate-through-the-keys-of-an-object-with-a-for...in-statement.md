@@ -16,7 +16,7 @@ for (let user in users) {
 }
 ```
 
-这将在控制台打印 `Alan`、`Jeff`、`Sarah` 和 `Ryan` - 每个值占一行。
+这将记录 `Alan`、`Jeff` 和 `Sarah` - 每个值都在自己的行中。
 
 在上面的代码中，我们定义了一个 `user` 变量。 可以观察到，这个变量在遍历对象的语句执行过程中会一直被重置并赋予新值，结果就是不同的用户名打印到了 console 中。
 
@@ -116,11 +116,25 @@ const usersObj3 = {
 ## --seed-contents--
 
 ```js
+const users = {
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: true
+  },
+  Sarah: {
+    online: false
+  }
+}
+
 function countOnline(usersObj) {
   // Only change code below this line
 
   // Only change code above this line
 }
+
+console.log(countOnline(users));
 ```
 
 # --solutions--

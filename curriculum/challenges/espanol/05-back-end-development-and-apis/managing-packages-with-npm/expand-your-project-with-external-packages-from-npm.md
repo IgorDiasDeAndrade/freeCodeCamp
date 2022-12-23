@@ -1,6 +1,6 @@
 ---
 id: 587d7fb4367417b2b2512c00
-title: Expand Your Project with External Packages from npm
+title: Ampliar tu proyecto con paquetes externos de npm
 challengeType: 2
 forumTopicId: 301527
 dashedName: expand-your-project-with-external-packages-from-npm
@@ -8,9 +8,9 @@ dashedName: expand-your-project-with-external-packages-from-npm
 
 # --description--
 
-One of the biggest reasons to use a package manager, is their powerful dependency management. Instead of manually having to make sure that you get all dependencies whenever you set up a project on a new computer, npm automatically installs everything for you. But how can npm know exactly what your project needs? Meet the `dependencies` section of your package.json file.
+Una de las razones más importantes para utilizar un gestor de paquetes, es su potente gestión de dependencias. En lugar de tener que asegurarte manualmente de que obtienes todas las dependencias cada vez que configuras un proyecto en una nuevo computadora, npm instala automáticamente todo para ti. Pero ¿cómo puede npm saber exactamente lo que necesita tu proyecto? Conoce la sección `dependencies` de tu archivo package.json.
 
-In this section, packages your project requires are stored using the following format:
+En esta sección, los paquetes que tu proyecto necesita se almacenan usando el siguiente formato:
 
 ```json
 "dependencies": {
@@ -22,13 +22,13 @@ In this section, packages your project requires are stored using the following f
 
 # --instructions--
 
-Add version "2.14.0" of the "moment" package to the `dependencies` field of your package.json file.
+Añade la versión "1.1.0" del paquete `@freecodecamp/example` al campo `dependencies` del archivo `package.json`.
 
-**Note:** Moment is a handy library for working with time and dates.
+**Nota:** `@freecodecamp/example` es un paquete falso usado como una herramienta de aprendizaje.
 
 # --hints--
 
-"dependencies" should include "moment"
+`"dependencies"` debería incluir `"@freecodecamp/example"`.
 
 ```js
 (getUserInput) =>
@@ -37,8 +37,8 @@ Add version "2.14.0" of the "moment" package to the `dependencies` field of your
       var packJson = JSON.parse(data);
       assert.property(
         packJson.dependencies,
-        'moment',
-        '"dependencies" does not include "moment"'
+        '@freecodecamp/example',
+        '"dependencies" does not include "@freecodecamp/example"'
       );
     },
     (xhr) => {
@@ -47,7 +47,7 @@ Add version "2.14.0" of the "moment" package to the `dependencies` field of your
   );
 ```
 
-"moment" version should be "2.14.0"
+`"@freecodecamp/example"` debería tener la versión `"1.1.0"`.
 
 ```js
 (getUserInput) =>
@@ -55,9 +55,9 @@ Add version "2.14.0" of the "moment" package to the `dependencies` field of your
     (data) => {
       var packJson = JSON.parse(data);
       assert.match(
-        packJson.dependencies.moment,
-        /^[\^\~]?2\.14\.0/,
-        'Wrong version of "moment" installed. It should be 2.14.0'
+        packJson.dependencies["@freecodecamp/example"],
+        /^[\^\~]?1\.1\.0/,
+        'Wrong version of "@freecodecamp/example" installed. It should be 1.1.0'
       );
     },
     (xhr) => {

@@ -2,66 +2,89 @@ import i18next from 'i18next';
 import { escape } from 'lodash-es';
 import { channel } from 'redux-saga';
 import {
-  delay,
-  put,
-  select,
   call,
-  takeLatest,
-  takeEvery,
+  cancel,
+  delay,
   fork,
   getContext,
+  put,
+  select,
   take,
-  cancel
+  takeEvery,
+  takeLatest
 } from 'redux-saga/effects';
 
+import { challengeTypes } from '../../../../utils/challenge-types';
+import { createFlashMessage } from '../../../components/Flash/redux';
+import { FlashMessages } from '../../../components/Flash/redux/flash-messages';
+import {
+  bodySizeFits,
+  getStringSizeInBytes,
+  MAX_BODY_SIZE,
+  standardizeRequestBody
+} from '../../../utils/challenge-request-helpers';
+import { playTone } from '../../../utils/tone';
 import {
   buildChallenge,
   canBuildChallenge,
-  getTestRunner,
   challengeHasPreview,
-  updatePreview,
+  getTestRunner,
   isJavaScriptChallenge,
-  isLoopProtected
+  isLoopProtected,
+  updatePreview,
+  updateProjectPreview
 } from '../utils/build';
 import { actionTypes } from './action-types';
+import {
+  disableBuildOnError,
+  initConsole,
+  initLogs,
+  logsToConsole,
+  openModal,
+  updateConsole,
+  updateLogs,
+  updateTests
+} from './actions';
 import {
   challengeDataSelector,
   challengeMetaSelector,
   challengeTestsSelector,
-  initConsole,
-  updateConsole,
-  initLogs,
-  updateLogs,
-  logsToConsole,
-  updateTests,
-  openModal,
   isBuildEnabledSelector,
-  disableBuildOnError
-} from './';
+  portalDocumentSelector
+} from './selectors';
 
 // How long before bailing out of a preview.
 const previewTimeout = 2500;
-let previewTask;
 
+// when 'run tests' is clicked, do this first
 export function* executeCancellableChallengeSaga(payload) {
-  if (previewTask) {
-    yield cancel(previewTask);
+  const { challengeType, id } = yield select(challengeMetaSelector);
+  const { challengeFiles } = yield select(challengeDataSelector);
+
+  // if multifileCertProject, see if body/code size is submittable
+  if (challengeType === challengeTypes.multifileCertProject) {
+    const body = standardizeRequestBody({ id, challengeFiles, challengeType });
+    const bodySizeInBytes = getStringSizeInBytes(body);
+
+    if (!bodySizeFits(bodySizeInBytes)) {
+      return yield put(
+        createFlashMessage({
+          type: 'danger',
+          message: FlashMessages.ChallengeSubmitTooBig,
+          variables: { 'max-size': MAX_BODY_SIZE, 'user-size': bodySizeInBytes }
+        })
+      );
+    }
   }
-  // executeChallenge with payload containing isShouldCompletionModalOpen
+
+  // executeChallenge with payload containing {showCompletionModal}
   const task = yield fork(executeChallengeSaga, payload);
-  previewTask = yield fork(previewChallengeSaga, { flushLogs: false });
 
   yield take(actionTypes.cancelTests);
   yield cancel(task);
 }
 
-export function* executeCancellablePreviewSaga() {
-  previewTask = yield fork(previewChallengeSaga);
-}
-
-export function* executeChallengeSaga({
-  payload: isShouldCompletionModalOpen
-}) {
+export function* executeChallengeSaga({ payload }) {
   const isBuildEnabled = yield select(isBuildEnabledSelector);
   if (!isBuildEnabled) {
     return;
@@ -86,7 +109,8 @@ export function* executeChallengeSaga({
     const protect = isLoopProtected(challengeMeta);
     const buildData = yield buildChallengeData(challengeData, {
       preview: false,
-      protect
+      protect,
+      usesTestRunner: true
     });
     const document = yield getContext('document');
     const testRunner = yield call(
@@ -99,10 +123,14 @@ export function* executeChallengeSaga({
     yield put(updateTests(testResults));
 
     const challengeComplete = testResults.every(test => test.pass && !test.err);
-    if (challengeComplete && isShouldCompletionModalOpen) {
+    if (challengeComplete) {
+      playTone('tests-completed');
+    } else {
+      playTone('tests-failed');
+    }
+    if (challengeComplete && payload?.showCompletionModal) {
       yield put(openModal('completion'));
     }
-
     yield put(updateConsole(i18next.t('learn.tests-completed')));
     yield put(logsToConsole(i18next.t('learn.console-output')));
   } catch (e) {
@@ -157,7 +185,11 @@ function* executeTests(testRunner, tests, testTimeout = 5000) {
         throw err;
       }
     } catch (err) {
-      newTest.message = text;
+      const { actual, expected } = err;
+
+      newTest.message = text
+        .replace('--fcc-expected--', expected)
+        .replace('--fcc-actual--', actual);
       if (err === 'timeout') {
         newTest.err = 'Test timed out';
         newTest.message = `${newTest.message} (${newTest.err})`;
@@ -205,7 +237,10 @@ function* previewChallengeSaga({ flushLogs = true } = {}) {
       // evaluate the user code in the preview frame or in the worker
       if (challengeHasPreview(challengeData)) {
         const document = yield getContext('document');
-        yield call(updatePreview, buildData, document, proxyLogger);
+        const portalDocument = yield select(portalDocumentSelector);
+        const finalDocument = portalDocument || document;
+
+        yield call(updatePreview, buildData, finalDocument, proxyLogger);
       } else if (isJavaScriptChallenge(challengeData)) {
         const runUserCode = getTestRunner(buildData, {
           proxyLogger,
@@ -216,13 +251,31 @@ function* previewChallengeSaga({ flushLogs = true } = {}) {
       }
     }
   } catch (err) {
-    if (err === 'timeout') {
+    if (err[0] === 'timeout') {
       // TODO: translate the error
       // eslint-disable-next-line no-ex-assign
-      err = `The code you have written is taking longer than the ${previewTimeout}ms our challenges allow. You may have created an infinite loop or need to write a more efficient algorithm`;
+      err[0] = `The code you have written is taking longer than the ${previewTimeout}ms our challenges allow. You may have created an infinite loop or need to write a more efficient algorithm`;
     }
     console.log(err);
     yield put(updateConsole(escape(err)));
+  }
+}
+
+function* previewProjectSolutionSaga({ payload }) {
+  if (!payload) return;
+  const { showProjectPreview, challengeData } = payload;
+  if (!showProjectPreview) return;
+
+  try {
+    if (canBuildChallenge(challengeData)) {
+      const buildData = yield buildChallengeData(challengeData);
+      if (challengeHasPreview(challengeData)) {
+        const document = yield getContext('document');
+        yield call(updateProjectPreview, buildData, document);
+      }
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -236,7 +289,8 @@ export function createExecuteChallengeSaga(types) {
         types.challengeMounted,
         types.resetChallenge
       ],
-      executeCancellablePreviewSaga
-    )
+      previewChallengeSaga
+    ),
+    takeLatest(types.projectPreviewMounted, previewProjectSolutionSaga)
   ];
 }

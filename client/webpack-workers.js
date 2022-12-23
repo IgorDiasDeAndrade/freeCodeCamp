@@ -11,9 +11,9 @@ module.exports = (env = {}) => {
     cache: __DEV__ ? { type: 'filesystem' } : false,
     mode: __DEV__ ? 'development' : 'production',
     entry: {
-      'frame-runner': './src/client/frame-runner.js',
-      'sass-compile': './src/client/workers/sass-compile.js',
-      'test-evaluator': './src/client/workers/test-evaluator.js'
+      'frame-runner': './src/client/frame-runner.ts',
+      'sass-compile': './src/client/workers/sass-compile.ts',
+      'test-evaluator': './src/client/workers/test-evaluator.ts'
     },
     devtool: __DEV__ ? 'inline-source-map' : 'source-map',
     output: {
@@ -21,14 +21,14 @@ module.exports = (env = {}) => {
       filename: chunkData => {
         // construct and output the filename here, so the client can use the
         // json to find the file.
-        const filename = `${chunkData.chunk.name}.${chunkData.chunk.contentHash.javascript}`;
+        const filename = `${chunkData.chunk.name}-${chunkData.chunk.contentHash.javascript}`;
         writeFileSync(
           path.join(configPath, `${chunkData.chunk.name}.json`),
           `{"filename": "${filename}"}`
         );
         return filename + '.js';
       },
-      chunkFilename: '[name].[contenthash].js',
+      chunkFilename: '[name]-[contenthash].js',
       path: staticPath
     },
     stats: {
@@ -62,7 +62,7 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new CopyWebpackPlugin({
-        patterns: ['node_modules/sass.js/dist/sass.sync.js']
+        patterns: ['../node_modules/sass.js/dist/sass.sync.js']
       }),
       new webpack.ProvidePlugin({
         process: 'process/browser'

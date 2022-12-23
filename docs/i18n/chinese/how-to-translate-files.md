@@ -1,32 +1,20 @@
 # 如何翻译 freeCodeCamp 的资源
 
-我们梦想为使用不同语言的用户提供学习资源。 为了实现这一梦想，我们将代码开源的课程整合到了 [Crowdin](https://crowdin.com/) 中——这是一个帮助我们本地化代码库的工具。
-
-翻译流程主要包括两部分：
-
-- **翻译**课程文件、文档和 UI 元素（如按钮、标签）：
-
-  译者可以在[我们的翻译平台](https://translate.freecodecamp.org)注册，然后从 30+ 种语言版本中选择要参与贡献的版本，进行翻译。
-
-- **校对**上述翻译。
-
-  校对者确认社区成员贡献的译文语调一致，没有错别字等常见问题。 简而言之，校对者需要确保译文是高质量的。 注意，我们不使用任何机器翻译。
-
-> [!WARNING] 我们不再使用 GitHub 直接翻译文件。如果你曾经在 GitHub 参与翻译，现在请在我们的[翻译平台](https://translate.freecodecamp.org/)参与。
-
 ## 贡献前的准备
 
-> freeCodeCamp 本地化路线图 —— 没有速度限制
+> The freeCodeCamp Localization Roadmap – There Are No Speed Limits
 
-你可以自由安排参与翻译的时间，自由选择翻译的内容。 问题只在于你愿意花多少时间和精力作为志愿者参与翻译。
+> [!TIP] You can start by reading [this announcement](https://www.freecodecamp.org/news/help-translate-freecodecamp-language/). We recommend joining [our community forum](https://forum.freecodecamp.org/c/contributors/3) and [Discord chat server](https://discord.gg/PRyKn3Vbay).
 
-我们希望你理解：
+You can translate as much as you want, when you want. It's only a matter of how much time and energy you are willing to invest as a volunteer translator.
+
+We just ask that you understand the following:
 
 1. **翻译是一件团队协作的事情。**
 
    翻译 freeCodeCamp 的资源是对贡献者来说最有趣和最有意义的经历之一。如果你邀请与你使用同一种语言的朋友和同事参与，那么效果最好。
 
-   我们建议你和你的朋友在开始翻译前一起加入[我们的社区论坛](https://chinese.freecodecamp.org/forum)和[贡献者聊天室](https://chat.freecodecamp.org/channel/contributors)来分享你们有兴趣参与翻译。 Crowdin 让翻译变得简单，但还是需要大量的工作。
+   You can start by reading [this announcement](https://www.freecodecamp.org/news/help-translate-freecodecamp-language/). We recommend joining [our community forum](https://forum.freecodecamp.org/c/contributors/3) and [Discord chat server](https://discord.gg/PRyKn3Vbay) with your friends and showing your interest before starting off with translations. Crowdin and other tools make it easy to contribute translations, but it's still a lot of work.
 
    我们希望你在贡献过程感到快乐，而不是感到疲惫，然后失去兴趣。
 
@@ -36,9 +24,9 @@
 
    表面上来看，技术栈可能看起来没那么复杂，但是实际上消耗了很多资源来让引擎跑起来。 这包括提供额外的服务器和专职人员来管理它们。
 
-   freeCodeCamp.org 一直承诺免费提供这些资源， 但是我们需要优先把资源提供给最需要它们的人们。 我们非常不想看到某种语言的翻译活动结束了，并且内容过时了，然后我们不得不关闭相应的服务器。
+   freeCodeCamp.org is committed to providing these for free as always, however we need to prioritize resources for those who need them the most. 我们非常不想看到某种语言的翻译活动结束了，并且内容过时了，然后我们不得不关闭相应的服务器。
 
-   当某种语言的翻译团队完成了几个认证， 我们就可以开始将这种语言版本在[`/learn`](https://www.freecodecamp.org/learn)上线，然后你们可以继续翻译剩余的认证。
+   For translating the curriculum, once a language reaches at least a few certifications we can begin deploying the language live on [`/learn`](https://www.freecodecamp.org/learn), while you continue to translate the remaining certifications.
 
    举个例子， 当我们正式上线一个新的语言版本的时候，我们希望至少上线整个前端认证的内容。
 
@@ -54,9 +42,27 @@
 
    如果你们有一个组的人（至少四到五人）对某一种语言感兴趣，并且承诺翻译这种语言， 那么我们可以在翻译平台上增加这种语言。 我们会解释一切的细节，并且帮助你掌握这些翻译工具和理解这些翻译的过程。
 
-## 准备开始
+## Overview of Crowdin
 
-首先， 先确保你去我们的[贡献者聊天室](https://chat.freecodecamp.org/channel/contributors) 问好。 我们会在聊天室定期更新翻译的资源和回答很多问题。
+It's our dream to provide you with the resources to learn, no matter the world language you speak. To help us with this massive effort, we have integrated our open-source code-base & curriculum with [Crowdin](https://crowdin.com/) - A tool to help us localize our code-base.
+
+> [!NOTE] We use a different tool and workflow for translating [news articles](https://www.freecodecamp.org/news). If you are interested in translating articles, read [this announcement](https://www.freecodecamp.org/news/help-translate-freecodecamp-language/) and reach out to your Language Lead.
+
+The translation workflow is split into two main activities:
+
+- **翻译**课程文件、文档和 UI 元素（如按钮、标签）：
+
+  译者可以在[我们的翻译平台](https://translate.freecodecamp.org)注册，然后从 30+ 种语言版本中选择要参与贡献的版本，进行翻译。
+
+- **校对**上述翻译。
+
+  校对者确认社区成员贡献的译文语调一致，没有错别字等常见问题。 简而言之，校对者需要确保译文是高质量的。 注意，我们不使用任何机器翻译。
+
+> [!WARNING] We are no longer using GitHub to translate files directly, if you are a returning contributor head to our [translation platform](https://translate.freecodecamp.org/) instead.
+
+## Getting started
+
+First, make sure you come say "Hi" in our [Discord](https://discord.gg/PRyKn3Vbay). 我们会在聊天室定期更新翻译的资源和回答很多问题。
 
 其次，去我们的[翻译平台](https://translate.freecodecamp.org/)并且登陆（假如你以前没有贡献翻译过，你需要创建一个新账户）。
 
@@ -64,7 +70,7 @@
 
 祝你在翻译过程中感到快乐哦！
 
-## 选择一个项目和文件
+## Select a Project and File
 
 当你访问翻译平台，你应该可以看到很多不同的等待翻译的项目：
 
@@ -84,9 +90,9 @@
 
 选择你想翻译的文件，然后 Crowdin 会打开编辑界面。
 
-> [!NOTE] 打开编辑界面后，你需要点击设置图标（右上角的齿轮状图标），将 “HTML tags displaying” 设置为 “SHOW”。 这样，文件中会显示 `<code></code>` 标签，而不是 `<0></0>` 标签。
+> [!NOTE] When the editor view opens, you will need to click the settings icon (shown as a gear) and switch the 'HTML tags displaying' setting to 'SHOW'. This will ensure you can see tags such as `<code></code>` instead of `<0></0>`.
 
-## 翻译课程
+## Translate Curriculum
 
 ![图片 - 编辑界面](https://contribute.freecodecamp.org/images/crowdin/editor.png)
 
@@ -103,46 +109,229 @@ Crowdin 将文档分成可翻译的“字符串”，通常是句子。 每个�
 9. 这里是评论窗口。 如果你对某个字符串有疑问或疑虑，可以在此处对字符串发表评论，以便其他翻译人员查看。
 10. 点击这两个“窗格”按钮，可以隐藏左边的（文件）视图和右边的（评论）视图。
 
-> [!NOTE] 如果你看到一个被隐藏的（即灰色的）字符串有对应的译文，请在[译者交流群](https://chat.freecodecamp.org/channel/contributors)告诉我们，我们会移除翻译记忆中的译文。
+> [!NOTE] If you see a hidden string that includes translations, please notify us in the [Discord](https://discord.gg/PRyKn3Vbay) so we can remove the translation from memory.
 
 当你翻译完一个字符串，请点击 `Save` 按钮，将你的译文保存在  Crowdin 中。 然后其他贡献者可以给你的译文投票，而校对者也将审核确认你的译文。
 
 你想翻译多少字符串，都可以，我们非常欢迎你贡献！当你翻译完某个文件或某个字符串之后，你不需要采取其他步骤。 你只需要点击 `Save` 按钮，就能保存你的译文了。
 
-> [!NOTE] 如果你发现在英语源文件中有不正确的内容，请不要在翻译流程中对其进行修改。 请在字符串上留下评论，通知我们有什么问题，或者在 GitHub 创建 issue。
+> [!NOTE] If you see something in the English source file that is inaccurate or incorrect, please do not fix it through the translation flow. Instead, leave a comment on the string to notify us that there is a discrepancy, or create a GitHub issue.
 
-## 翻译文档
+## Translate the Learn Interface
 
-翻译贡献文档的流程和翻译课程文件的流程类似。
+Our `/learn` interface relies on JSON files loaded into an i18n plugin to generate translated text. This translation effort is split across both Crowdin and GitHub.
 
-> [!NOTE] 我们的贡献文档由 ` docsify ` 提供支持，并且我们对消息框（比如这份文档里的）进行了特殊的解析。 如果你看到以 `[!NOTE]`、`[!WARNING]` 或 `[!TIP]` 开头的字符串，请注意不要翻译这些单词。
+### On GitHub
 
-## 给译文评分
+The `links.json`, `meta-tags.json`, `motivation.json`, and `trending.json` files contain information that needs to be updated to reflect your language. However, we cannot load these into Crowdin, as the content isn't something that would be a one-to-one translation.
 
-Crowdin 允许你对已有的建议译文进行评分。 在你尝试保存译文的时候，你可能会看到一条消息，提示你无法保存重复的译文——这意味着另一位贡献者已经建议了相同的译文。 如果你赞同那个译文，可以点击 `+` 按钮来投票赞同它。
+These files will most likely be maintained by your language lead but you are welcome to [read about how to translate them](language-lead-handbook.md).
 
-如果你认为译文不正确或与源文件字符串的意思不一致，请单击 `-` 按钮投反对票。
+### On Crowdin
 
-Crowdin 通过这些投票为一个字符串的每个建议译文给出一个分数，这有助于校对团队确定哪个译文是最准确的。
+> [!ATTENTION] Do not edit the following files through a GitHub PR.
 
-## 质量保证检查
+The `intro.json` and `translations.json` files are both translated on Crowdin, in the Learn User Interface project. Translating these can be a bit tricky, as each individual JSON value appears as its own string and sometimes the context is missing.
 
-我们采用了一些质量保证步骤，以确保译文尽可能准确——这有助于我们的校对贡献者审核建议的译文。
+However, the `Context` information provided in Crowdin can help understand where the string fits in to the larger structure.
 
-当你尝试保存翻译时，你可能会看到一条警告消息，其中包含关于你所建议的翻译的通知。
+![Image with an arrow pointing to Crowdin's context information](https://contribute.freecodecamp.org/images/crowdin/context.png)
 
-![图片 - 质量保证警告消息](https://contribute.freecodecamp.org/images/crowdin/qa-message.png)
+If you have any questions about where a string fits in to the prose, reach out to us in our [contributor chat](https://discord.gg/PRyKn3Vbay).
 
-当 Crowdin 的质量保证检查系统在建议的译文中发现可能的错误时，将显示此消息。 在这个例子中，我们修改了 `<code>` 标签的文本内容，Crowdin 会发现这个问题。
+## Translate Documentation
 
-> [!WARNING] 即使 Crowdin 提示有错误，你也可以选择保存译文。 如果你仍要通过点击 “Save Anyway” 保存译文，那么你应该标记（@）校对人员或项目经理，说明为什么需要忽略质量检查消息。
+Translating our contributing documentation is a similar flow to translating our curriculum files.
 
-## 翻译最佳实践
+> [!NOTE] Our contributing documentation is powered by `docsify`, and we have special parsing for message boxes like this one. If you see strings that start with `[!NOTE]`, `[!WARNING]`, or `[!TIP]`, these words should NOT be translated.
 
-请遵循下列准则，以确保我们的翻译尽可能的准确：
+### How to translate documentation with internal links
 
-- 不要翻译 `<code>` 标签中的内容。 这个标签表示在文本在代码中，应保留英文文本。
-- 不要添加额外的内容。 如果你认为源文件的文本内容或其他信息需要修改，那么请你在 GitHub issue 或 pull request 来提出更改建议。
-- 不要更改内容的顺序。
+When you work on translating contributing documentation, watch out for internal links targeting a different section of the documentation.
 
-如果你有任何问题，欢迎你随时在[译者交流群](https://chat.freecodecamp.org/channel/contributors)提出，我们很高兴给予你支持。
+Make sure to replace the id of the target section (the part after `#`) with the id on the translated document. For example, it will look like this in Japanese:
+
+Before translation
+
+```
+// in HTML
+<a href="target-file-name.md#target-section-heading-id">Link text</a>
+<a href="#target-section-heading-id">Link text</a>
+
+// in Markdown
+[Link text](target-file-name.md#target-section-heading-id)
+[Link text](#target-section-heading-id)
+```
+
+After translation
+
+```
+// in HTML
+<a href="target-file-name.md#翻訳後の-id">翻訳後のリンクテキスト</a>
+<a href="#翻訳後の-id">翻訳後のリンクテキスト</a>
+
+// in Markdown
+[翻訳後のリンクテキスト](target-file-name.md#翻訳後の-id)
+[翻訳後のリンクテキスト](#翻訳後の-id)
+```
+
+The actual files in docs are written in Markdown, but they will appear as HTML tags on Crowdin.
+
+You can find out how `docsify` converts a string in your language into an id by looking into the translated pages. If the translation is not deployed yet, you can preview it by [running the docs site locally](how-to-work-on-the-docs-theme.md#serving-the-documentation-site-locally).
+
+You can learn more about [internal links in our docs here](how-to-work-on-the-docs-theme.md#how-to-create-an-internal-link).
+
+## Translate the LearnToCode RPG
+
+The LearnToCode RPG runs on Ren'Py, which uses special syntax for translated strings: (See [Ren'Py Text documentation](https://www.renpy.org/doc/html/text.html))
+
+- The sentences to be translated are always between `""`. These are dialogues or UI strings. The keywords that come before or after the dialogue are game engine control keywords and will be explained in details in subsequent rules. Please note that this first rule governs all subsequent rules listed.
+- In case of `new "..."` Do not translate the `new` keyword.
+- Prefixes like `player`, `annika`, `layla`, `marco` (or variants like `player happy`, `player @ happy`) should not be translated. These are control keywords to correctly display the character sprite in the game.
+- Postfixes like `nointeract` should not be translated.
+- Do not translate things between `[]` and `{}`. These are variable interpolations and text tags. These must remain halfwidth parentheses `[]` and `{}` instead of their fullwidth counterparts `【】` and `「」`
+- Do not translate the `nointeract` keyword at the end of the sentence.
+- If we try to use fullwidth parentheses `（）`, a QA warning will show. To avoid the QA warning, use halfwidth parentheses `()`
+
+### Examples
+
+---
+
+#### Before translation
+
+```renpy
+# "[player_name]? What a coincidence! Our VIP team member {a=[vip_profile_url]}[player_name]{/a} will be honored to hear that."
+"[player_name]? What a coincidence! Our VIP team member {a=[vip_profile_url]}[player_name]{/a} will be honored to hear that."  <--- this is the line that needs to be translated. see translation below
+```
+
+#### After translation
+
+```renpy
+# "[player_name]? What a coincidence! Our VIP team member {a=[vip_profile_url]}[player_name]{/a} will be honored to hear that."
+"[player_name]？好巧，我们的VIP队友{a=[vip_profile_url]}[player_name]{/a}会很高兴的。"
+```
+
+Note: The `[]` and `{}` tags should be left intact.
+
+---
+
+#### Before translation
+
+```renpy
+old "{icon=icon-fast-forward} Skip"
+new "{icon=icon-fast-forward} Skip" <-- translate this line, see below
+```
+
+#### After translation
+
+```renpy
+old "{icon=icon-fast-forward} Skip"
+new "{icon=icon-fast-forward} 跳过"
+```
+
+Note: Again, the `new` prefix and the `{icon=icon-fast-forward}` tag should be left intact.
+
+---
+
+#### Before translation
+
+```renpy
+# layla @ neutral "Hehe, [player_name], you are a fun one. I'm sure you will enjoy your work as a developer."
+layla @ neutral "Hehe, [player_name], you are a fun one. I'm sure you will enjoy your work as a developer."
+```
+
+#### After translation
+
+```renpy
+# layla @ neutral "Hehe, [player_name], you are a fun one. I'm sure you will enjoy your work as a developer."
+layla @ neutral "哈哈，[player_name]，你真有趣。我相信你一定会喜欢你的开发者工作的。"
+```
+
+Note: `layla @ neutral` and `[player_name]` are left unchanged.
+
+---
+
+#### Before translation
+
+```renpy
+# player "Maybe this is all a dream?" nointeract
+player "Maybe this is all a dream?" nointeract
+```
+
+#### After translation
+
+```renpy
+# player "Maybe this is all a dream?" nointeract
+player "也许这都是一场梦？" nointeract
+```
+
+---
+
+### A Note on How Crowdin Segments a Sentence
+
+Pay attention to how Crowdin segments a line of dialogue wrapped between opening and closing quotes `""`. When we are translating the dialogue, we need to make sure to retain the opening and closing quotes, even if the quotes appear in different segments.
+
+This is the line to be translated:
+
+```renpy
+player @ surprised "{b}Full-stack{/b}... What is that? I better take notes so I can learn more about it."
+```
+
+Crowdin segments it into three parts like below:
+
+<img width="836" alt="Screen Shot 2022-01-23 at 10 36 43" src="https://user-images.githubusercontent.com/35674052/150693962-d3b091e5-2432-44d0-9d24-195ea7d7aeda.png" />
+
+```renpy
+# original
+player @ surprised "{b}Full-stack{/b}
+# translated, keeping the opening quotes `"`
+player @ surprised "{b}全栈{/b}
+```
+
+<img width="750" alt="Screen Shot 2022-01-23 at 10 36 49" src="https://user-images.githubusercontent.com/35674052/150693965-15411504-791a-4db3-8b14-bc9177be6375.png" />
+
+```renpy
+# original
+What is that?
+# translated, no quotes on either side
+这是什么？
+```
+
+<img width="857" alt="Screen Shot 2022-01-23 at 10 36 54" src="https://user-images.githubusercontent.com/35674052/150693969-062e3268-580f-4ad2-97db-cab6240b6095.png" />
+
+```renpy
+# original
+I better take notes so I can learn more about it."
+# translated, keeping the closing quotes `"`
+我最好做笔记，这样我可以学习更多东西。"
+```
+
+## Rate Translations
+
+Crowdin allows you to rate the existing proposed translations. If you attempt to save a translation, you may see a message indicating that you cannot save a duplicate translation - this means another contributor has proposed that identical translation. If you agree with that translation, click the `+` button to "upvote" the translation.
+
+If you see a translation that is inaccurate or does not provide the same clarity as the original string, click the `-` button to "downvote" the translation.
+
+Crowdin uses these votes to give a score to each proposed translation for a string, which helps the proofreading team determine which translation is the best fit for each string.
+
+## Quality Assurance Checks
+
+We have enabled some quality assurance steps that will verify a translation is as accurate as possible - this helps our proofreaders review proposed translations.
+
+When you attempt to save a translation, you may see a warning message appear with a notification regarding your proposed translation.
+
+![Image - QA Warning Message](https://contribute.freecodecamp.org/images/crowdin/qa-message.png)
+
+This message appears when Crowdin's QA system has identified a potential error in the proposed translation. In this example, we have modified the text of a `<code>` tag and Crowdin has caught that.
+
+> [!WARNING] You have the option to save a translation in spite of errors. If you do, by clicking "Save Anyway", you should also tag a proofreader or project manager and explain why the QA message needs to be ignored in this case.
+
+## Translation Best Practices
+
+Follow these guidelines to ensure our translations are as accurate as possible:
+
+- Do not translate the content within `<code>` tags. These tags indicate text that is found in code and should be left in English.
+- Do not add additional content. If you feel a challenge requires changes in the text content or additional information, you should propose the changes through a GitHub issue or a pull request that modifies the English file.
+- Do not change the order of content.
+
+If you have any questions, feel free to reach out to us in our [Discord](https://discord.gg/PRyKn3Vbay) and we will be happy to assist you.

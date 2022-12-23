@@ -1,16 +1,16 @@
 ---
 id: 5a23c84252665b21eecc8007
-title: Sorting algorithms/Gnome sort
-challengeType: 5
+title: Algoritmi di ordinamento/Gnome sort
+challengeType: 1
 forumTopicId: 302314
 dashedName: sorting-algorithmsgnome-sort
 ---
 
 # --description--
 
-Gnome sort is a sorting algorithm which is similar to [Insertion sort](https://rosettacode.org/wiki/Insertion sort), except that moving an element to its proper place is accomplished by a series of swaps, as in [Bubble Sort](https://rosettacode.org/wiki/Bubble Sort).
+Gnome Sort è un algoritmo di ordinamento che è simile a <a href="https://rosettacode.org/wiki/Insertion_sort" target="_blank" rel="noopener noreferrer nofollow">Insertion Sort</a>, tranne che lo spostamento di un elemento al suo posto corretto è realizzato da una serie di scambi, come in <a href="https://rosettacode.org/wiki/Bubble" target="_blank" rel="noopener noreferrer nofollow">Bubble Sort</a>.
 
-The pseudocode for the algorithm is:
+Lo pseudocodice per l'algoritmo è:
 
 <pre><b>function</b> <i>gnomeSort</i>(a[0..size-1])
   i := 1
@@ -33,41 +33,41 @@ The pseudocode for the algorithm is:
 
 # --instructions--
 
-Write a function to implement the above pseudo code. The function should return the sorted array.
+Scrivi una funzione che implementi lo pseudocodice di cui sopra. La funzione dovrebbe restituire l'array ordinato.
 
 # --hints--
 
-`gnomeSort` should be a function.
+`gnomeSort` dovrebbe essere una funzione.
 
 ```js
 assert(typeof gnomeSort == 'function');
 ```
 
-`gnomeSort([25, 32, 12, 7, 20])` should return an array.
+`gnomeSort([25, 32, 12, 7, 20])` dovrebbe restituire un array.
 
 ```js
 assert(Array.isArray(gnomeSort([25, 32, 12, 7, 20])));
 ```
 
-`gnomeSort([25, 32, 12, 7, 20])` should return `[7, 12, 20, 25, 32]`.
+`gnomeSort([25, 32, 12, 7, 20])` dovrebbe restituire `[7, 12, 20, 25, 32]`.
 
 ```js
 assert.deepEqual(gnomeSort([25, 32, 12, 7, 20]), [7, 12, 20, 25, 32]);
 ```
 
-`gnomeSort([38, 45, 35, 8, 13])` should return `[8, 13, 35, 38, 45]`.
+`gnomeSort([38, 45, 35, 8, 13])` dovrebbe restituire `[8, 13, 35, 38, 45]`.
 
 ```js
 assert.deepEqual(gnomeSort([38, 45, 35, 8, 13]), [8, 13, 35, 38, 45]);
 ```
 
-`gnomeSort([43, 36, 20, 34, 24])` should return `[20, 24, 34, 36, 43]`.
+`gnomeSort([43, 36, 20, 34, 24])` dovrebbe restituire `[20, 24, 34, 36, 43]`.
 
 ```js
 assert.deepEqual(gnomeSort([43, 36, 20, 34, 24]), [20, 24, 34, 36, 43]);
 ```
 
-`gnomeSort([12, 33, 26, 18, 1, 16, 38])` should return `[1, 12, 16, 18, 26, 33, 38]`.
+`gnomeSort([12, 33, 26, 18, 1, 16, 38])` dovrebbe restituire `[1, 12, 16, 18, 26, 33, 38]`.
 
 ```js
 assert.deepEqual(gnomeSort([12, 33, 26, 18, 1, 16, 38]), [
@@ -81,7 +81,7 @@ assert.deepEqual(gnomeSort([12, 33, 26, 18, 1, 16, 38]), [
 ]);
 ```
 
-`gnomeSort([3, 39, 48, 16, 1, 4, 29])` should return `[1, 3, 4, 16, 29, 39, 48]`.
+`gnomeSort([3, 39, 48, 16, 1, 4, 29])` dovrebbe restituire `[1, 3, 4, 16, 29, 39, 48]`.
 
 ```js
 assert.deepEqual(gnomeSort([3, 39, 48, 16, 1, 4, 29]), [

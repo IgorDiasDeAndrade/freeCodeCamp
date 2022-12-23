@@ -31,13 +31,13 @@ assert(
 );
 ```
 
-Dopo `updateRecords(recordCollection, 5439, "tracks", "Take a Chance on Me")`, `tracks` dovrebbero avere la stringa `Take a Chance on Me` come ultimo elemento.
+Dopo `updateRecords(recordCollection, 5439, "tracks", "Take a Chance on Me")`, `tracks` dovrebbe avere la stringa `Take a Chance on Me` come solo e ultimo elemento.
 
 ```js
 assert(
-  updateRecords(_recordCollection, 5439, 'tracks', 'Take a Chance on Me')[5439][
-    'tracks'
-  ].pop() === 'Take a Chance on Me'
+  updateRecords(_recordCollection, 5439, 'tracks', 'Take a Chance on Me') &&
+  _recordCollection[5439]['tracks'].length === 1 &&
+  _recordCollection[5439]['tracks'].pop() === 'Take a Chance on Me'
 );
 ```
 
@@ -115,7 +115,7 @@ const _recordCollection = {
 
 ```js
 // Setup
-var recordCollection = {
+const recordCollection = {
   2548: {
     albumTitle: 'Slippery When Wet',
     artist: 'Bon Jovi',
@@ -146,7 +146,7 @@ updateRecords(recordCollection, 5439, 'artist', 'ABBA');
 # --solutions--
 
 ```js
-var recordCollection = {
+const recordCollection = {
   2548: {
     albumTitle: 'Slippery When Wet',
     artist: 'Bon Jovi',

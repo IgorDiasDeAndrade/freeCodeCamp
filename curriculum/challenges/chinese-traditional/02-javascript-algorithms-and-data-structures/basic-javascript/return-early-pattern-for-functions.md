@@ -29,47 +29,47 @@ myFun();
 修改函數 `abTest` 當 `a` 或 `b` 小於 `0` 時，函數立即返回一個 `undefined` 並退出。
 
 **提示**  
-記住 [`undefined` 是一個關鍵字](/javascript-algorithms-and-data-structures/basic-javascript/understanding-uninitialized-variables)，而不是一個字符串。
+記住 <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/understanding-uninitialized-variables" target="_blank" rel="noopener noreferrer nofollow"><code>undefined</code> 是關鍵字 </a>，不是字符串.
 
 # --hints--
 
-`abTest(2,2)` 應該返回一個數字
+`abTest(2, 2)` 應該返回一個數字
 
 ```js
 assert(typeof abTest(2, 2) === 'number');
 ```
 
-`abTest(2,2)` 應該返回 `8`
+`abTest(2, 2)` 應該返回 `8`
 
 ```js
 assert(abTest(2, 2) === 8);
 ```
 
-`abTest(-2,2)` 應該返回 `undefined`
+`abTest(-2, 2)` 應該返回 `undefined`
 
 ```js
 assert(abTest(-2, 2) === undefined);
 ```
 
-`abTest(2,-2)` 應該返回 `undefined`
+`abTest(2, -2)` 應該返回 `undefined`
 
 ```js
 assert(abTest(2, -2) === undefined);
 ```
 
-`abTest(2,8)` 應該返回 `18`
+`abTest(2, 8)` 應該返回 `18`
 
 ```js
 assert(abTest(2, 8) === 18);
 ```
 
-`abTest(3,3)` 應該返回 `12`
+`abTest(3, 3)` 應該返回 `12`
 
 ```js
 assert(abTest(3, 3) === 12);
 ```
 
-`abTest(0,0)` 應該返回 `0`
+`abTest(0, 0)` 應該返回 `0`
 
 ```js
 assert(abTest(0, 0) === 0);

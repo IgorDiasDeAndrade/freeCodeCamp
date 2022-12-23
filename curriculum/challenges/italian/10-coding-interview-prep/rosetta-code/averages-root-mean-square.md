@@ -1,30 +1,28 @@
 ---
 id: 594da033de4190850b893874
-title: Averages/Root mean square
-challengeType: 5
+title: Medie/Valore efficace
+challengeType: 1
 forumTopicId: 302228
 dashedName: averagesroot-mean-square
 ---
 
 # --description--
 
-Compute the [Root mean square](https://en.wikipedia.org/wiki/Root mean square "wp: Root mean square") of the numbers 1 through 10 inclusive.
+Calcola la media quadratica (RMS - Root Mean Square) dei numeri tra 1 e 10 inclusi.
 
-The *root mean square* is also known by its initials RMS (or rms), and as the **quadratic mean**.
-
-The RMS is calculated as the mean of the squares of the numbers, square-rooted:
+La <abbr title="media quadratica">RMS</abbr> è calcolata prendendo la radice quadrata della media del quadrato dei numeri, dato dall'equazione:
 
 $$x\_{\\mathrm{rms}} = \\sqrt {{{x_1}^2 + {x_2}^2 + \\cdots + {x_n}^2} \\over n}. $$
 
 # --hints--
 
-`rms` should be a function.
+`rms` dovrebbe essere una funzione.
 
 ```js
 assert(typeof rms === 'function');
 ```
 
-`rms([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])` should equal `6.2048368229954285`.
+`rms([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])` dovrebbe essere uguale a `6.2048368229954285`.
 
 ```js
 assert.equal(rms(arr1), answer1);

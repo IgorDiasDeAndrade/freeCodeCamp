@@ -16,8 +16,8 @@ Ricorda che i computer iniziano a contare da `0`, quindi il primo carattere è i
 Esempio:
 
 ```js
-var firstName = "Ada";
-var secondLetterOfFirstName = firstName[1];
+const firstName = "Ada";
+const secondLetterOfFirstName = firstName[1];
 ```
 
 `secondLetterOfFirstName` dovrebbe acere un valore stringa `d`.
@@ -39,7 +39,7 @@ assert(thirdLetterOfLastName === 'v');
 Dovresti usare la notazione a parentesi.
 
 ```js
-assert(code.match(/thirdLetterOfLastName\s*?=\s*?lastName\[.*?\]/));
+assert(code.match(/thirdLetterOfLastName\s*=\s*lastName\s*\[\s*\d\s*\]/));
 ```
 
 # --seed--
@@ -54,15 +54,15 @@ assert(code.match(/thirdLetterOfLastName\s*?=\s*?lastName\[.*?\]/));
 
 ```js
 // Setup
-var lastName = "Lovelace";
+const lastName = "Lovelace";
 
 // Only change code below this line
-var thirdLetterOfLastName = lastName; // Change this line
+const thirdLetterOfLastName = lastName; // Change this line
 ```
 
 # --solutions--
 
 ```js
-var lastName = "Lovelace";
-var thirdLetterOfLastName = lastName[2];
+const lastName = "Lovelace";
+const thirdLetterOfLastName = lastName[2];
 ```

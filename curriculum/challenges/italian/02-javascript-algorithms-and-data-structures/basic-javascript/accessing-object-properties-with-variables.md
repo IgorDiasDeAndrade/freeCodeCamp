@@ -14,37 +14,24 @@ Un altro uso della notazione a parentesi con gli oggetti è quello di accedere a
 Ecco un esempio di utilizzo di una variabile per accedere a una proprietà:
 
 ```js
-var dogs = {
-  Fido: "Mutt",  Hunter: "Doberman",  Snoopie: "Beagle"
+const dogs = {
+  Fido: "Mutt",
+  Hunter: "Doberman",
+  Snoopie: "Beagle"
 };
-var myDog = "Hunter";
-var myBreed = dogs[myDog];
+
+const myDog = "Hunter";
+const myBreed = dogs[myDog];
 console.log(myBreed);
 ```
 
 La stringa `Doberman` sarà visualizzata nella console.
 
-Un altro modo per utilizzare questo concetto è quando il nome della proprietà viene ottenuto dinamicamente durante l'esecuzione del programma, come segue:
-
-```js
-var someObj = {
-  propName: "John"
-};
-function propPrefix(str) {
-  var s = "prop";
-  return s + str;
-}
-var someProp = propPrefix("Name");
-console.log(someObj[someProp]);
-```
-
-`someProp` avrà il valore della stringa `propName` e la stringa `John` sarà visualizzata nella console.
-
 Nota che *non* usiamo virgolette attorno al nome della variabile quando la usiamo per accedere alla proprietà perché stiamo usando il *valore* della variabile, non il *nome*.
 
 # --instructions--
 
-Dai alla variabile `playerNumber` il valore di `16`. Quindi, utilizza la variabile per cercare il nome del giocatore e assegnarla a `player`.
+Dai alla variabile `playerNumber` il valore di `16`. Quindi, utilizza la variabile per cercare il nome del giocatore e assegnarlo a `player`.
 
 # --hints--
 
@@ -96,26 +83,25 @@ if(typeof player !== "undefined"){(function(v){return v;})(player);}
 
 ```js
 // Setup
-var testObj = {
+const testObj = {
   12: "Namath",
   16: "Montana",
   19: "Unitas"
 };
 
 // Only change code below this line
-
-var playerNumber;       // Change this line
-var player = testObj;   // Change this line
+const playerNumber = 42;  // Change this line
+const player = testObj;   // Change this line
 ```
 
 # --solutions--
 
 ```js
-var testObj = {
+const testObj = {
   12: "Namath",
   16: "Montana",
   19: "Unitas"
 };
-var playerNumber = 16;
-var player = testObj[playerNumber];
+const playerNumber = 16;
+const player = testObj[playerNumber];
 ```

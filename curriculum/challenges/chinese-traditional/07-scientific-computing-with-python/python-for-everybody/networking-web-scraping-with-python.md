@@ -3,6 +3,10 @@ id: 5e7b9f0d0b6c005b0e76f076
 title: '網絡：使用 Python 進行 Web 爬取'
 challengeType: 11
 videoId: Uyioq2q4cEg
+bilibiliIds:
+  aid: 674382625
+  bvid: BV1oU4y1n7zQ
+  cid: 377331774
 dashedName: networking-web-scraping-with-python
 ---
 
@@ -10,11 +14,11 @@ dashedName: networking-web-scraping-with-python
 
 更多資料：
 
-\- [練習：socket1](https://www.youtube.com/watch?v=dWLdI143W-g)
+\- <a href="https://www.youtube.com/watch?v=dWLdI143W-g" target="_blank" rel="noopener noreferrer nofollow">練習：socket1</a>
 
-\- [練習：urllib](https://www.youtube.com/watch?v=8yis2DvbBkI)
+\- <a href="https://www.youtube.com/watch?v=8yis2DvbBkI" target="_blank" rel="noopener noreferrer nofollow">練習：urllib</a>
 
-\- [練習：urllinks](https://www.youtube.com/watch?v=g9flPDG9nnY)
+\- <a href="https://www.youtube.com/watch?v=g9flPDG9nnY" target="_blank" rel="noopener noreferrer nofollow">練習：urllinks</a>
 
 # --question--
 

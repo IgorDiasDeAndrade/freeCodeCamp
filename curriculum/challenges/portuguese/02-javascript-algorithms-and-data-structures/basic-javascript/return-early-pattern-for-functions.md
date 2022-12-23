@@ -29,47 +29,47 @@ O código acima exibirá no console a string `Hello`, e retorna a string `World`
 Modifique a função `abTest` para que se `a` ou `b` forem menores que `0` a função irá imediatamente terminar retornando o valor de `undefined`.
 
 **Dica**  
-Lembre-se de que [`undefined` é uma palavra-chave](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/understanding-uninitialized-variables) e não uma string.
+Lembre-se de que <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/understanding-uninitialized-variables" target="_blank" rel="noopener noreferrer nofollow"><code>undefined</code> é uma palavra-chave</a> e não uma string.
 
 # --hints--
 
-`abTest(2,2)` deve retornar um número
+`abTest(2, 2)` deve retornar um número
 
 ```js
 assert(typeof abTest(2, 2) === 'number');
 ```
 
-`abTest(2,2)` deve retornar `8`
+`abTest(2, 2)` deve retornar `8`
 
 ```js
 assert(abTest(2, 2) === 8);
 ```
 
-`abTest(-2,2)` deve retornar `undefined`
+`abTest(-2, 2)` deve retornar `undefined`
 
 ```js
 assert(abTest(-2, 2) === undefined);
 ```
 
-`abTest(2,-2)` deve retornar `undefined`
+`abTest(2, -2)` deve retornar `undefined`
 
 ```js
 assert(abTest(2, -2) === undefined);
 ```
 
-`abTest(2,8)` deve retornar `18`
+`abTest(2, 8)` deve retornar `18`
 
 ```js
 assert(abTest(2, 8) === 18);
 ```
 
-`abTest(3,3)` deve retornar `12`
+`abTest(3, 3)` deve retornar `12`
 
 ```js
 assert(abTest(3, 3) === 12);
 ```
 
-`abTest(0,0)` deve retornar `0`
+`abTest(0, 0)` deve retornar `0`
 
 ```js
 assert(abTest(0, 0) === 0);

@@ -4,7 +4,11 @@ import { body } from 'express-validator';
 import { pick } from 'lodash';
 import { Observable } from 'rx';
 
-import { fixCompletedChallengeItem } from '../../common/utils';
+import {
+  fixCompletedChallengeItem,
+  fixPartiallyCompletedChallengeItem,
+  fixSavedChallengeItem
+} from '../../common/utils';
 import { removeCookies } from '../utils/getSetAccessToken';
 import { ifNoUser401, ifNoUserRedirectHome } from '../utils/middleware';
 import {
@@ -14,6 +18,10 @@ import {
 } from '../utils/publicUserProps';
 import { getRedirectParams } from '../utils/redirection';
 import { trimTags } from '../utils/validators';
+import {
+  createDeleteUserToken,
+  encodeUserToken
+} from '../middlewares/user-token';
 
 const log = debugFactory('fcc:boot:user');
 const sendNonUserToHome = ifNoUserRedirectHome();
@@ -24,13 +32,19 @@ function bootUser(app) {
   const getSessionUser = createReadSessionUser(app);
   const postReportUserProfile = createPostReportUserProfile(app);
   const postDeleteAccount = createPostDeleteAccount(app);
+  const postUserToken = createPostUserToken(app);
+  const deleteUserToken = createDeleteUserToken(app);
 
   api.get('/account', sendNonUserToHome, getAccount);
   api.get('/account/unlink/:social', sendNonUserToHome, getUnlinkSocial);
   api.get('/user/get-session-user', getSessionUser);
-
-  api.post('/account/delete', ifNoUser401, postDeleteAccount);
-  api.post('/account/reset-progress', ifNoUser401, postResetProgress);
+  api.post('/account/delete', ifNoUser401, deleteUserToken, postDeleteAccount);
+  api.post(
+    '/account/reset-progress',
+    ifNoUser401,
+    deleteUserToken,
+    postResetProgress
+  );
   api.post(
     '/user/report-user/',
     ifNoUser401,
@@ -38,51 +52,125 @@ function bootUser(app) {
     postReportUserProfile
   );
 
+  api.post('/user/user-token', ifNoUser401, postUserToken);
+  api.delete(
+    '/user/user-token',
+    ifNoUser401,
+    deleteUserToken,
+    deleteUserTokenResponse
+  );
+
   app.use(api);
+}
+
+function createPostUserToken(app) {
+  const { UserToken } = app.models;
+
+  return async function postUserToken(req, res) {
+    const ttl = 900 * 24 * 60 * 60 * 1000;
+    let encodedUserToken;
+
+    try {
+      await UserToken.destroyAll({ userId: req.user.id });
+      const newUserToken = await UserToken.create({ ttl, userId: req.user.id });
+
+      if (!newUserToken?.id) throw new Error();
+      encodedUserToken = encodeUserToken(newUserToken.id);
+    } catch (e) {
+      return res.status(500).send('Error starting project');
+    }
+
+    return res.json({ userToken: encodedUserToken });
+  };
+}
+
+function deleteUserTokenResponse(req, res) {
+  if (!req.userTokenDeleted) {
+    return res.status(500).send('Error deleting user token');
+  }
+
+  return res.send({ userToken: null });
 }
 
 function createReadSessionUser(app) {
   const { Donation } = app.models;
 
-  return function getSessionUser(req, res, next) {
+  return async function getSessionUser(req, res, next) {
     const queryUser = req.user;
+
+    const userTokenArr = await queryUser.userTokens({
+      userId: queryUser.id
+    });
+
+    const userToken = userTokenArr[0]?.id;
+    let encodedUserToken;
+
+    // only encode if a userToken was found
+    if (userToken) {
+      encodedUserToken = encodeUserToken(userToken);
+    }
+
     const source =
       queryUser &&
       Observable.forkJoin(
         queryUser.getCompletedChallenges$(),
+        queryUser.getPartiallyCompletedChallenges$(),
+        queryUser.getSavedChallenges$(),
         queryUser.getPoints$(),
         Donation.getCurrentActiveDonationCount$(),
-        (completedChallenges, progressTimestamps, activeDonations) => ({
+        (
+          completedChallenges,
+          partiallyCompletedChallenges,
+          savedChallenges,
+          progressTimestamps,
+          activeDonations
+        ) => ({
           activeDonations,
           completedChallenges,
-          progress: getProgress(progressTimestamps, queryUser.timezone)
+          partiallyCompletedChallenges,
+          progress: getProgress(progressTimestamps, queryUser.timezone),
+          savedChallenges
         })
       );
     Observable.if(
       () => !queryUser,
       Observable.of({ user: {}, result: '' }),
       Observable.defer(() => source)
-        .map(({ activeDonations, completedChallenges, progress }) => ({
-          user: {
-            ...queryUser.toJSON(),
-            ...progress,
-            completedChallenges: completedChallenges.map(
-              fixCompletedChallengeItem
-            )
-          },
-          sessionMeta: { activeDonations }
-        }))
+        .map(
+          ({
+            activeDonations,
+            completedChallenges,
+            partiallyCompletedChallenges,
+            progress,
+            savedChallenges
+          }) => ({
+            user: {
+              ...queryUser.toJSON(),
+              ...progress,
+              completedChallenges: completedChallenges.map(
+                fixCompletedChallengeItem
+              ),
+              partiallyCompletedChallenges: partiallyCompletedChallenges.map(
+                fixPartiallyCompletedChallengeItem
+              ),
+              savedChallenges: savedChallenges.map(fixSavedChallengeItem)
+            },
+            sessionMeta: { activeDonations }
+          })
+        )
         .map(({ user, sessionMeta }) => ({
           user: {
             [user.username]: {
               ...pick(user, userPropsForSession),
+              username: user.usernameDisplay || user.username,
               isEmailVerified: !!user.emailVerified,
               isGithub: !!user.githubProfile,
               isLinkedIn: !!user.linkedin,
               isTwitter: !!user.twitter,
               isWebsite: !!user.website,
               ...normaliseUserFields(user),
-              joinDate: user.id.getTimestamp()
+              joinDate: user.id.getTimestamp(),
+              userToken: encodedUserToken
             }
           },
           sessionMeta,
@@ -179,7 +267,11 @@ function postResetProgress(req, res, next) {
       isSciCompPyCertV7: false,
       isDataAnalysisPyCertV7: false,
       isMachineLearningPyCertV7: false,
-      completedChallenges: []
+      isRelationalDatabaseCertV8: false,
+      completedChallenges: [],
+      savedChallenges: [],
+      partiallyCompletedChallenges: [],
+      needsModeration: false
     },
     function (err) {
       if (err) {
@@ -192,7 +284,7 @@ function postResetProgress(req, res, next) {
 
 function createPostDeleteAccount(app) {
   const { User } = app.models;
-  return function postDeleteAccount(req, res, next) {
+  return async function postDeleteAccount(req, res, next) {
     return User.destroyById(req.user.id, function (err) {
       if (err) {
         return next(err);

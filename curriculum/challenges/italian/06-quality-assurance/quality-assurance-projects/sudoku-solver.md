@@ -8,11 +8,17 @@ dashedName: sudoku-solver
 
 # --description--
 
-Costruisci un'app JavaScript full-stack che sia funzionalmente simile a questa: <https://sudoku-solver.freecodecamp.rocks/>. Lavorare su questo progetto ti porterà a scrivere il tuo codice utilizzando uno dei seguenti metodi:
+Costruisci un'app JavaScript full-stack che sia funzionalmente simile a questa: <a href="https://sudoku-solver.freecodecamp.rocks/" target="_blank" rel="noopener noreferrer nofollow">https://sudoku-solver.freecodecamp.rocks/</a>. Lavorare su questo progetto ti porterà a scrivere il tuo codice utilizzando uno dei seguenti metodi:
 
--   Clonare [questo repository GitHub](https://github.com/freecodecamp/boilerplate-project-sudoku-solver) e completare il tuo progetto localmente.
--   Usare [la nostra bozza di progetto su Replit](https://replit.com/github/freeCodeCamp/boilerplate-project-sudoku-solver) per completare il tuo progetto.
+-   Clonare <a href="https://github.com/freecodecamp/boilerplate-project-sudoku-solver" target="_blank" rel="noopener noreferrer nofollow">questo repository GitHub</a> e completare il tuo progetto localmente.
+-   Usare <a href="https://replit.com/github/freeCodeCamp/boilerplate-project-sudoku-solver" target="_blank" rel="noopener noreferrer nofollow">la nostra bozza di progetto su Replit</a> per completare il tuo progetto.
 -   Usare un costruttore di siti a tua scelta per completare il progetto. Assicurati di incorporare tutti i file del nostro repository GitHub.
+
+Se utilizzi Replit, segui questi passaggi per impostare il progetto:
+
+-   Inizia importando il progetto su Replit.
+-   Poi vedrai una finestra `.replit`.
+-   Seleziona `Use run command` e clicca sul pulsante `Done`.
 
 Quando hai finito, assicurati che una demo funzionante del tuo progetto sia ospitata in qualche percorso pubblico. Quindi invia l'URL nel campo `Solution Link`. Facoltativamente, invia anche un link al codice sorgente del tuo progetto nel campo `GitHub Link`.
 
@@ -129,17 +135,21 @@ Se il rompicapo sottoposto a `/api/solve` ha lunghezza maggiore o minore di 81 c
 
 ```js
 async (getUserInput) => {
-  const input =
-    '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+  const inputs = [
+    '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6.',
+    '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6...'
+  ];
   const output = 'Expected puzzle to be 81 characters long';
-  const data = await fetch(getUserInput('url') + '/api/solve', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ puzzle: input })
-  });
-  const parsed = await data.json();
-  assert.property(parsed, 'error');
-  assert.equal(parsed.error, output);
+  for (const input of inputs) {
+    const data = await fetch(getUserInput('url') + '/api/solve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ puzzle: input })
+    });
+    const parsed = await data.json();
+    assert.property(parsed, 'error');
+    assert.equal(parsed.error, output);
+  }
 };
 ```
 
@@ -246,37 +256,55 @@ Se il rompicapo sottoposto a `/api/check` ha lunghezza maggiore o minore di 81 c
 
 ```js
 async (getUserInput) => {
-  const input =
-    '9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
+  const inputs = [
+    '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6.',
+    '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6...'
+  ];
   const coordinate = 'A1';
   const value = '1';
   const output = 'Expected puzzle to be 81 characters long';
-  const data = await fetch(getUserInput('url') + '/api/check', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ puzzle: input, coordinate, value })
-  });
-  const parsed = await data.json();
-  assert.property(parsed, 'error');
-  assert.equal(parsed.error, output);
+  for (const input of inputs) {
+    const data = await fetch(getUserInput('url') + '/api/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ puzzle: input, coordinate, value })
+    });
+    const parsed = await data.json();
+    assert.property(parsed, 'error');
+    assert.equal(parsed.error, output);
+  }
 };
 ```
 
-Se all'oggetto sottoposto a `/api/check` manca `puzzle`, `coordinate` o `value`, il valore restituito sarà `{ error: Required field(s) missing }`
+Se all'oggetto sottoposto a `/api/check` manca `puzzle`, `coordinate` o `value`, il valore restituito sarà `{ error: 'Required field(s) missing' }`
 
 ```js
 async (getUserInput) => {
-  const input =
-    '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-  const output = 'Required field(s) missing';
-  const data = await fetch(getUserInput('url') + '/api/check', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ puzzle: input })
-  });
-  const parsed = await data.json();
-  assert.property(parsed, 'error');
-  assert.equal(parsed.error, output);
+  const inputs = [
+    {
+      puzzle: '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..',
+      value: '1',
+    },
+    {
+      puzzle: '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..',
+      coordinate: 'A1',
+    },
+    {
+      coordinate: 'A1',
+      value: '1'
+    }
+  ];
+  for (const input of inputs) {
+    const output = 'Required field(s) missing';
+    const data = await fetch(getUserInput('url') + '/api/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input)
+    });
+    const parsed = await data.json();
+    assert.property(parsed, 'error');
+    assert.equal(parsed.error, output);
+  }
 };
 ```
 
@@ -287,20 +315,22 @@ async (getUserInput) => {
   const input =
     '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
   const output = 'Invalid coordinate';
-  const coordinate = 'XZ18';
+  const coordinates = ['A0', 'A10', 'J1', 'A', '1', 'XZ18'];
   const value = '7';
-  const data = await fetch(getUserInput('url') + '/api/check', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ puzzle: input, coordinate, value })
-  });
-  const parsed = await data.json();
-  assert.property(parsed, 'error');
-  assert.equal(parsed.error, output);
+  for (const coordinate of coordinates) {
+    const data = await fetch(getUserInput('url') + '/api/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ puzzle: input, coordinate, value })
+    });
+    const parsed = await data.json();
+    assert.property(parsed, 'error');
+    assert.equal(parsed.error, output);
+  }
 };
 ```
 
-Se il valore `value` inviato a `/api/check` non è un numero compreso tra 1 e 9, i valori restituiti saranno `{ error: 'Invalid value' }`
+Se il valore `value` inviato a `/api/check` non è un numero compreso tra 1 e 9, il valore restituito sarà `{ error: 'Invalid value' }`
 
 ```js
 async (getUserInput) => {
@@ -308,15 +338,17 @@ async (getUserInput) => {
     '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
   const output = 'Invalid value';
   const coordinate = 'A1';
-  const value = 'X';
-  const data = await fetch(getUserInput('url') + '/api/check', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ puzzle: input, coordinate, value })
-  });
-  const parsed = await data.json();
-  assert.property(parsed, 'error');
-  assert.equal(parsed.error, output);
+  const values = ['0', '10', 'A'];
+  for (const value of values) {
+    const data = await fetch(getUserInput('url') + '/api/check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ puzzle: input, coordinate, value })
+    });
+    const parsed = await data.json();
+    assert.property(parsed, 'error');
+    assert.equal(parsed.error, output);
+  }
 };
 ```
 
@@ -327,9 +359,11 @@ async (getUserInput) => {
   try {
     const getTests = await $.get(getUserInput('url') + '/_api/get-tests');
     assert.isArray(getTests);
-    const units = getTests.filter((el) => el.context.includes('UnitTests'));
-    assert.isAtLeast(units.length, 12, 'At least 12 tests passed');
-    units.forEach((test) => {
+    const unitTests = getTests.filter((test) => {
+      return !!test.context.match(/Unit\s*Tests/gi);
+    });
+    assert.isAtLeast(unitTests.length, 12, 'At least 12 tests passed');
+    unitTests.forEach((test) => {
       assert.equal(test.state, 'passed', 'Test in Passed State');
       assert.isAtLeast(
         test.assertions.length,
@@ -343,18 +377,18 @@ async (getUserInput) => {
 };
 ```
 
-Tutti i 14 test funzionali richiesti sono completi e superati. Vedi `/tests/2_functional-tests.js` per le funzionalità per le quali dovresti scrivere dei test.
+Tutti i 14 test funzionali richiesti sono completi e superati. Vedi `/tests/2_functional-tests.js` per le funzionalità attese per le quali dovresti scrivere dei test.
 
 ```js
 async (getUserInput) => {
   try {
     const getTests = await $.get(getUserInput('url') + '/_api/get-tests');
     assert.isArray(getTests);
-    const funcs = getTests.filter((el) =>
-      el.context.includes('Functional Tests')
-    );
-    assert.isAtLeast(funcs.length, 14, 'At least 14 tests passed');
-    funcs.forEach((test) => {
+    const functTests = getTests.filter((test) => {
+      return !!test.context.match(/Functional\s*Tests/gi);
+    });
+    assert.isAtLeast(functTests.length, 14, 'At least 14 tests passed');
+    functTests.forEach((test) => {
       assert.equal(test.state, 'passed', 'Test in Passed State');
       assert.isAtLeast(
         test.assertions.length,

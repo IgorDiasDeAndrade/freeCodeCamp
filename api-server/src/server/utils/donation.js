@@ -1,12 +1,13 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 import debug from 'debug';
+import isEmail from 'validator/lib/isEmail';
 import { donationSubscriptionConfig } from '../../../../config/donation-settings';
 import keys from '../../../../config/secrets';
 
 const log = debug('fcc:boot:donate');
 
-const paypalverifyWebhookURL =
+const paypalVerifyWebhookURL =
   keys.paypal.verifyWebhookURL ||
   `https://api.sandbox.paypal.com/v1/notifications/verify-webhook-signature`;
 const paypalTokenURL =
@@ -49,7 +50,7 @@ export async function verifyWebHook(headers, body, token, webhookId) {
     webhook_event: webhookEventBody
   };
 
-  const response = await axios.post(paypalverifyWebhookURL, payload, {
+  const response = await axios.post(paypalVerifyWebhookURL, payload, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
@@ -60,6 +61,7 @@ export async function verifyWebHook(headers, body, token, webhookId) {
     return body;
   } else {
     throw {
+      // if verification fails, throw token verification error
       message: `Failed token verification.`,
       type: 'FailedPaypalTokenVerificationError'
     };
@@ -86,6 +88,7 @@ export function verifyWebHookType(req) {
 
 export const createAsyncUserDonation = (user, donation) => {
   log(`Creating donation:${donation.subscriptionId}`);
+  // log user donation
   user
     .createDonation(donation)
     .toPromise()
@@ -95,6 +98,7 @@ export const createAsyncUserDonation = (user, donation) => {
 };
 
 export function createDonationObj(body) {
+  // creates donation object
   const {
     resource: {
       id,
@@ -130,6 +134,13 @@ export function createDonation(body, app) {
   let donation = createDonationObj(body);
 
   let email = email_address;
+  if (!email || !isEmail(email)) {
+    throw {
+      message: 'Paypal webhook email is not valid',
+      type: 'InvalidPaypalWebhookEmail'
+    };
+  }
+
   return User.findOne({ where: { email } }, (err, user) => {
     if (err) throw new Error(err);
     if (!user) {
@@ -139,7 +150,11 @@ export function createDonation(body, app) {
           createAsyncUserDonation(user, donation);
         })
         .catch(err => {
-          throw new Error(err);
+          throw {
+            message:
+              err.message || 'findOne Donation records with email failed',
+            type: err.name || 'FailedFindingOneDonationEmail'
+          };
         });
     }
     return createAsyncUserDonation(user, donation);
@@ -152,7 +167,17 @@ export async function cancelDonation(body, app) {
   } = body;
   const { Donation } = app.models;
   Donation.findOne({ where: { subscriptionId: id } }, (err, donation) => {
-    if (err || !donation) throw Error(err);
+    if (err)
+      throw {
+        message:
+          err.message || 'findOne Donation records with subscriptionId failed',
+        type: err.name || 'FailedFindingOneSubscriptionId'
+      };
+    if (!donation)
+      throw {
+        message: 'Donation record with provided subscription id is not found',
+        type: 'SubscriptionIdNotFound'
+      };
     log(`Updating donation record: ${donation.subscriptionId}`);
     donation.updateAttributes({
       endDate: new Date(status_update_time).toISOString()
@@ -163,6 +188,7 @@ export async function cancelDonation(body, app) {
 export async function updateUser(body, app) {
   const { event_type } = body;
   if (event_type === 'BILLING.SUBSCRIPTION.ACTIVATED') {
+    // update user status based on new billing subscription events
     createDonation(body, app);
   } else if (event_type === 'BILLING.SUBSCRIPTION.CANCELLED') {
     cancelDonation(body, app);
@@ -175,22 +201,22 @@ export async function updateUser(body, app) {
 
 export async function createStripeCardDonation(req, res, stripe) {
   const {
-    body: {
-      token: { id: tokenId },
-      amount,
-      duration
-    },
+    body: { paymentMethodId, amount, duration },
     user: { name, id: userId, email },
     user
   } = req;
 
-  if (!tokenId || !amount || !duration || !userId || !email) {
+  if (!paymentMethodId || !amount || !duration || !userId || !email) {
     throw {
       message: 'Request is not valid',
       type: 'InvalidRequest'
     };
   }
 
+  /*
+   * if user is already donating and the donation isn't one time only,
+   * throw error
+   */
   if (user.isDonating && duration !== 'onetime') {
     throw {
       message: `User already has active recurring donation(s).`,
@@ -202,7 +228,8 @@ export async function createStripeCardDonation(req, res, stripe) {
   try {
     const customer = await stripe.customers.create({
       email,
-      card: tokenId,
+      payment_method: paymentMethodId,
+      invoice_settings: { default_payment_method: paymentMethodId },
       ...(name && { name })
     });
     customerId = customer?.id;
@@ -216,22 +243,48 @@ export async function createStripeCardDonation(req, res, stripe) {
 
   let subscriptionId;
   try {
-    const subscription = await stripe.subscriptions.create({
+    const {
+      id: subscription_id,
+      latest_invoice: {
+        payment_intent: { client_secret, status: intent_status }
+      }
+    } = await stripe.subscriptions.create({
+      // create Stripe subscription
       customer: customerId,
+      payment_behavior: 'allow_incomplete',
       items: [
         {
           plan: `${donationSubscriptionConfig.duration[
             duration
           ].toLowerCase()}-donation-${amount}`
         }
-      ]
+      ],
+      expand: ['latest_invoice.payment_intent']
     });
-    subscriptionId = subscription?.id;
-  } catch {
-    throw {
-      type: 'subscriptionCreationFailed',
-      message: 'Failed to create stripe subscription'
-    };
+
+    if (intent_status === 'requires_source_action')
+      throw {
+        type: 'UserActionRequired',
+        message: 'Payment requires user action',
+        client_secret
+      };
+    else if (intent_status === 'requires_source')
+      throw {
+        type: 'PaymentMethodRequired',
+        message: 'Card has been declined'
+      };
+    subscriptionId = subscription_id;
+  } catch (err) {
+    if (
+      err.type === 'UserActionRequired' ||
+      err.type === 'PaymentMethodRequired'
+    )
+      throw err;
+    else
+      throw {
+        type: 'SubscriptionCreationFailed',
+        message: 'Failed to create stripe subscription'
+      };
   }
   log(`Stripe subscription with id ${subscriptionId} created`);
 

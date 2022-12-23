@@ -11,6 +11,8 @@ dashedName: stand-in-line
 
 在計算機科學中隊列（<dfn>queue</dfn>）是一個抽象的數據結構（<dfn>Data Structure</dfn>），隊列中的條目都是有秩序的。 新的條目會被加到隊列的末尾，舊的條目會從隊列的頭部被移出。
 
+# --instructions--
+
 寫一個函數 `nextInLine`，用一個數組（`arr`）和一個數字（`item`）作爲參數。
 
 把數字添加到數組的結尾，然後移出數組的第一個元素。
@@ -93,12 +95,10 @@ function nextInLine(arr, item) {
 
   return item;
   // Only change code above this line
-
-
 }
 
 // Setup
-var testArr = [1,2,3,4,5];
+let testArr = [1, 2, 3, 4, 5];
 
 // Display code
 console.log("Before: " + JSON.stringify(testArr));
@@ -109,7 +109,7 @@ console.log("After: " + JSON.stringify(testArr));
 # --solutions--
 
 ```js
-var testArr = [ 1,2,3,4,5];
+let testArr = [1, 2, 3, 4, 5];
 
 function nextInLine(arr, item) {
     arr.push(item);

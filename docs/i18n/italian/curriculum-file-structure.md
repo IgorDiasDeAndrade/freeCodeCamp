@@ -7,14 +7,15 @@ Il nostro contenuto educativo centrale è situato nella cartella chiamata conven
 Questi sono alcuni termini che usiamo quando discutiamo il contenuto del nostro curriculum.
 
 - `certification` : Quando riferito a una certificazione in questa istanza, sta parlando del certificato che gli utenti richiedono. Che è separato dal nome del superBlock.
-- `superBlock` : Un superblock è il raggruppamento superiore di sfide. Ogni superblock corrisponde a una certificazione nel curriculum (per esempio Web Design Responsivo).
-- `block` : Un block è una sezione in un superblock. Un blocco corrisponde a un gruppo di sfide in una certa certificazione (per esempio HTML Base e HTML5)
-- `challenge` : Una sfida è una singola lezione nel curriculum (per esempio Fare conoscenza con gli elementi HTML)
+- `superBlock` : Un superblock è il raggruppamento superiore di sfide. Ogni superblock corrisponde ad una certificazione nel curriculum (p.e. Responsive Web Design).
+- `block` : Un block è una sezione in un superblock. Un blocco corrisponde a un gruppo di sfide in una certa certificazione (per esempio Basic HTML e HTML5)
+- `challenge`: Una sfida è una singola lezione nel curriculum (p. e. Saluta gli elementi HTML)
 
 ## Albero dei file
 
 Usando quei termini, ecco come la struttura dei file viene definita:
 
+<!-- prettier-ignore -->
 ```md
 
 curriculum/
@@ -62,7 +63,7 @@ Quando rinomini una certificazione, vorrai probabilmente rinominare il superbloc
 Inoltre, probabilmente vorrai rinominare il certificato e il blocco `{superBlock}-projects` quando rinomini un superblocco visto che condividono tutti un nome. Per rinominare solo un superblocco devi:
 
 1. Rinominare la cartella del superblocco nella cartella `curriculum/challenges/english`.
-1. Rinominare la cartella del superblocco in *tutte* le altre cartelle `curriculum/challenges/{language}`.
+1. Rinominare la cartella del superblocco in _tutte_ le altre cartelle `curriculum/challenges/{language}`.
 1. Per ogni blocco dentro quel superblocco, aggiorna il valore `superBlock` nel file `meta.json` al suo nome a trattini. Non hai bisogno di rinominare alcuna cartella qui. Fallo quando rinomini un blocco.
 1. Rinomina la cartella del superblocco in `client/src/pages/learn`.
 1. Aggiorna il file `index.md` nella cartella qui sopra, cambiando i valori `title` e `superBlock` al nuovo nome.
@@ -79,7 +80,7 @@ Inoltre, probabilmente vorrai rinominare il certificato e il blocco `{superBlock
 Quando rinomini un blocco del curriculum, devi:
 
 1. Cambiare il nome della cartella nella directory `curriculum/challenges/english/{superBlock}`.
-1. Cambiare il nome della cartella dello stesso blocco in *tutte* le directory delle altre lingue. Queste devono tutte essere uguali alla struttura inglese o il build avrà errori.
+1. Cambiare il nome della cartella dello stesso blocco in _tutte_ le directory delle altre lingue. Queste devono tutte essere uguali alla struttura inglese o il build avrà errori.
 1. Cambia il nome della cartella del blocco nella directory `_meta`.
 1. Aggiorna le proprietà `name` e `dashedName` per il `meta.json` di quel blocco.
 1. Aggiorna `client/utils/help-category-map.json` inmodo che usi il nuovo nome del blocco come chiave.
@@ -94,7 +95,7 @@ Quando rinomini il file di una singola sfida, devi:
 
 1. Cambiare il nome del file della sfida nella directory `curriculum/challenges/english`.
 1. Cambiare i valori di `title` e `dashedName` in quel file.
-1. Cambia il nome del file e il valore di `dashedName` in quei file per *tutte* le directory delle altre lingue.
+1. Cambia il nome del file e il valore di `dashedName` in quei file per _tutte_ le directory delle altre lingue.
 1. Cambiare il nome della sfida nel file `meta.json` rilevante. I nomi delle sfide qui non sono usati nel build, ma forniscono un metodo user-friendly per identificare l'ordine delle sfide.
 1. Se la sfida è un progetto di un certificato, aggiorna il file YAML in `curriculum/english/12-certificates/<superBlock>` con il nuovo nome.
 1. Se la sfida è un progetto di un certificato, aggiorna `title` e `link` in `client/src/resources/cert-and-project-map.ts`
@@ -102,4 +103,4 @@ Quando rinomini il file di una singola sfida, devi:
 
 ## La proprietà `dashedName`
 
-La proprietà `dashedName` è usata per generare il percorso URL del superblocco, del blocco o della sfida. Questi devono in genere combaciare con ciò che l'aiutante `/utils/dasherize.js` restituirebbe per il nome del file.
+La proprietà `dashedName` è usata per generare il percorso URL del superblocco, del blocco o della sfida. Questi devono in genere combaciare con ciò che l'aiutante `/utils/slugs.js` restituirebbe per il nome del file.

@@ -1,7 +1,7 @@
 ---
 id: 5900f3841000cf542c50fe97
 title: 'Problema 24: Permutações lexicográficas'
-challengeType: 5
+challengeType: 1
 forumTopicId: 301885
 dashedName: problem-24-lexicographic-permutations
 ---
@@ -12,7 +12,7 @@ Uma permutação consiste de elementos que podem formar agrupamentos que se dife
 
 <div style='text-align: center;'>012   021   102   120   201   210</div>
 
-Qual é a `n`-ésima permutação lexicográfica dos dígitos 0, 1, 2, 3, 4, 5, 6, 7, 8 e 9?
+Qual é a `n`-ésima permutação lexicográfica dos algarismos 0, 1, 2, 3, 4, 5, 6, 7, 8 e 9?
 
 # --hints--
 

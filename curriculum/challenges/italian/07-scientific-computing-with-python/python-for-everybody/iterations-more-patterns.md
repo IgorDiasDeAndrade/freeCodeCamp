@@ -3,6 +3,10 @@ id: 5e7b9f070b6c005b0e76f05f
 title: 'Iterazioni: ulteriori modelli'
 challengeType: 11
 videoId: 9Wtqo6vha1M
+bilibiliIds:
+  aid: 674492981
+  bvid: BV1hU4y1H7tF
+  cid: 376531204
 dashedName: iterations-more-patterns
 ---
 
@@ -10,7 +14,7 @@ dashedName: iterations-more-patterns
 
 Altre risorse:
 
-\- [Esercizio](https://www.youtube.com/watch?v=kjxXZQw0uPg)
+\- <a href="https://www.youtube.com/watch?v=kjxXZQw0uPg" target="_blank" rel="noopener noreferrer nofollow">Esercizio</a>
 
 # --question--
 

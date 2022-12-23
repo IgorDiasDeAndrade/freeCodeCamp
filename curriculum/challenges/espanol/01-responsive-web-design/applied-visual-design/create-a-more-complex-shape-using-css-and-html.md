@@ -9,7 +9,7 @@ dashedName: create-a-more-complex-shape-using-css-and-html
 
 # --description--
 
-Una de las formas más populares en el mundo es la forma del corazón, y en este desafío crearás una usando CSS puro. Pero primero, debes comprender los pseudo-elements `::before` y `::after`. Estos pseudo-elements se utilizan para agregar algo antes o después de un elemento seleccionado. En el siguiente ejemplo, se utiliza un pseudo-elemento `::before` para agregar un rectángulo a un elemento con la clase `heart`:
+Una de las formas más populares en el mundo es la forma del corazón, y en este desafío crearás una usando CSS puro. Pero primero, debes comprender los pseudo-elements `::before` y `::after`. `::before` crea un pseudo-elemento que es el primer hijo del elemento seleccionado; `::after` crea un pseudo-elemento que es el último hijo del elemento seleccionado. En el siguiente ejemplo, se utiliza un pseudo-elemento `::before` para agregar un rectángulo a un elemento con la clase `heart`:
 
 ```css
 .heart::before {
@@ -36,7 +36,7 @@ Finalmente, en el selector `heart::before`, establece su propiedad `content` en 
 
 # --hints--
 
-La propiedad `background-color` del selector `heart::after` debe ser `pink`.
+La propiedad de `background-color` del selector `heart::after` debe ser `pink`.
 
 ```js
 const heartAfter = code.match(/\.heart::after\s*{[\s\S]+?[^\}]}/g)[0];
@@ -57,7 +57,7 @@ La propiedad `transform` para la clase `heart` debe usar una función `rotate()`
 assert(code.match(/transform\s*?:\s*?rotate\(\s*?-45deg\s*?\)/gi));
 ```
 
-El `content` del selector `heart::before` debe ser una cadena vacía.
+El `contenido` de `heart::before` debe ser una cadena vacía.
 
 ```js
 assert(code.match(/\.heart::before\s*?{\s*?content\s*?:\s*?("|')\1\s*?;/gi));

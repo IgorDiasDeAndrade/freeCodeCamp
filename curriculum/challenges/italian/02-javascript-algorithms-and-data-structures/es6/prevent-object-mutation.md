@@ -10,7 +10,7 @@ dashedName: prevent-object-mutation
 
 Come visto nella sfida precedente, la dichiarazione `const` da sola non protegge davvero i tuoi dati dalla mutazione. Per garantire che i tuoi dati non cambino, JavaScript fornisce una funzione `Object.freeze` per prevenire la mutazione dei dati.
 
-Una volta che l'oggetto è congelato, non è più possibile aggiungere, aggiornare o eliminare proprietà da esso. Qualsiasi tentativo di cambiare l'oggetto verrà rifiutato senza errore.
+Qualsiasi tentativo di cambiare l'oggetto verrà rifiutato, con un errore generato se lo script viene eseguito in modalità rigorosa.
 
 ```js
 let obj = {
@@ -23,11 +23,11 @@ obj.newProp = "Test";
 console.log(obj); 
 ```
 
-Le assegnazioni su `obj.review` e `obj.newProp` si tradurranno in errori, e la console mostrerà il valore `{ name: "FreeCodeCamp", review: "Awesome" }`.
+Gli assegnamenti `obj.review` e `obj.newProp` provocheranno errori, perché il nostro editor viene eseguito in modalità rigorosa per impostazione predefinita e la console mostrerà il valore `{ name: "FreeCodeCamp", review: "Awesome" }`.
 
 # --instructions--
 
-In questa utilizzerai `Object.freeze` per impedire di cambiare le costanti matematiche. È necessario congelare l'oggetto `MATH_CONSTANTS` in modo che nessuno sia in grado di modificare il valore di `PI`, aggiungere o eliminare proprietà.
+In questa sfida utilizzerai `Object.freeze` per impedire di cambiare le costanti matematiche. È necessario congelare l'oggetto `MATH_CONSTANTS` in modo che nessuno sia in grado di modificare il valore di `PI`, aggiungere o eliminare proprietà.
 
 # --hints--
 

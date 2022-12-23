@@ -2,12 +2,11 @@
   "name": "Data Structures",
   "isUpcomingChange": false,
   "dashedName": "data-structures",
-  "order": 2,
+  "order": 1,
   "time": "",
   "template": "",
   "required": [],
   "superBlock": "coding-interview-prep",
-  "superOrder": 12,
   "challengeOrder": [
     [
       "587d8253367417b2b2512c6a",

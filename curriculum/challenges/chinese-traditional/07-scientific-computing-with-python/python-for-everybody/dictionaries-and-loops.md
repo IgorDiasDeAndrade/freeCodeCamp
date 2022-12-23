@@ -3,6 +3,10 @@ id: 5e7b9f0a0b6c005b0e76f069
 title: 字典和循環
 challengeType: 11
 videoId: EEmekKiKG70
+bilibiliIds:
+  aid: 589401038
+  bvid: BV1eq4y1X7xU
+  cid: 376387132
 dashedName: dictionaries-and-loops
 ---
 
@@ -10,7 +14,7 @@ dashedName: dictionaries-and-loops
 
 更多資源：
 
-\- [練習](https://www.youtube.com/watch?v=PrhZ9qwBDD8)
+\- <a href="https://www.youtube.com/watch?v=PrhZ9qwBDD8" target="_blank" rel="noopener noreferrer nofollow">練習</a>
 
 # --question--
 

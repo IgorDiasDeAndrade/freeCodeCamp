@@ -11,13 +11,13 @@ describe('ga-saga', () => {
     const mockEventPayload = {
       type: 'event',
       data: {
-        category: 'Donation',
-        action: 'year end gift paypal button click'
+        category: 'Map Challenge Click',
+        action: '/learn'
       }
     };
     return (
       expectSaga(createGaSaga, actionTypes)
-        // Assert that the `call` with expected pramater will eventually happen.
+        // Assert that the `call` with expected paramater will eventually happen.
         .call(GaTypes.event, mockEventPayload.data)
 
         // Dispatch any actions that the saga will `take`.

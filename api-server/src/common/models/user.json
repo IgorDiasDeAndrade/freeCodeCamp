@@ -74,6 +74,9 @@
       },
       "require": true
     },
+    "usernameDisplay": {
+      "type": "string"
+    },
     "about": {
       "type": "string",
       "default": ""
@@ -116,6 +119,17 @@
       "type": "boolean",
       "description": "Camper has signed academic honesty policy",
       "default": false
+    },
+    "needsModeration": {
+      "type": "boolean",
+      "description": "Camper has challenges needing to be moderated",
+      "default": false,
+      "index": {
+        "mongodb": {
+          "unique": true,
+          "background": true
+        }
+      }
     },
     "isFrontEndCert": {
       "type": "boolean",
@@ -197,6 +211,11 @@
       "description": "Camper is machine learning with Python certified",
       "default": false
     },
+    "isRelationalDatabaseCertV8": {
+      "type": "boolean",
+      "description": "Camper is relational database certified",
+      "default": false
+    },
     "completedChallenges": {
       "type": [
         {
@@ -204,6 +223,49 @@
           "id": "string",
           "solution": "string",
           "githubLink": "string",
+          "challengeType": "number",
+          "isManuallyApproved": "boolean",
+          "files": {
+            "type": [
+              {
+                "contents": {
+                  "type": "string",
+                  "default": ""
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "key": {
+                  "type": "string"
+                }
+              }
+            ],
+            "default": []
+          }
+        }
+      ],
+      "default": []
+    },
+    "partiallyCompletedChallenges": {
+      "type": [
+        {
+          "completedDate": "number",
+          "id": "string"
+        }
+      ],
+      "default": []
+    },
+    "savedChallenges": {
+      "type": [
+        {
+          "lastSavedDate": "number",
+          "id": "string",
           "challengeType": "number",
           "files": {
             "type": [
@@ -251,6 +313,14 @@
       "type": "string",
       "default": "default"
     },
+    "sound": {
+      "type": "boolean",
+      "default": false
+    },
+    "keyboardShortcuts": {
+      "type": "boolean",
+      "default": false
+    },
     "profileUI": {
       "type": "object",
       "default": {
@@ -276,9 +346,7 @@
       "default": {}
     },
     "donationEmails": {
-      "type": [
-        "string"
-      ]
+      "type": ["string"]
     },
     "isDonating": {
       "type": "boolean",
@@ -320,6 +388,11 @@
       "type": "hasMany",
       "model": "article",
       "foreignKey": "externalId"
+    },
+    "userTokens": {
+      "type": "hasMany",
+      "model": "UserToken",
+      "foreignKey": "userId"
     }
   },
   "acls": [

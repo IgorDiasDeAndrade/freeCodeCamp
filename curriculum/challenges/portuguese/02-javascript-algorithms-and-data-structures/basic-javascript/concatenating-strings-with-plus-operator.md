@@ -22,7 +22,7 @@ Em JavaScript, quando o operador `+` é usado com um valor de `String`, ele é c
 Exemplo:
 
 ```js
-var ourStr = "I come first. " + "I come second.";
+const ourStr = "I come first. " + "I come second.";
 ```
 
 A string `I come first. I come second.` seria exibida no console.
@@ -32,7 +32,13 @@ Crie `myStr` a partir das strings `This is the start.` e `This is the end.` usan
 
 # --hints--
 
-`myStr` deve ter o valor da string `This is the start. This is the end.`
+`myStr` deve ter um único caractere de espaço entre as duas strings.
+
+```js
+assert(/start\. This/.test(myStr));
+```
+
+`myStr` deve ter como valor a string `This is the start. This is the end.`
 
 ```js
 assert(myStr === 'This is the start. This is the end.');
@@ -44,10 +50,10 @@ Você deve usar o operador `+` para criar `myStr`.
 assert(code.match(/(["']).*\1\s*\+\s*(["']).*\2/g));
 ```
 
-`myStr` deve ser criada usando a palavra-chave `var`.
+`myStr` deve ser criada usando a palavra-chave `const`.
 
 ```js
-assert(/var\s+myStr/.test(code));
+assert(/const\s+myStr/.test(code));
 ```
 
 Você deve atribuir o resultado à variável `myStr`.
@@ -73,11 +79,11 @@ assert(/myStr\s*=/.test(code));
 ## --seed-contents--
 
 ```js
-var myStr; // Change this line
+const myStr = ""; // Change this line
 ```
 
 # --solutions--
 
 ```js
-var myStr = "This is the start. " + "This is the end.";
+const myStr = "This is the start. " + "This is the end.";
 ```

@@ -15,13 +15,13 @@ Puedes encontrar la longitud de un valor de cadena (`String`) escribiendo `.leng
 console.log("Alan Peter".length);
 ```
 
-El valor `10` se mostrará en la consola.
+El valor `10` se mostrará en la consola. Toma nota que el carácter espacial entre "Alan" y "Peter" también se cuenta.
 
-Por ejemplo, si creamos una variable `var firstName = "Ada"`, podríamos averiguar la longitud de la cadena `Ada` usando la propiedad `firstName.length`.
+Por ejemplo, si creamos una variable `const firstName = "Ada"`, podríamos averiguar la longitud de la cadena `Ada` usando la propiedad `firstName.length`.
 
 # --instructions--
 
-Usa la propiedad `.length` para contar el número de caracteres en la variable `lastName` y asignarla a `lastNameLength`.
+Utilice la propiedad `.length` para establecer `lastNameLength` al número de caracteres en `lastName`.
 
 # --hints--
 
@@ -29,8 +29,8 @@ No debes cambiar las declaraciones de variables en la sección `// Setup`.
 
 ```js
 assert(
-  code.match(/var lastNameLength = 0;/) &&
-    code.match(/var lastName = "Lovelace";/)
+  code.match(/let lastNameLength = 0;/) &&
+    code.match(/const lastName = "Lovelace";/)
 );
 ```
 
@@ -52,18 +52,17 @@ assert(code.match(/=\s*lastName\.length/g) && !code.match(/lastName\s*=\s*8/));
 
 ```js
 // Setup
-var lastNameLength = 0;
-var lastName = "Lovelace";
+let lastNameLength = 0;
+const lastName = "Lovelace";
 
 // Only change code below this line
-
 lastNameLength = lastName;
 ```
 
 # --solutions--
 
 ```js
-var lastNameLength = 0;
-var lastName = "Lovelace";
+let lastNameLength = 0;
+const lastName = "Lovelace";
 lastNameLength = lastName.length;
 ```

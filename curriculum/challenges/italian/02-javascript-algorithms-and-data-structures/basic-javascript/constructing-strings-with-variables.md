@@ -9,13 +9,13 @@ dashedName: constructing-strings-with-variables
 
 # --description--
 
-A volte dovrai costruire una stringa, nello stile di [Mad Libs](https://en.wikipedia.org/wiki/Mad_Libs). Utilizzando l'operatore di concatenazione (`+`), puoi inserire una o più variabili in una stringa che stai costruendo.
+A volte, avrai bisogno di costruire una stringa. Utilizzando l'operatore di concatenazione (`+`), puoi inserire una o più variabili in una stringa che stai costruendo.
 
 Esempio:
 
 ```js
-var ourName = "freeCodeCamp";
-var ourStr = "Hello, our name is " + ourName + ", how are you?";
+const ourName = "freeCodeCamp";
+const ourStr = "Hello, our name is " + ourName + ", how are you?";
 ```
 
 `ourStr` avrà un valore stringa `Hello, our name is freeCodeCamp, how are you?`.
@@ -63,13 +63,13 @@ assert(code.match(/["']\s*\+\s*myName\s*\+\s*["']/g).length > 0);
 
 ```js
 // Only change code below this line
-var myName;
-var myStr;
+const myName = "";
+const myStr = "";
 ```
 
 # --solutions--
 
 ```js
-var myName = "Bob";
-var myStr = "My name is " + myName + " and I am well!";
+const myName = "Bob";
+const myStr = "My name is " + myName + " and I am well!";
 ```

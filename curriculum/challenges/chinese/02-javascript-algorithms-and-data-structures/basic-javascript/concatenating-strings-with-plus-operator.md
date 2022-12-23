@@ -22,7 +22,7 @@ dashedName: concatenating-strings-with-plus-operator
 例如：
 
 ```js
-var ourStr = "I come first. " + "I come second.";
+const ourStr = "I come first. " + "I come second.";
 ```
 
 字符串 `I come first. I come second.` 将显示在控制台中。
@@ -32,25 +32,31 @@ var ourStr = "I come first. " + "I come second.";
 
 # --hints--
 
-`myStr` 的值应该是 `This is the start. This is the end.`
+`myStr` 应该在两个字符串之间有一个空格字符。
+
+```js
+assert(/start\. This/.test(myStr));
+```
+
+`myStr` 的值应该是字符串 `This is the start. This is the end.`
 
 ```js
 assert(myStr === 'This is the start. This is the end.');
 ```
 
-应使用 `+` 操作符创建 `myStr`。
+应该使用 `+` 运算符来构建 `myStr`。
 
 ```js
 assert(code.match(/(["']).*\1\s*\+\s*(["']).*\2/g));
 ```
 
-应使用 `var` 关键字创建 `myStr`。
+`myStr` 应该使用 `const` 关键字创建。
 
 ```js
-assert(/var\s+myStr/.test(code));
+assert(/const\s+myStr/.test(code));
 ```
 
-应把结果赋值给 `myStr` 变量。
+应该将结果分配给 `myStr` 变量。
 
 ```js
 assert(/myStr\s*=/.test(code));
@@ -73,11 +79,11 @@ assert(/myStr\s*=/.test(code));
 ## --seed-contents--
 
 ```js
-var myStr; // Change this line
+const myStr = ""; // Change this line
 ```
 
 # --solutions--
 
 ```js
-var myStr = "This is the start. " + "This is the end.";
+const myStr = "This is the start. " + "This is the end.";
 ```

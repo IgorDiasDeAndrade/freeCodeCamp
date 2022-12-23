@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c157
 title: Numpy 代数和大小
 challengeType: 11
 videoId: XAT97YLOKD8
+bilibiliIds:
+  aid: 250621433
+  bvid: BV1hv41137uM
+  cid: 409013128
 dashedName: numpy-algebra-and-size
 ---
 
@@ -12,8 +16,8 @@ dashedName: numpy-algebra-and-size
 
 以下有更多的资料：
 
--   [在 GitHub 平台的 Notebooks](https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-numpy)
--   [如何使用 Google Colab 来打开 GitHub 上的 Notebooks](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-numpy" target="_blank" rel="noopener noreferrer nofollow">在 GitHub 平台的 Notebooks</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">如何使用 Google Colab 来打开 GitHub 上的 Notebooks</a>
 
 # --question--
 

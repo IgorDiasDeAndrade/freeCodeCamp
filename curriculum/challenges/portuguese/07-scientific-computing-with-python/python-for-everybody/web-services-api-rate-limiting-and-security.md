@@ -3,6 +3,10 @@ id: 5e7b9f150b6c005b0e76f080
 title: 'Serviços da web: Limitador de taxa de API e segurança'
 challengeType: 11
 videoId: pI-g0lI8ngs
+bilibiliIds:
+  aid: 249456172
+  bvid: BV1Sv411E7qa
+  cid: 377336269
 dashedName: web-services-api-rate-limiting-and-security
 ---
 
@@ -10,13 +14,13 @@ dashedName: web-services-api-rate-limiting-and-security
 
 Mais recursos:
 
-\- [Exercício: GeoJSON](https://www.youtube.com/watch?v=TJGJN0T8tak)
+\- <a href="https://www.youtube.com/watch?v=TJGJN0T8tak" target="_blank" rel="noopener noreferrer nofollow">Exercício: GeoJSON</a>
 
-\- [Exercício: JSON](https://www.youtube.com/watch?v=vTmw5RtfGMY)
+\- <a href="https://www.youtube.com/watch?v=vTmw5RtfGMY" target="_blank" rel="noopener noreferrer nofollow">Exercício: JSON</a>
 
-\- [Exercício: Twitter](https://www.youtube.com/watch?v=2c7YwhvpCro)
+\- <a href="https://www.youtube.com/watch?v=2c7YwhvpCro" target="_blank" rel="noopener noreferrer nofollow">Exercício: Twitter</a>
 
-\- [Exercício: XML](https://www.youtube.com/watch?v=AopYOlDa-vY)
+\- <a href="https://www.youtube.com/watch?v=AopYOlDa-vY" target="_blank" rel="noopener noreferrer nofollow">Exercício: XML</a>
 
 # --question--
 

@@ -9,7 +9,7 @@ dashedName: create-a-more-complex-shape-using-css-and-html
 
 # --description--
 
-世界上最流行的形狀非心形莫屬了，在本挑戰中我們將用純 CSS 創建一個心形。 但是首先你需要了解僞元素 `::before` 和 `::after`。 僞元素可以在所選元素之前或之後添加一些內容。 在下面的代碼中，`::before` 僞元素用來給 class 爲 `heart` 的元素添加一個正方形：
+世界上最流行的形狀非心形莫屬了，在本挑戰中我們將用純 CSS 創建一個心形。 但是首先你需要了解僞元素 `::before` 和 `::after`。 `::before` 創建一個僞元素，它是所選元素的第一個子元素； `::after` 創建一個僞元素，它是所選元素的最後一個子元素。 在下面的代碼中，`::before` 僞元素用來給 class 爲 `heart` 的元素添加一個正方形：
 
 ```css
 .heart::before {
@@ -28,15 +28,15 @@ dashedName: create-a-more-complex-shape-using-css-and-html
 
 # --instructions--
 
-把屏幕裏的元素變成心形。 在 `heart::after` 選擇器裏，把 `background-color` 改成 `pink`，把 `border-radius` 改成 50%。
+把屏幕裏的元素變成心形。 在 `.heart::after` 選擇器裏，把 `background-color` 改成 `pink`，把 `border-radius` 改成 50%。
 
 接下來，用類選擇器選取 class 爲 `heart`（只是 `heart`）的元素，爲它添加 `transform` 屬性。 使用 `rotate()` 函數並設置角度爲 -45 度。
 
-最後，在 `heart::before` 選擇器裏面，設置 `content` 屬性值爲空字符串。
+最後，在 `,heart::before` 選擇器裏面，設置 `content` 屬性值爲空字符串。
 
 # --hints--
 
-`heart::after` 選擇器的 `background-color` 屬性值應爲 `pink`。
+`.heart::after` 選擇器的 `background-color` 屬性值應爲 `pink`。
 
 ```js
 const heartAfter = code.match(/\.heart::after\s*{[\s\S]+?[^\}]}/g)[0];
@@ -45,7 +45,7 @@ assert(
 );
 ```
 
-`heart::after` 僞元素的 `border-radius` 屬性值應爲 50%。
+`.heart::after` 僞元素的 `border-radius` 屬性值應爲 50%。
 
 ```js
 assert(code.match(/border-radius\s*?:\s*?50%/gi).length == 2);
@@ -57,7 +57,7 @@ class 爲 `heart` 的元素的 `transform` 屬性應使用 `rotate()` 函數並�
 assert(code.match(/transform\s*?:\s*?rotate\(\s*?-45deg\s*?\)/gi));
 ```
 
-`heart::before` 僞元素的 `content` 應爲空字符串。
+`.heart::before` 僞元素的 `content` 應爲空字符串。
 
 ```js
 assert(code.match(/\.heart::before\s*?{\s*?content\s*?:\s*?("|')\1\s*?;/gi));

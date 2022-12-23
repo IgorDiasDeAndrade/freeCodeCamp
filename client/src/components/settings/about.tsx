@@ -8,10 +8,13 @@ import {
 import React, { Component } from 'react';
 
 import { TFunction, withTranslation } from 'react-i18next';
+import isURL from 'validator/lib/isURL';
 import { FullWidthRow, Spacer } from '../helpers';
 import BlockSaveButton from '../helpers/form/block-save-button';
-import ThemeSettings from './theme';
+import SoundSettings from './sound';
+import ThemeSettings, { Themes } from './theme';
 import UsernameSettings from './username';
+import KeyboardShortcutsSettings from './keyboard-shortcuts';
 
 type FormValues = {
   name: string;
@@ -22,14 +25,18 @@ type FormValues = {
 
 type AboutProps = {
   about: string;
-  currentTheme: string;
+  currentTheme: Themes;
   location: string;
   name: string;
   picture: string;
   points: number;
+  sound: boolean;
+  keyboardShortcuts: boolean;
   submitNewAbout: (formValues: FormValues) => void;
   t: TFunction;
-  toggleNightMode: (theme: string) => void;
+  toggleNightMode: (theme: Themes) => void;
+  toggleSoundMode: (sound: boolean) => void;
+  toggleKeyboardShortcuts: (keyboardShortcuts: boolean) => void;
   username: string;
 };
 
@@ -139,12 +146,22 @@ class AboutSettings extends Component<AboutProps, AboutState> {
   }
 
   loadEvent = () => this.setState({ isPictureUrlValid: true });
-  errorEvent = () => this.setState({ isPictureUrlValid: false });
+  errorEvent = () =>
+    this.setState(state => ({
+      isPictureUrlValid: state.formValues.picture === ''
+    }));
 
   handlePictureChange = (e: React.FormEvent<HTMLInputElement>) => {
     const value = (e.target as HTMLInputElement).value.slice(0);
-    this.validationImage.src = value;
-    return this.setState(state => ({
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    if (isURL(value, { require_protocol: true })) {
+      this.validationImage.src = encodeURI(value);
+    } else {
+      this.setState({
+        isPictureUrlValid: false
+      });
+    }
+    this.setState(state => ({
       formValues: {
         ...state.formValues,
         picture: value
@@ -157,7 +174,9 @@ class AboutSettings extends Component<AboutProps, AboutState> {
     if (this.state.isPictureUrlValid === false) {
       return (
         <HelpBlock>
-          <Alert bsStyle='info'>{t('validation.url-not-image')}</Alert>
+          <Alert bsStyle='info' closeLabel={t('buttons.close')}>
+            {t('validation.url-not-image')}
+          </Alert>
         </HelpBlock>
       );
     } else {
@@ -179,7 +198,16 @@ class AboutSettings extends Component<AboutProps, AboutState> {
     const {
       formValues: { name, location, picture, about }
     } = this.state;
-    const { currentTheme, username, t, toggleNightMode } = this.props;
+    const {
+      currentTheme,
+      sound,
+      keyboardShortcuts,
+      username,
+      t,
+      toggleNightMode,
+      toggleSoundMode,
+      toggleKeyboardShortcuts
+    } = this.props;
     return (
       <div className='about-settings'>
         <UsernameSettings username={username} />
@@ -212,7 +240,6 @@ class AboutSettings extends Component<AboutProps, AboutState> {
               </ControlLabel>
               <FormControl
                 onChange={this.handlePictureChange}
-                required={true}
                 type='url'
                 value={picture}
               />
@@ -236,6 +263,11 @@ class AboutSettings extends Component<AboutProps, AboutState> {
           <ThemeSettings
             currentTheme={currentTheme}
             toggleNightMode={toggleNightMode}
+          />
+          <SoundSettings sound={sound} toggleSoundMode={toggleSoundMode} />
+          <KeyboardShortcutsSettings
+            keyboardShortcuts={keyboardShortcuts}
+            toggleKeyboardShortcuts={toggleKeyboardShortcuts}
           />
         </FullWidthRow>
       </div>

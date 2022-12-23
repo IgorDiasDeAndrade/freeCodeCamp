@@ -1,16 +1,16 @@
 ---
 id: 5900f3dd1000cf542c50fef0
 title: 'Problema 113: Números não saltitantes'
-challengeType: 5
+challengeType: 1
 forumTopicId: 301739
 dashedName: problem-113-non-bouncy-numbers
 ---
 
 # --description--
 
-Trabalhando da esquerda para a direita, se nenhum dígito for excedido pelo dígito à sua esquerda, é chamado de número crescente. Por exemplo, 134468.
+Trabalhando da esquerda para a direita, se nenhum algarismo for excedido pelo algarismo à sua esquerda, é chamado de número crescente. Por exemplo, 134468.
 
-Da mesma forma, se nenhum dígito for excedido pelo dígito à sua direita, é chamado de número decrescente. Por exemplo, 66420.
+Da mesma forma, se nenhum algarismo for excedido pelo algarismo à sua direita, é chamado de número decrescente. Por exemplo, 66420.
 
 Chamaremos um número inteiro positivo que não aumenta nem diminui um número "saltitante"; por exemplo, 155349.
 

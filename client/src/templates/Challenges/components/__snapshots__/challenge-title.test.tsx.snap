@@ -5,62 +5,24 @@ exports[`<ChallengeTitle/> renders correctly 1`] = `
   className="challenge-title-wrap"
 >
   <div
-    className="challenge-title-breadcrumbs"
-  >
-    <a
-      className="breadcrumb-left"
-      href="/learn/fake-superblock"
-      state={
-        Object {
-          "breadcrumbBlockClick": "fake-block",
-        }
-      }
-    >
-      <span
-        className="ellipsis"
-      />
-    </a>
-    <div
-      className="breadcrumb-center"
-    />
-    <a
-      className="breadcrumb-right"
-      href="/learn/fake-superblock/#fake-block"
-      state={
-        Object {
-          "breadcrumbBlockClick": "fake-block",
-        }
-      }
-    />
-  </div>
-  <div
     className="challenge-title"
   >
     <div
       className="title-text"
     >
-      <b>
+      <h1>
         title text
-      </b>
-      <span
-        className="sr-only"
-      >
-        icons.passed
-      </span>
+      </h1>
       <svg
-        height="50"
-        style={
-          Object {
-            "height": "15px",
-            "marginLeft": "7px",
-            "width": "15px",
-          }
-        }
+        aria-label="icons.passed"
+        height="15"
         viewBox="0 0 200 200"
-        width="50"
+        width="15"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g>
+        <g
+          aria-hidden="true"
+        >
           <title>
             icons.passed
           </title>

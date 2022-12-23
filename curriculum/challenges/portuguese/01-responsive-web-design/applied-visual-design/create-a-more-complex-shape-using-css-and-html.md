@@ -9,7 +9,7 @@ dashedName: create-a-more-complex-shape-using-css-and-html
 
 # --description--
 
-Uma das formas mais populares do mundo é a forma de coração e, neste desafio, você criará um usando CSS puro. Mas primeiro, você precisa entender os pseudo-elementos `::before` e `::after`. Esses pseudo-elementos são usados para adicionar algo antes ou depois de um elemento selecionado. No exemplo a seguir, um pseudo-elemento `::before` é usado para adicionar um retângulo a um elemento com a classe `heart`:
+Uma das formas mais populares do mundo é a forma de coração e, neste desafio, você criará um usando CSS puro. Mas primeiro, você precisa entender os pseudo-elementos `::before` e `::after`. `::before` cria um pseudoelemento que é o primeiro filho do elemento selecionado; `::after` cria um pseudoelemento que é o último filho do elemento selecionado. No exemplo a seguir, um pseudo-elemento `::before` é usado para adicionar um retângulo a um elemento com a classe `heart`:
 
 ```css
 .heart::before {
@@ -28,15 +28,15 @@ Para que os pseudo-elementos `::before` e `::after` funcionem corretamente, eles
 
 # --instructions--
 
-Transforme o elemento em tela em um coração. No seletor `heart::after`, altere a propriedade `background-color` para `pink` e `border-radius` para 50%.
+Transforme o elemento em tela em um coração. No seletor `.heart::after`, altere a propriedade `background-color` para `pink` e `border-radius` para 50%.
 
 Em seguida, adicione a propriedade `transform` no elemento com a classe `heart` (apenas `heart`). Use a função `rotate()` com o valor de -45 graus.
 
-Finalmente, no seletor `heart::before`, a propriedade `content` deve possuir um valor vazio.
+Finalmente, no seletor `.heart::before`, a propriedade `content` deve possuir um valor vazio.
 
 # --hints--
 
-A propriedade `background-color` do seletor `heart::after` deve ter o valor `pink`.
+A propriedade `background-color` do seletor `.heart::after` deve ter o valor `pink`.
 
 ```js
 const heartAfter = code.match(/\.heart::after\s*{[\s\S]+?[^\}]}/g)[0];
@@ -45,7 +45,7 @@ assert(
 );
 ```
 
-A propriedade `border-radius` do seletor `heart::after` deve ter um valor de 50%.
+A propriedade `border-radius` do seletor `.heart::after` deve ter um valor de 50%.
 
 ```js
 assert(code.match(/border-radius\s*?:\s*?50%/gi).length == 2);
@@ -57,7 +57,7 @@ A propriedade `transform` da classe `heart` deve usar a função `rotate()` com 
 assert(code.match(/transform\s*?:\s*?rotate\(\s*?-45deg\s*?\)/gi));
 ```
 
-A propriedade `content` do seletor `heart::before` deve ter um valor vazio.
+A propriedade `content` do seletor `.heart::before` deve ter um valor vazio.
 
 ```js
 assert(code.match(/\.heart::before\s*?{\s*?content\s*?:\s*?("|')\1\s*?;/gi));

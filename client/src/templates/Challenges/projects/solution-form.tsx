@@ -5,13 +5,14 @@ import type { WithTranslation } from 'react-i18next';
 import {
   backend,
   backEndProject,
+  codeAllyCert,
   frontEndProject,
   pythonProject
 } from '../../../../utils/challenge-types';
-import { Form } from '../../../components/formHelpers';
+import { Form, ValidatedValues } from '../../../components/formHelpers';
 
 interface SubmitProps {
-  isShouldCompletionModalOpen: boolean;
+  showCompletionModal: boolean;
 }
 
 interface FormProps extends WithTranslation {
@@ -19,12 +20,6 @@ interface FormProps extends WithTranslation {
   description?: string;
   onSubmit: (arg0: SubmitProps) => void;
   updateSolutionForm: (arg0: Record<string, unknown>) => void;
-}
-
-interface ValidatedValues {
-  errors: string[];
-  invalidValues: string[];
-  values: Record<string, unknown>;
 }
 
 export class SolutionForm extends Component<FormProps> {
@@ -43,9 +38,9 @@ export class SolutionForm extends Component<FormProps> {
       // updates values on store
       this.props.updateSolutionForm(validatedValues.values);
       if (validatedValues.invalidValues.length === 0) {
-        this.props.onSubmit({ isShouldCompletionModalOpen: true });
+        this.props.onSubmit({ showCompletionModal: true });
       } else {
-        this.props.onSubmit({ isShouldCompletionModalOpen: false });
+        this.props.onSubmit({ showCompletionModal: false });
       }
     }
   };
@@ -105,6 +100,12 @@ export class SolutionForm extends Component<FormProps> {
           (description?.includes('Colaboratory')
             ? 'https://colab.research.google.com/drive/1i5EmInTWi1RFvFr2_aRXky96YxY6sbWy'
             : 'https://replit.com/@camperbot/hello');
+        break;
+
+      case codeAllyCert:
+        formFields = solutionField;
+        options.isEditorLinkAllowed = true;
+        solutionLink = solutionLink + 'https://your-git-repo.url/files';
         break;
 
       default:

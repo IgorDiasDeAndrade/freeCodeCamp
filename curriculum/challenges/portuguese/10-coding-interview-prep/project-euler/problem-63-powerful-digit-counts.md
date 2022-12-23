@@ -1,7 +1,7 @@
 ---
 id: 5900f3ab1000cf542c50febe
-title: 'Problema 63: Contagem poderosa de dígitos'
-challengeType: 5
+title: 'Problema 63: Contagem poderosa de algarismos'
+challengeType: 1
 forumTopicId: 302175
 dashedName: problem-63-powerful-digit-counts
 ---

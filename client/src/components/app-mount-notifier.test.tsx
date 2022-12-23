@@ -3,24 +3,22 @@ import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 
-import { i18nextCodes } from '../../../config/i18n/all-langs';
-import i18nTestConfig from '../../i18n/configForTests';
+import { i18nextCodes } from '../../../config/i18n';
+import i18nTestConfig from '../../i18n/config-for-tests';
 import { createStore } from '../redux/createStore';
 import AppMountNotifier from './app-mount-notifier';
 
 jest.mock('react-ga');
 jest.unmock('react-i18next');
 
-type Language = [string, string];
+type Language = keyof typeof i18nextCodes;
+type LanguagePair = [string, string];
 
 const store = createStore();
 
 // Create a nested array for languages
 const languages = Object.keys(i18nextCodes).map(
-  /* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-unsafe-return */
-  // @ts-ignore
-  // TODO: convert `all-langs.js` to TypeScript
-  (key): Language => [i18nextCodes[key], key]
+  (key): LanguagePair => [i18nextCodes[key as Language], key]
 );
 
 describe('AppMountNotifier', () => {

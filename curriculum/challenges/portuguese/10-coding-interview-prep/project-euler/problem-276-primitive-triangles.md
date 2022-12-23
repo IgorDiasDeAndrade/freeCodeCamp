@@ -1,7 +1,7 @@
 ---
 id: 5900f4801000cf542c50ff93
 title: 'Problema 276: Triângulos primitivos'
-challengeType: 5
+challengeType: 1
 forumTopicId: 301926
 dashedName: problem-276-primitive-triangles
 ---
@@ -12,7 +12,7 @@ Considere os triângulos com os lados inteiros $a$, $b$ e $c$ com $a ≤ b ≤ c
 
 Um triângulo que tem seus lados sendo números inteiros $(a,b,c)$ é chamado primitivo se $gcd(a,b,c) = 1$.
 
-Quantos triângulos primitivos (com os lados sendo números inteiros) existem com um perímetro que não excede $10\\,000\\,000$?
+Quantos triângulos primitivos (com os lados sendo números inteiros) existem com um perímetro que não excede $10.000.000$?
 
 # --hints--
 

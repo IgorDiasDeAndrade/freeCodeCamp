@@ -9,14 +9,12 @@ dashedName: word-blanks
 
 # --description--
 
-Vamos agora usar nosso conhecimento de strings para criar um "[Mad Libs](https://en.wikipedia.org/wiki/Mad_Libs)" estilo de jogo de palavras que chamamos de "Palavras em Branco". Você criará uma frase no estilo "Preencha os espaços em branco" (opcional: de modo engraçado).
-
-Em um jogo de "Mad Libs", você recebe frases com algumas palavras faltando, como substantivos, verbos, adjetivos e advérbios. Você então preencherá os pedaços faltantes com palavras de sua escolha de modo que a frase completa faça sentido.
+Você recebe frases com algumas palavras faltando, como substantivos, verbos, adjetivos e advérbios. Você então preencherá os pedaços faltantes com palavras de sua escolha de modo que a frase completa faça sentido.
 
 Considere a frase - Era realmente **\_\_\_\_** e nós **\_\_\_\_** nós mesmos **\_\_\_\_**. Essa frase possui três pedaços faltando - um adjetivo, um verbo e um advérbio, e nós podemos adicionar palavras de nossa escolha para completar. Em seguida, podemos atribuir a frase completa para uma variável como se segue:
 
 ```js
-var sentence = "It was really " + "hot" + ", and we " + "laughed" + " ourselves " + "silly" + ".";
+const sentence = "It was really " + "hot" + ", and we " + "laughed" + " ourselves " + "silly" + ".";
 ```
 
 # --instructions--
@@ -58,7 +56,7 @@ assert(
 );
 ```
 
-`wordBlanks` deve conter todas as palavras atribuídas às variáveis `myNoun`, `myVerb`, `myAdjective` e `myAdverb` separadas por caracteres que não sejam palavras (e qualquer palavra adicional na sua madlib).
+`wordBlanks` deve conter todas as palavras atribuídas às variáveis `myNoun`, `myVerb`, `myAdjective` e `myAdverb` separadas por caracteres que não sejam palavras (e qualquer palavra adicional de sua escolha).
 
 ```js
 assert(
@@ -84,24 +82,24 @@ const removeAssignments = str => str
 ## --seed-contents--
 
 ```js
-var myNoun = "dog";
-var myAdjective = "big";
-var myVerb = "ran";
-var myAdverb = "quickly";
+const myNoun = "dog";
+const myAdjective = "big";
+const myVerb = "ran";
+const myAdverb = "quickly";
 
 // Only change code below this line
-var wordBlanks = ""; // Change this line
+const wordBlanks = ""; // Change this line
 // Only change code above this line
 ```
 
 # --solutions--
 
 ```js
-var myNoun = "dog";
-var myAdjective = "big";
-var myVerb = "ran";
-var myAdverb = "quickly";
+const myNoun = "dog";
+const myAdjective = "big";
+const myVerb = "ran";
+const myAdverb = "quickly";
 
-var wordBlanks = "Once there was a " + myNoun + " which was very " + myAdjective + ". ";
+let wordBlanks = "Once there was a " + myNoun + " which was very " + myAdjective + ". ";
 wordBlanks += "It " + myVerb + " " + myAdverb + " around the yard.";
 ```

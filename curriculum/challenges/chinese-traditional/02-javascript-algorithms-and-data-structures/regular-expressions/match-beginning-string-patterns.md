@@ -10,7 +10,7 @@ dashedName: match-beginning-string-patterns
 
 回顧一下之前的挑戰，正則表達式可以用於查找多項匹配。 還可以查詢字符串中符合指定匹配模式的字符。
 
-在之前的挑戰中，使用字符集中前插入符號（`^`）來創建一個否定字符集，形如 `[^thingsThatWillNotBeMatched]`。 除了在字符集中使用之外，脫字符還用於匹配字符串的開始位置。
+在之前的挑戰中，使用字符集中前插入符號（`^`）來創建一個否定字符集，形如 `[^thingsThatWillNotBeMatched]`。 除了在字符集中使用之外，插入符號（^）用於匹配文本是否在字符串的開始位置
 
 ```js
 let firstString = "Ricky is first and can be found.";
@@ -43,12 +43,14 @@ assert(calRegex.flags == '');
 你的正則表達式應該匹配字符串 `Cal` 的開始位置。
 
 ```js
+calRegex.lastIndex = 0;
 assert(calRegex.test('Cal and Ricky both like racing.'));
 ```
 
 你的正則表達式不應該匹配中間包含 `Cal` 的字符串。
 
 ```js
+calRegex.lastIndex = 0;
 assert(!calRegex.test('Ricky and Cal both like racing.'));
 ```
 

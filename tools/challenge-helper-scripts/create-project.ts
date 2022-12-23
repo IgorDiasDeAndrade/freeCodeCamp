@@ -4,24 +4,12 @@ import path from 'path';
 import { prompt } from 'inquirer';
 import { format } from 'prettier';
 
+import ObjectID from 'bson-objectid';
+import { SuperBlocks } from '../../config/certification-settings';
 import { blockNameify } from '../../utils/block-nameify';
-import { createStepFile } from './utils.js';
-
-const superBlocks = [
-  'responsive-web-design',
-  'javascript-algorithms-and-data-structures',
-  'front-end-development-libraries',
-  'data-visualization',
-  'back-end-development-and-apis',
-  'quality-assurance',
-  'scientific-computing-with-python',
-  'data-analysis-with-python',
-  'information-security',
-  'machine-learning-with-python',
-  'coding-interview-prep'
-] as const;
-
-type SuperBlock = typeof superBlocks[number];
+import { createStepFile } from './utils';
+import { getSuperBlockSubPath } from './fs-utils';
+import { Meta } from './helpers/project-metadata';
 
 const helpCategories = ['HTML-CSS', 'JavaScript', 'Python'] as const;
 
@@ -34,24 +22,18 @@ type SuperBlockInfo = {
   blocks: Record<string, BlockInfo>;
 };
 
-type IntroJson = Record<SuperBlock, SuperBlockInfo>;
+type IntroJson = Record<SuperBlocks, SuperBlockInfo>;
 
-type Meta = {
-  name: string;
-  isUpcomingChange: boolean;
-  dashedName: string;
+interface CreateProjectArgs {
+  superBlock: SuperBlocks;
+  block: string;
+  helpCategory: string;
   order: number;
-  time: string;
-  template: string;
-  required: string[];
-  superBlock: string;
-  superOrder: number;
-  isBeta: boolean;
-  challengeOrder: string[][];
-};
+  title?: string;
+}
 
 async function createProject(
-  superBlock: SuperBlock,
+  superBlock: SuperBlocks,
   block: string,
   helpCategory: string,
   order: number,
@@ -60,33 +42,19 @@ async function createProject(
   if (!title) {
     title = blockNameify(block);
   } else if (title !== blockNameify(block)) {
-    updateBlockNames(block, title).catch(reason => {
-      throw reason;
-    });
+    void updateBlockNames(block, title);
   }
-  updateIntroJson(superBlock, block, title).catch(reason => {
-    throw reason;
-  });
-  updateHelpCategoryMap(block, helpCategory).catch(reason => {
-    throw reason;
-  });
+  void updateIntroJson(superBlock, block, title);
+  void updateHelpCategoryMap(block, helpCategory);
 
-  const challengeId = await createFirstChallenge(superBlock, block).catch(
-    reason => {
-      throw reason;
-    }
-  );
-  createMetaJson(superBlock, block, title, order, challengeId).catch(reason => {
-    throw reason;
-  });
+  const challengeId = await createFirstChallenge(superBlock, block);
+  void createMetaJson(superBlock, block, title, order, challengeId);
   // TODO: remove once we stop relying on markdown in the client.
-  createIntroMD(superBlock, block, title).catch(reason => {
-    throw reason;
-  });
+  void createIntroMD(superBlock, block, title);
 }
 
 async function updateIntroJson(
-  superBlock: SuperBlock,
+  superBlock: SuperBlocks,
   block: string,
   title: string
 ) {
@@ -99,12 +67,11 @@ async function updateIntroJson(
     title,
     intro: ['', '']
   };
-  fs.writeFile(
+  void withTrace(
+    fs.writeFile,
     introJsonPath,
     format(JSON.stringify(newIntro), { parser: 'json' })
-  ).catch(reason => {
-    throw reason;
-  });
+  );
 }
 
 async function updateHelpCategoryMap(block: string, helpCategory: string) {
@@ -114,12 +81,11 @@ async function updateHelpCategoryMap(block: string, helpCategory: string) {
   );
   const helpMap = await parseJson<Record<string, string>>(helpCategoryPath);
   helpMap[block] = helpCategory;
-  fs.writeFile(
+  void withTrace(
+    fs.writeFile,
     helpCategoryPath,
     format(JSON.stringify(helpMap), { parser: 'json' })
-  ).catch(reason => {
-    throw reason;
-  });
+  );
 }
 
 async function updateBlockNames(block: string, title: string) {
@@ -129,39 +95,38 @@ async function updateBlockNames(block: string, title: string) {
   );
   const blockNames = await parseJson<Record<string, string>>(blockNamesPath);
   blockNames[block] = title;
-  fs.writeFile(
+  void withTrace(
+    fs.writeFile,
     blockNamesPath,
     format(JSON.stringify(blockNames), { parser: 'json' })
-  ).catch(reason => {
-    throw reason;
-  });
+  );
 }
 
 async function createMetaJson(
-  superBlock: SuperBlock,
+  superBlock: SuperBlocks,
   block: string,
   title: string,
   order: number,
-  challengeId: string
+  challengeId: ObjectID
 ) {
   const metaDir = path.resolve(__dirname, '../../curriculum/challenges/_meta');
   const newMeta = await parseJson<Meta>('./base-meta.json');
   newMeta.name = title;
   newMeta.dashedName = block;
   newMeta.order = order;
-  newMeta.superOrder = superBlocks.indexOf(superBlock) + 1;
+  newMeta.superOrder = Object.values(SuperBlocks).indexOf(superBlock) + 1;
   newMeta.superBlock = superBlock;
-  newMeta.challengeOrder = [[challengeId, 'Part 1']];
+  newMeta.challengeOrder = [[challengeId.toString(), 'Step 1']];
   const newMetaDir = path.resolve(metaDir, block);
   if (!existsSync(newMetaDir)) {
-    await fs.mkdir(newMetaDir);
+    await withTrace(fs.mkdir, newMetaDir);
   }
-  fs.writeFile(
+
+  void withTrace(
+    fs.writeFile,
     path.resolve(metaDir, `${block}/meta.json`),
     format(JSON.stringify(newMeta), { parser: 'json' })
-  ).catch(reason => {
-    throw reason;
-  });
+  );
 }
 
 async function createIntroMD(superBlock: string, block: string, title: string) {
@@ -171,35 +136,33 @@ block: ${block}
 superBlock: Responsive Web Design
 isBeta: true
 ---
+
 ## Introduction to the ${title}
 
-This is a test for the new project-based curriculum.`;
+This is a test for the new project-based curriculum.
+`;
   const dirPath = path.resolve(
     __dirname,
     `../../client/src/pages/learn/${superBlock}/${block}/`
   );
   const filePath = path.resolve(dirPath, 'index.md');
   if (!existsSync(dirPath)) {
-    await fs.mkdir(dirPath);
+    await withTrace(fs.mkdir, dirPath);
   }
-  fs.writeFile(filePath, introMD, { encoding: 'utf8' }).catch(reason => {
-    throw reason;
-  });
+  void withTrace(fs.writeFile, filePath, introMD, { encoding: 'utf8' });
 }
 
 async function createFirstChallenge(
-  superBlock: SuperBlock,
+  superBlock: SuperBlocks,
   block: string
-): Promise<string> {
-  const superBlockId = (superBlocks.indexOf(superBlock) + 1)
-    .toString()
-    .padStart(2, '0');
+): Promise<ObjectID> {
+  const superBlockSubPath = getSuperBlockSubPath(superBlock);
   const newChallengeDir = path.resolve(
     __dirname,
-    `../../curriculum/challenges/english/${superBlockId}-${superBlock}/${block}`
+    `../../curriculum/challenges/english/${superBlockSubPath}/${block}`
   );
   if (!existsSync(newChallengeDir)) {
-    await fs.mkdir(newChallengeDir);
+    await withTrace(fs.mkdir, newChallengeDir);
   }
   // TODO: would be nice if the extension made sense for the challenge, but, at
   // least until react I think they're all going to be html anyway.
@@ -214,27 +177,37 @@ async function createFirstChallenge(
   return createStepFile({
     projectPath: newChallengeDir + '/',
     stepNum: 1,
-    challengeSeeds,
-    stepBetween: false
+    challengeSeeds
   });
 }
 
 function parseJson<JsonSchema>(filePath: string) {
-  return fs
-    .readFile(filePath, { encoding: 'utf8' })
-    .then(result => JSON.parse(result) as JsonSchema)
-    .catch(reason => {
-      throw reason;
-    });
+  return withTrace(fs.readFile, filePath, 'utf8').then(
+    // unfortunately, withTrace does not correctly infer that the third argument
+    // is a string, so it uses the (path, options?) overload and we have to cast
+    // result to string.
+    result => JSON.parse(result as string) as JsonSchema
+  );
 }
 
-prompt([
+// fs Promise functions return errors, but no stack trace.  This adds back in
+// the stack trace.
+function withTrace<Args extends unknown[], Result>(
+  fn: (...x: Args) => Promise<Result>,
+  ...args: Args
+): Promise<Result> {
+  return fn(...args).catch((reason: Error) => {
+    throw Error(reason.message);
+  });
+}
+
+void prompt([
   {
     name: 'superBlock',
     message: 'Which certification does this belong to?',
-    default: 'responsive-web-design',
+    default: SuperBlocks.RespWebDesign,
     type: 'list',
-    choices: superBlocks
+    choices: Object.values(SuperBlocks)
   },
   {
     name: 'block',
@@ -243,7 +216,7 @@ prompt([
       if (!block.length) {
         return 'please enter a short name';
       }
-      if (/[^a-z0-9\-]/.test(block)) {
+      if (/[^a-z0-9-]/.test(block)) {
         return 'please use alphanumerical characters and kebab case';
       }
       return true;
@@ -277,12 +250,18 @@ prompt([
     }
   }
 ])
-  .then(({ superBlock, block, title, helpCategory, order }) =>
-    createProject(superBlock, block, helpCategory, order, title)
+  .then(
+    async ({
+      superBlock,
+      block,
+      title,
+      helpCategory,
+      order
+    }: CreateProjectArgs) =>
+      await createProject(superBlock, block, helpCategory, order, title)
   )
   .then(() =>
     console.log(
       'All set.  Now use npm run clean:client in the root and it should be good to go.'
     )
-  )
-  .catch(console.error);
+  );

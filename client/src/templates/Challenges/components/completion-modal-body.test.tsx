@@ -1,12 +1,17 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 
+import { SuperBlocks } from '../../../../../config/certification-settings';
+
 import CompletionModalBody from './completion-modal-body';
 
 const props = {
   block: 'basic-html-and-html5',
   completedPercent: Math.floor(Math.random() * 101),
-  superBlock: 'responsive-web-design'
+  completedChallengesInBlock: 2,
+  totalChallengesInBlock: 5,
+  currentChallengeId: '',
+  superBlock: SuperBlocks.RespWebDesign
 };
 
 describe('<CompletionModalBody />', () => {

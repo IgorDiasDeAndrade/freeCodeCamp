@@ -1,10 +1,10 @@
-type CreateTypesType = {
+type ActionTypes = {
   [action: string]: string;
 };
 
 /**
  * Creates an object in which the `keys` represent the action names and the
- * `values` the action type.
+ * `values` represent the action type.
  * {
  *   action: actionType,
  *   ...
@@ -13,7 +13,7 @@ type CreateTypesType = {
  * @param {string} ns Name of the namespace.
  * @returns {object} Object with action types.
  */
-export function createTypes(types: string[], ns: string): CreateTypesType {
+export function createTypes(types: string[], ns: string): ActionTypes {
   return types.reduce(
     (types, action: string) => ({
       ...types,

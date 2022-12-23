@@ -1,5 +1,6 @@
 import { Grid, Row, Col, Image, Button } from '@freecodecamp/react-bootstrap';
 import { isEmpty } from 'lodash-es';
+import { QRCodeSVG } from 'qrcode.react';
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -7,35 +8,35 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { createSelector } from 'reselect';
 
 import envData from '../../../config/env.json';
-import { langCodes } from '../../../config/i18n/all-langs';
+import { getLangCode } from '../../../config/i18n';
 import FreeCodeCampLogo from '../assets/icons/FreeCodeCamp-logo';
-import DonateForm from '../components/Donation/DonateForm';
+import DonateForm from '../components/Donation/donate-form';
 
 import { createFlashMessage } from '../components/Flash/redux';
 import { Loader, Spacer } from '../components/helpers';
 import RedirectHome from '../components/redirect-home';
+import { Themes } from '../components/settings/theme';
+import { showCert, executeGA, fetchProfileForUser } from '../redux/actions';
 import {
   showCertSelector,
   showCertFetchStateSelector,
-  showCert,
   userFetchStateSelector,
-  usernameSelector,
   isDonatingSelector,
-  executeGA,
   userByNameSelector,
-  fetchProfileForUser
-} from '../redux';
-import { UserType } from '../redux/prop-types';
+  usernameSelector
+} from '../redux/selectors';
+import { UserFetchState, User } from '../redux/prop-types';
 import { certMap } from '../resources/cert-and-project-map';
+import certificateMissingMessage from '../utils/certificate-missing-message';
 import reallyWeirdErrorMessage from '../utils/really-weird-error-message';
 import standardErrorMessage from '../utils/standard-error-message';
 
 import ShowProjectLinks from './show-project-links';
 
-const { clientLocale } = envData as { clientLocale: keyof typeof langCodes };
+const { clientLocale } = envData;
 
-const localeCode = langCodes[clientLocale];
-type CertType = {
+const localeCode = getLangCode(clientLocale);
+type Cert = {
   username: string;
   name: string;
   certName: string;
@@ -43,11 +44,11 @@ type CertType = {
   completionTime: number;
   date: number;
 };
-interface IShowCertificationProps {
-  cert: CertType;
+interface ShowCertificationProps {
+  cert: Cert;
   certDashedName: string;
   certSlug: string;
-  createFlashMessage: (payload: typeof standardErrorMessage) => void;
+  createFlashMessage: typeof createFlashMessage;
   executeGA: (payload: Record<string, unknown>) => void;
   fetchProfileForUser: (username: string) => void;
   fetchState: {
@@ -68,20 +69,18 @@ interface IShowCertificationProps {
     certSlug: string;
   }) => void;
   signedInUserName: string;
-  user: UserType;
-  userFetchState: {
-    complete: boolean;
-  };
+  user: User;
+  userFetchState: UserFetchState;
   userFullName: string;
   username: string;
 }
 
 const requestedUserSelector = (state: unknown, { username = '' }) =>
-  userByNameSelector(username.toLowerCase())(state) as UserType;
+  userByNameSelector(username.toLowerCase())(state) as User;
 
 const validCertSlugs = certMap.map(cert => cert.certSlug);
 
-const mapStateToProps = (state: unknown, props: IShowCertificationProps) => {
+const mapStateToProps = (state: unknown, props: ShowCertificationProps) => {
   const isValidCert = validCertSlugs.some(slug => slug === props.certSlug);
   return createSelector(
     showCertSelector,
@@ -91,10 +90,10 @@ const mapStateToProps = (state: unknown, props: IShowCertificationProps) => {
     isDonatingSelector,
     requestedUserSelector,
     (
-      cert: CertType,
-      fetchState: IShowCertificationProps['fetchState'],
+      cert: Cert,
+      fetchState: ShowCertificationProps['fetchState'],
       signedInUserName: string,
-      userFetchState: IShowCertificationProps['userFetchState'],
+      userFetchState: UserFetchState,
       isDonating: boolean,
       user
     ) => ({
@@ -115,7 +114,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   );
 
-const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
+const ShowCertification = (props: ShowCertificationProps): JSX.Element => {
   const { t } = useTranslation();
   const [isDonationSubmitted, setIsDonationSubmitted] = useState(false);
   const [isDonationDisplayed, setIsDonationDisplayed] = useState(false);
@@ -205,7 +204,7 @@ const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
   } = props;
 
   if (!isValidCert) {
-    createFlashMessage(standardErrorMessage);
+    createFlashMessage(certificateMissingMessage);
     return <RedirectHome />;
   }
 
@@ -257,6 +256,7 @@ const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
 
   const donationSection = (
     <div className='donation-section'>
+      <Spacer size={2} />
       {!isDonationSubmitted && (
         <Row>
           <Col lg={8} lgOffset={2} sm={10} smOffset={1} xs={12}>
@@ -267,7 +267,7 @@ const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
       <Row>
         <Col lg={8} lgOffset={2} sm={10} smOffset={1} xs={12}>
           <DonateForm
-            defaultTheme='default'
+            defaultTheme={Themes.Default}
             handleProcessing={handleProcessing}
             isMinimalForm={true}
           />
@@ -316,13 +316,12 @@ const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
 
   return (
     <Grid className='certificate-outer-wrapper'>
-      <Spacer size={2} />
       {isDonationDisplayed && !isDonationClosed ? donationSection : ''}
       <Row className='certificate-wrapper certification-namespace'>
         <header>
           <Col md={5} sm={12}>
             <div className='logo'>
-              <FreeCodeCampLogo />
+              <FreeCodeCampLogo aria-hidden='true' />
             </div>
           </Col>
           <Col md={7} sm={12}>
@@ -368,6 +367,9 @@ const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
             </p>
             <p>{t('certification.executive')}</p>
           </div>
+          <span className='qr-wrap'>
+            <QRCodeSVG className='qr-code' value={certURL} />
+          </span>
           <Row>
             <p className='verify'>
               {t('certification.verify', { certURL: certURL })}
@@ -375,19 +377,17 @@ const ShowCertification = (props: IShowCertificationProps): JSX.Element => {
           </Row>
         </footer>
       </Row>
-      <Spacer size={2} />
-      {signedInUserName === username ? shareCertBtns : ''}
-      <Spacer size={2} />
-      <ShowProjectLinks certName={certTitle} name={displayName} user={user} />
-      <Spacer size={2} />
+      <div className='row certificate-links'>
+        <Spacer size={2} />
+        {signedInUserName === username ? shareCertBtns : ''}
+        <Spacer size={2} />
+        <ShowProjectLinks certName={certTitle} name={displayName} user={user} />
+        <Spacer size={2} />
+      </div>
     </Grid>
   );
 };
 
 ShowCertification.displayName = 'ShowCertification';
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-)(ShowCertification as any);
+export default connect(mapStateToProps, mapDispatchToProps)(ShowCertification);

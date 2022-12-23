@@ -3,44 +3,62 @@
   font-size: 1.17rem;
 }
 
+.super-block-intro-page .alert p {
+  font-family: inherit;
+  font-size: inherit;
+}
+
 .big-subheading {
   font-size: 2rem;
   overflow-wrap: break-word;
 }
 
-.block-title-wrapper {
+.block-header {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 }
 
-.block-title-wrapper .block-link {
+.block-header .big-block-title {
   flex-grow: 3;
   flex-basis: 0;
+  padding: 25px 15px 10px;
 }
 
-.block-link:hover,
-.block-link:focus,
-.block-link:active {
+.big-block-title:hover,
+.big-block-title:focus,
+.big-block-title:active {
   background-color: var(--primary-background);
 }
 
-.block-link {
-  cursor: pointer;
-}
-
-.block-link:hover .block-link-icon {
-  display: inline-block;
-}
-
-.block-link-icon {
-  display: none;
-  margin-left: 15px;
+a.cert-tag:hover,
+a.cert-tag:focus,
+a.cert-tag:active {
+  color: var(--highlight-background);
+  background-color: var(--highlight-color);
 }
 
 .big-block-title {
   font-size: 1.5rem;
   overflow-wrap: break-word;
+}
+
+.block-grid-title {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.block-grid .challenge-jump-link {
+  margin: 0 25px 25px;
+}
+
+.block-grid .challenge-jump-link a:focus {
+  outline: 3px solid var(--blue-mid);
+  outline-offset: 0;
+}
+
+.block-grid .challenge-jump-link a:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .block-title-translation-cta {
@@ -62,7 +80,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 25px 15px 10px 0px;
+  padding: 25px 15px 10px 0;
   margin: 0 0 0.6rem;
   flex-grow: 2;
   flex-basis: 0;
@@ -71,6 +89,8 @@
 }
 
 .course-title {
+  display: flex;
+  align-items: center;
   font-size: 1.13rem;
   overflow-wrap: break-word;
 }
@@ -119,6 +139,7 @@ button.map-title {
 .map-challenge-wrap > a,
 .map-project-wrap > a {
   display: flex;
+  gap: 7px;
 }
 
 .map-project-wrap > a {
@@ -126,7 +147,6 @@ button.map-title {
 }
 
 .map-project-checkmark {
-  margin-right: 7px;
   padding-left: 15px;
 }
 
@@ -157,9 +177,6 @@ button.map-title {
   background: var(--primary-background);
 }
 
-.block-ui .block .big-block-title {
-  padding: 25px 15px 10px;
-}
 .block-ui .block .block-description {
   padding: 0 15px 15px;
   border-bottom: 3px solid var(--secondary-background);
@@ -197,14 +214,22 @@ button.map-title {
 
 .map-title svg {
   width: 14px;
-  margin-right: 10px;
   flex-shrink: 0;
   fill: var(--color-quaternary) !important;
   stroke: var(--color-quaternary);
 }
 
-.open > .map-title svg:first-child {
+.open > .map-title > svg:first-child {
   transform: rotate(90deg);
+}
+
+.block-grid .map-title > svg:last-child {
+  transform: rotate(180deg);
+  margin-left: auto;
+}
+
+.block-grid.open .map-title > svg:last-child {
+  transform: rotate(0deg);
 }
 
 .map-challenges-ul {
@@ -222,6 +247,43 @@ button.map-title {
 .map-challenge-title a {
   width: 100%;
   padding: 10px 15px;
+  align-items: center;
+}
+
+.map-challenges-grid .map-challenge-title a {
+  width: 3.4rem;
+  height: 3.4rem;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+}
+
+.map-challenges-grid .map-challenge-title a:focus {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: -3px;
+}
+
+.map-challenges-grid .map-challenge-title a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.map-challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 3.4rem);
+  grid-gap: 3px;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: calc(100% - 50px);
+}
+.map-challenge-title-grid {
+  flex: 0 1 60px;
+}
+.map-challenges-grid .map-project-wrap {
+  flex: 1 1 100px;
+}
+.map-challenge-title-grid a.map-grid-item {
+  margin: 5px 0;
+  justify-content: center;
 }
 
 .block-description {
@@ -230,6 +292,17 @@ button.map-title {
 
 .block-description > p:last-child {
   margin-bottom: 0;
+}
+
+.challenge-completed {
+  background: var(--highlight-background);
+  position: relative;
+}
+
+.challenge-completed span {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-top: -0.05rem;
 }
 
 @media screen and (max-width: 500px) {
@@ -245,12 +318,12 @@ button.map-title {
     font-size: 1.17rem;
   }
 
-  .block-title-wrapper {
+  .block-header {
     flex-direction: column;
   }
 
   .block-cta-wrapper {
-    padding: 25px 15px 10px 15px;
+    padding: 25px 15px 10px;
   }
 
   .course-title,
@@ -300,4 +373,109 @@ button.map-title {
   text-decoration: none;
   text-decoration-style: none;
   color: var(--secondary-color);
+}
+
+.cert-tag {
+  text-align: left;
+  width: fit-content;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  padding: 4px 10px;
+  color: var(--highlight-color);
+  background-color: var(--highlight-background);
+}
+
+.block-grid {
+  border-bottom: 4px solid var(--secondary-background);
+}
+
+.block-grid .block-header {
+  flex-direction: column;
+  display: flex;
+  background: transparent;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  padding: 18px 15px;
+}
+
+.block-grid .block-header:hover {
+  color: var(--tertiary-color);
+  background-color: var(--tertiary-background);
+}
+
+.block-grid .block-header[aria-expanded='true'] {
+  border-bottom: 2px solid var(--secondary-background);
+}
+
+.block-header-button-text {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.block-grid .block-header .block-link {
+  flex-direction: row;
+}
+
+.block-ui .block-grid .block-description {
+  border: none;
+  padding: 25px;
+}
+
+/* this margin is used to center the element. 
+ToDo: find out why, and remove the need for it */
+.block-grid .map-title > svg {
+  margin-bottom: 4px;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.course-title,
+.map-title,
+.block-header-button-text,
+.title-wrapper {
+  gap: 10px;
+}
+
+.block-grid .progress-wrapper {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+
+.block-grid .progress-wrapper span {
+  color: var(--quaternary-color);
+}
+
+.block-grid .progress {
+  height: 15px;
+  background-color: var(--secondary-background);
+  margin: 0 10px;
+  width: 80%;
+  border-radius: 0;
+}
+
+.block-grid .progress-bar {
+  background-color: var(--blue-mid);
+}
+
+.tags-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.grid-project-block {
+  margin-bottom: 50px;
 }

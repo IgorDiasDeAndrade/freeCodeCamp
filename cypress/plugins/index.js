@@ -14,11 +14,18 @@
 
 const { execSync } = require('child_process');
 const { existsSync } = require('fs');
+require('dotenv').config();
 
 module.exports = (on, config) => {
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
+  config.env = config.env || {};
   on('before:run', () => {
     if (!existsSync('../../config/curriculum.json')) {
       execSync('npm run build:curriculum');
     }
   });
+
+  config.env.API_LOCATION = process.env.API_LOCATION;
+  return config;
 };

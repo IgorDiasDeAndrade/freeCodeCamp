@@ -12,13 +12,13 @@ Para aprender como escrever testes Cypress ou 'specs', por favor confira a [docu
 
 ## Como executar testes
 
-> [!NOTE] Se estiver usando o GitPod, consulte a [configuração do Cypress-GitPod](/how-to-add-cypress-tests#cypress-gitpod-setup)
+> [!NOTE] Se estiver usando GitPod, por favor veja essa [configuração sobre Cypress-GitPod](how-to-add-cypress-tests.md#cypress-gitpod-setup)
 
 ### 1. Veja se as aplicações de cliente e MongoDB estão executando
 
-- [Inicie o MongoDB e crie o banco de dados](/how-to-setup-freecodecamp-locally#step-3-start-mongodb-and-seed-the-database)
+- [Inicie o MongoDB e crie o banco de dados](how-to-setup-freecodecamp-locally.md#step-3-start-mongodb-and-seed-the-database)
 
-- [Inicie também a aplicação de cliente freeCodeCamp e o servidor API](/how-to-setup-freecodecamp-locally#step-4-start-the-freecodecamp-client-application-and-api-server)
+- [Inicie também a aplicação de cliente freeCodeCamp e o servidor API](how-to-setup-freecodecamp-locally.md#step-4-start-the-freecodecamp-client-application-and-api-server)
 
 ### 2. Execute os testes do Cypress
 
@@ -44,11 +44,7 @@ Para executar testes usando compilações de produção, substitua `dev` por `pr
 
 ## Configuração do Cypress-GitPod
 
-### 1. Certifique-se de estar na _Feature Preview_ do GitPod _a partir de 02/01/2021_
-
-- Visite [GitPod Docs - Feature Preview](https://www.gitpod.io/docs/feature-preview/) para ver como ativar a _Feature Preview_
-
-### 2. Certifique-se que o ambiente de desenvolvimento está em execução
+### 1. Certifique-se que o ambiente de desenvolvimento está em execução
 
 Se o ambiente GitPod não foi criado automaticamente:
 
@@ -64,13 +60,13 @@ mongod
 npm run seed
 ```
 
-- Desenvolva o servidor e o cliente
+- Desenvolva o servidor e o client
 
 ```console
 npm run develop
 ```
 
-### 3. Instale ferramentas de compilação do Cypress
+### 2. Instale as ferramentas de compilação do Cypress
 
 ```console
 npm run cypress:install-build-tools
@@ -78,4 +74,4 @@ npm run cypress:install-build-tools
 
 - Quando solicitado no terminal, selecione o layout do seu teclado por idioma/área
 
-Agora, [Cypress pode ser executado](/how-to-add-cypress-tests#_2-run-the-cypress-tests)
+Agora, [o Cypress pode ser executado](how-to-add-cypress-tests.md#_2-run-the-cypress-tests)

@@ -37,20 +37,14 @@ assert(code.match(/quotient/g).length === 1);
 
 # --seed--
 
-## --after-user-code--
-
-```js
-(function(y){return 'quotient = '+y;})(quotient);
-```
-
 ## --seed-contents--
 
 ```js
-var quotient = 0.0 / 2.0; // Change this line
+const quotient = 0.0 / 2.0; // Change this line
 ```
 
 # --solutions--
 
 ```js
-var quotient = 4.4 / 2.0;
+const quotient = 4.4 / 2.0;
 ```

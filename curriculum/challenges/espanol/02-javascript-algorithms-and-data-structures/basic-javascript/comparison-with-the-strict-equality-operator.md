@@ -16,17 +16,15 @@ Si los valores que se comparan tienen diferentes tipos, se consideran desiguales
 **Ejemplos**
 
 ```js
-3 ===  3
-3 === '3'
+3 ===  3  // true
+3 === '3' // false
 ```
-
-Estas condiciones devuelven `true` y `false` respectivamente.
 
 En el segundo ejemplo, `3` es de tipo `Number` (número) y `'3'` es de tipo `String` (cadena).
 
 # --instructions--
 
-Usa el operador de estricta igualdad en la sentencia `if` para que la función devuelva la cadena `Equal` cuando `val` sea estrictamente igual a `7`
+Usa el operador de estricta igualdad en la sentencia `if` para que la función devuelva la cadena `Equal` cuando `val` sea estrictamente igual a `7`.
 
 # --hints--
 

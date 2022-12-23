@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c15a
 title: DataFrames do Pandas
 challengeType: 11
 videoId: 7SgFBYXaiH0
+bilibiliIds:
+  aid: 890503235
+  bvid: BV1TP4y1h7qq
+  cid: 409014039
 dashedName: pandas-dataframes
 ---
 
@@ -12,8 +16,8 @@ dashedName: pandas-dataframes
 
 Mais recursos:
 
--   [Notebooks no GitHub](https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-pandas)
--   [Como abrir notebooks do GitHub usando o Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-pandas" target="_blank" rel="noopener noreferrer nofollow">Notebooks no GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Como abrir notebooks do GitHub usando o Google Colab.</a>
 
 # --question--
 

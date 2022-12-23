@@ -10,7 +10,7 @@ import debugFactory from 'debug';
 import dedent from 'dedent';
 import _ from 'lodash';
 import moment from 'moment';
-import generate from 'nanoid/generate';
+import { customAlphabet } from 'nanoid';
 import { Observable } from 'rx';
 import uuid from 'uuid/v4';
 import { isEmail } from 'validator';
@@ -43,6 +43,7 @@ const log = debugFactory('fcc:models:user');
 const BROWNIEPOINTS_TIMEOUT = [1, 'hour'];
 const nanoidCharSet =
   '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const nanoid = customAlphabet(nanoidCharSet, 21);
 
 const createEmailError = redirectTo =>
   wrapHandledError(new Error('email format is invalid'), {
@@ -55,7 +56,7 @@ function destroyAll(id, Model) {
   return Observable.fromNodeCallback(Model.destroyAll, Model)({ userId: id });
 }
 
-function ensureLowerCaseString(maybeString) {
+export function ensureLowerCaseString(maybeString) {
   return (maybeString && maybeString.toLowerCase()) || '';
 }
 
@@ -108,12 +109,13 @@ function isTheSame(val1, val2) {
 
 function getAboutProfile({
   username,
+  usernameDisplay,
   githubProfile: github,
   progressTimestamps = [],
   bio
 }) {
   return {
-    username,
+    username: usernameDisplay || username,
     github,
     browniePoints: progressTimestamps.length,
     bio
@@ -127,7 +129,8 @@ function nextTick(fn) {
 const getRandomNumber = () => Math.random();
 
 function populateRequiredFields(user) {
-  user.username = user.username.trim().toLowerCase();
+  user.usernameDisplay = user.username.trim();
+  user.username = user.usernameDisplay.toLowerCase();
   user.email =
     typeof user.email === 'string'
       ? user.email.trim().toLowerCase()
@@ -146,7 +149,7 @@ function populateRequiredFields(user) {
   }
 
   if (!user.unsubscribeId) {
-    user.unsubscribeId = generate(nanoidCharSet, 20);
+    user.unsubscribeId = nanoid();
   }
   return;
 }
@@ -724,42 +727,6 @@ export default function initializeUser(User) {
     );
   };
 
-  User.prototype.updateMyUsername = function updateMyUsername(newUsername) {
-    return Observable.defer(() => {
-      const isOwnUsername = isTheSame(newUsername, this.username);
-      if (isOwnUsername) {
-        return Observable.of(dedent`
-          ${newUsername} is already associated with this account.
-          `);
-      }
-      return Observable.fromPromise(User.doesExist(newUsername));
-    }).flatMap(boolOrMessage => {
-      if (typeof boolOrMessage === 'string') {
-        return Observable.of(boolOrMessage);
-      }
-      if (boolOrMessage) {
-        return Observable.of(dedent`
-        ${newUsername} is already associated with a different account.
-        `);
-      }
-
-      const usernameUpdate = new Promise((resolve, reject) =>
-        this.updateAttribute('username', newUsername, err => {
-          if (err) {
-            return reject(err);
-          }
-          return resolve();
-        })
-      );
-
-      return Observable.fromPromise(usernameUpdate).map(
-        () => dedent`
-        Your username has been updated successfully.
-        `
-      );
-    });
-  };
-
   function prepUserForPublish(user, profileUI) {
     const {
       about,
@@ -1027,6 +994,39 @@ export default function initializeUser(User) {
       return user.completedChallenges;
     });
   };
+  User.prototype.getSavedChallenges$ = function getSavedChallenges$() {
+    if (Array.isArray(this.savedChallenges) && this.savedChallenges.length) {
+      return Observable.of(this.savedChallenges);
+    }
+    const id = this.getId();
+    const filter = {
+      where: { id },
+      fields: { savedChallenges: true }
+    };
+    return this.constructor.findOne$(filter).map(user => {
+      this.savedChallenges = user.savedChallenges;
+      return user.savedChallenges;
+    });
+  };
+
+  User.prototype.getPartiallyCompletedChallenges$ =
+    function getPartiallyCompletedChallenges$() {
+      if (
+        Array.isArray(this.partiallyCompletedChallenges) &&
+        this.partiallyCompletedChallenges.length
+      ) {
+        return Observable.of(this.partiallyCompletedChallenges);
+      }
+      const id = this.getId();
+      const filter = {
+        where: { id },
+        fields: { partiallyCompletedChallenges: true }
+      };
+      return this.constructor.findOne$(filter).map(user => {
+        this.partiallyCompletedChallenges = user.partiallyCompletedChallenges;
+        return user.partiallyCompletedChallenges;
+      });
+    };
 
   User.getMessages = messages => Promise.resolve(messages);
 

@@ -37,7 +37,7 @@ O console mostraria o valor `[ 'John', 'Amy', 'camperCat' ]`.
 
 # --instructions--
 
-A variável `watchList` armazena um array de objetos com informações de diversos filmes. Use o `map` na `watchList` para atribuir uma nova matriz de objetos à variável</code>ratins`. Cada filme no novo array deve ter apenas um <code>title` com o nome do filme, e uma chave `rating` com a classificação do IMDB. O código atual no editor usa um loop `for` para fazer isso, então você deve substituir o laço com sua expressão `map`.
+A variável `watchList` armazena um array de objetos com informações de diversos filmes. Use o `map` na `watchList` para atribuir uma nova matriz de objetos à variável `ratings`. Cada filme no novo array deve ter apenas um `title` com o nome do filme, e uma chave `rating` com a classificação do IMDB. O código atual no editor usa um loop `for` para fazer isso, então você deve substituir o laço com sua expressão `map`.
 
 # --hints--
 
@@ -61,7 +61,7 @@ Você deve usar o método `map`.
 assert(code.match(/\.map/g));
 ```
 
-`ratings` deve ser igual a `[{"title":"Inception","rating":"8.8"},{"title":"Interstellar","rating":"8.6"},{"title":"The Dark Knight","rating":"9.0"},{"title":"Batman Begins","rating":"8.3"},{"title":"Avatar","rating":"7.9"}]`.
+`ratings` deve ser igual a `[{"title": "Inception", "rating": "8.8"}, {"title": "Interstellar", "rating": "8.6"}, {"title": "The Dark Knight", "rating": "9.0"},{"title": "Batman Begins", "rating": "8.3"}, {"title": "Avatar", "rating": "7.9"}]`.
 
 ```js
 assert.deepEqual(ratings, [
@@ -79,7 +79,7 @@ assert.deepEqual(ratings, [
 
 ```js
 // The global variable
-var watchList = [
+const watchList = [
   {
     "Title": "Inception",
     "Year": "2010",
@@ -194,9 +194,9 @@ var watchList = [
 
 // Only change code below this line
 
-var ratings = [];
-for(var i=0; i < watchList.length; i++){
-  ratings.push({title: watchList[i]["Title"],  rating: watchList[i]["imdbRating"]});
+const ratings = [];
+for (let i = 0; i < watchList.length; i++) {
+  ratings.push({title: watchList[i]["Title"], rating: watchList[i]["imdbRating"]});
 }
 
 // Only change code above this line
@@ -207,8 +207,7 @@ console.log(JSON.stringify(ratings));
 # --solutions--
 
 ```js
-// The global variable
-var watchList = [
+const watchList = [
   {
     "Title": "Inception",
     "Year": "2010",
@@ -321,7 +320,7 @@ var watchList = [
   }
 ];
 
-var ratings = watchList.map(function(movie) {
+const ratings = watchList.map(function(movie) {
   return {
     title: movie["Title"],
     rating: movie["imdbRating"]

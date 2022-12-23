@@ -11,7 +11,7 @@ dashedName: check-radio-buttons-and-checkboxes-by-default
 
 用 `checked` 属性把第一个复选框和单选按钮都设置为默认选中。
 
-在一个 input 元素里面添加 `checked` 这个词，即可实现。 例如:
+为此，只需将单词 `checked` 添加到 `input` 元素的内部。 例如:
 
 ```html
 <input type="radio" name="test-name" checked>
@@ -33,6 +33,18 @@ assert($('input[type="radio"]').prop('checked'));
 
 ```js
 assert($('input[type="checkbox"]').prop('checked'));
+```
+
+不应该更改 `Indoor` 标签的内部文本。
+
+```js
+assert.equal(document.querySelector('label[for="indoor"]')?.innerText?.trim(), 'Indoor');
+```
+
+不应该更改 `Loving` 标签的内部文本。
+
+```js
+assert.equal(document.querySelector('label[for="loving"]')?.innerText?.trim(), 'Loving');
 ```
 
 # --seed--

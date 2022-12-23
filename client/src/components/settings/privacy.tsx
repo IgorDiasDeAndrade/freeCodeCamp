@@ -1,13 +1,14 @@
 import { Button, Form } from '@freecodecamp/react-bootstrap';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { TFunction, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
 import { createSelector } from 'reselect';
 
-import { userSelector } from '../../redux';
-import { submitProfileUI } from '../../redux/settings';
+import { userSelector } from '../../redux/selectors';
+import type { ProfileUI } from '../../redux/prop-types';
+import { submitProfileUI } from '../../redux/settings/actions';
 
 import FullWidthRow from '../helpers/full-width-row';
 import Spacer from '../helpers/spacer';
@@ -22,164 +23,156 @@ const mapStateToProps = createSelector(userSelector, user => ({
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ submitProfileUI }, dispatch);
 
-type ProfileUIType = {
-  isLocked: boolean;
-  showAbout: boolean;
-  showCerts: boolean;
-  showDonation: boolean;
-  showHeatMap: boolean;
-  showLocation: boolean;
-  showName: boolean;
-  showPoints: boolean;
-  showPortfolio: boolean;
-  showTimeLine: boolean;
-};
-
 type PrivacyProps = {
-  submitProfileUI: (profileUI: ProfileUIType) => void;
+  submitProfileUI: (profileUI: ProfileUI) => void;
   t: TFunction;
   user: {
-    profileUI: ProfileUIType;
+    profileUI: ProfileUI;
     username: string;
   };
 };
 
-class PrivacySettings extends Component<PrivacyProps> {
-  static displayName: string;
+function PrivacySettings({
+  submitProfileUI,
+  t,
+  user
+}: PrivacyProps): JSX.Element {
+  const [privacyValues, setPrivacyValues] = useState({ ...user.profileUI });
 
-  handleSubmit = (e: React.FormEvent) => e.preventDefault();
+  const [madeChanges, setMadeChanges] = useState(false);
 
-  toggleFlag = (flag: string) => () => {
-    const privacyValues = { ...this.props.user.profileUI };
-    privacyValues[flag as keyof ProfileUIType] =
-      !privacyValues[flag as keyof ProfileUIType];
-    this.props.submitProfileUI(privacyValues);
-  };
+  function toggleFlag(flag: keyof ProfileUI): () => void {
+    return () => {
+      setMadeChanges(true);
+      setPrivacyValues({ ...privacyValues, [flag]: !privacyValues[flag] });
+    };
+  }
 
-  render() {
-    const { t, user } = this.props;
-    const {
-      isLocked = true,
-      showAbout = false,
-      showCerts = false,
-      showDonation = false,
-      showHeatMap = false,
-      showLocation = false,
-      showName = false,
-      showPoints = false,
-      showPortfolio = false,
-      showTimeLine = false
-    } = user.profileUI;
+  function submitNewProfileSettings(e: React.FormEvent) {
+    e.preventDefault();
+    submitProfileUI(privacyValues);
+    setMadeChanges(false);
+  }
 
-    return (
-      <div className='privacy-settings' id='privacy-settings'>
-        <SectionHeader>{t('settings.headings.privacy')}</SectionHeader>
-        <FullWidthRow>
-          <p>{t('settings.privacy')}</p>
-          <Form inline={true} onSubmit={this.handleSubmit}>
-            <ToggleSetting
-              action={t('settings.labels.my-profile')}
-              explain={t('settings.disabled')}
-              flag={isLocked}
-              flagName='isLocked'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('isLocked')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-name')}
-              explain={t('settings.private-name')}
-              flag={!showName}
-              flagName='name'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showName')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-location')}
-              flag={!showLocation}
-              flagName='showLocation'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showLocation')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-about')}
-              flag={!showAbout}
-              flagName='showAbout'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showAbout')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-points')}
-              flag={!showPoints}
-              flagName='showPoints'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showPoints')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-heatmap')}
-              flag={!showHeatMap}
-              flagName='showHeatMap'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showHeatMap')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-certs')}
-              explain={t('settings.disabled')}
-              flag={!showCerts}
-              flagName='showCerts'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showCerts')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-portfolio')}
-              flag={!showPortfolio}
-              flagName='showPortfolio'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showPortfolio')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-timeline')}
-              flag={!showTimeLine}
-              flagName='showTimeLine'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showTimeLine')}
-            />
-            <ToggleSetting
-              action={t('settings.labels.my-donations')}
-              flag={!showDonation}
-              flagName='showPortfolio'
-              offLabel={t('buttons.public')}
-              onLabel={t('buttons.private')}
-              toggleFlag={this.toggleFlag('showDonation')}
-            />
-          </Form>
-        </FullWidthRow>
-        <FullWidthRow>
-          <Spacer />
-          <p>{t('settings.data')}</p>
+  return (
+    <div className='privacy-settings' id='privacy-settings'>
+      <SectionHeader>{t('settings.headings.privacy')}</SectionHeader>
+      <FullWidthRow>
+        <p>{t('settings.privacy')}</p>
+        <Form inline={true} onSubmit={submitNewProfileSettings}>
+          <ToggleSetting
+            action={t('settings.labels.my-profile')}
+            explain={t('settings.disabled')}
+            flag={privacyValues['isLocked']}
+            flagName='isLocked'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('isLocked')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-name')}
+            explain={t('settings.private-name')}
+            flag={!privacyValues['showName']}
+            flagName='name'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showName')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-location')}
+            flag={!privacyValues['showLocation']}
+            flagName='showLocation'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showLocation')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-about')}
+            flag={!privacyValues['showAbout']}
+            flagName='showAbout'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showAbout')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-points')}
+            flag={!privacyValues['showPoints']}
+            flagName='showPoints'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showPoints')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-heatmap')}
+            flag={!privacyValues['showHeatMap']}
+            flagName='showHeatMap'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showHeatMap')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-certs')}
+            explain={t('settings.disabled')}
+            flag={!privacyValues['showCerts']}
+            flagName='showCerts'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showCerts')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-portfolio')}
+            flag={!privacyValues['showPortfolio']}
+            flagName='showPortfolio'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showPortfolio')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-timeline')}
+            explain={t('settings.disabled')}
+            flag={!privacyValues['showTimeLine']}
+            flagName='showTimeLine'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showTimeLine')}
+          />
+          <ToggleSetting
+            action={t('settings.labels.my-donations')}
+            flag={!privacyValues['showDonation']}
+            flagName='showPortfolio'
+            offLabel={t('buttons.public')}
+            onLabel={t('buttons.private')}
+            toggleFlag={toggleFlag('showDonation')}
+          />
           <Button
-            block={true}
+            type='submit'
             bsSize='lg'
             bsStyle='primary'
-            download={`${user.username}.json`}
-            href={`data:text/json;charset=utf-8,${encodeURIComponent(
-              JSON.stringify(user)
-            )}`}
+            data-cy='save-privacy-settings'
+            block={true}
+            disabled={!madeChanges}
           >
-            {t('buttons.download-data')}
+            {t('buttons.save')}
           </Button>
-        </FullWidthRow>
-      </div>
-    );
-  }
+        </Form>
+      </FullWidthRow>
+      <FullWidthRow>
+        <Spacer />
+        <p>{t('settings.data')}</p>
+        <Button
+          block={true}
+          bsSize='lg'
+          bsStyle='primary'
+          download={`${user.username}.json`}
+          href={`data:text/json;charset=utf-8,${encodeURIComponent(
+            JSON.stringify(user)
+          )}`}
+        >
+          {t('buttons.download-data')}
+        </Button>
+      </FullWidthRow>
+    </div>
+  );
 }
 
 PrivacySettings.displayName = 'PrivacySettings';

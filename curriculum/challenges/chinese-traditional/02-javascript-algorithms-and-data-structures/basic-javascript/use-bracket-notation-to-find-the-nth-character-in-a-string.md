@@ -16,8 +16,8 @@ dashedName: use-bracket-notation-to-find-the-nth-character-in-a-string
 例如：
 
 ```js
-var firstName = "Ada";
-var secondLetterOfFirstName = firstName[1];
+const firstName = "Ada";
+const secondLetterOfFirstName = firstName[1];
 ```
 
 `secondLetterOfFirstName` 值應該爲字符串 `d`。
@@ -39,7 +39,7 @@ assert(thirdLetterOfLastName === 'v');
 應該使用方括號表示法。
 
 ```js
-assert(code.match(/thirdLetterOfLastName\s*?=\s*?lastName\[.*?\]/));
+assert(code.match(/thirdLetterOfLastName\s*=\s*lastName\s*\[\s*\d\s*\]/));
 ```
 
 # --seed--
@@ -54,15 +54,15 @@ assert(code.match(/thirdLetterOfLastName\s*?=\s*?lastName\[.*?\]/));
 
 ```js
 // Setup
-var lastName = "Lovelace";
+const lastName = "Lovelace";
 
 // Only change code below this line
-var thirdLetterOfLastName = lastName; // Change this line
+const thirdLetterOfLastName = lastName; // Change this line
 ```
 
 # --solutions--
 
 ```js
-var lastName = "Lovelace";
-var thirdLetterOfLastName = lastName[2];
+const lastName = "Lovelace";
+const thirdLetterOfLastName = lastName[2];
 ```

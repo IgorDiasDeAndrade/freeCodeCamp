@@ -12,13 +12,13 @@ Per imparare come scrivere test Cypress, o specs, per favore vedi la [dcoumentaz
 
 ## Come eseguire i test
 
-> [!NOTE] Se stai usando GitPod, vedi [Cypress-GitPod Setup](#setup-di-cypress-su-gitpod)
+> [!NOTE] Se stai usando GitPod, per favore vedi [Setup di Cypress su GitPod](how-to-add-cypress-tests.md#setup-di-cypress-su-gitpod)
 
 ### 1. Assicurati che MongoDB e l'applicazione del client siano in esecuzione
 
-- [Fai partire MongoDB e fai il seed del database](/how-to-setup-freecodecamp-locally#step-3-start-mongodb-and-seed-the-database)
+- [Fai partire MongoDB e fai il seed del database](how-to-setup-freecodecamp-locally.md#step-3-start-mongodb-and-seed-the-database)
 
-- [Avvia l'applicazione del client di freeCodeCamp e il server API](/how-to-setup-freecodecamp-locally#step-4-start-the-freecodecamp-client-application-and-api-server)
+- [Avvia l'applicazione del client di freeCodeCamp e il server API](how-to-setup-freecodecamp-locally.md#step-4-start-the-freecodecamp-client-application-and-api-server)
 
 ### 2. Esegui i test cypress
 
@@ -44,11 +44,7 @@ Per eseguire i test su build di produzione, sostituisci `dev` con `prd` nella pa
 
 ## Setup di Cypress su GitPod
 
-### 1. Assicurati di essere nella _Feature Preview_ di GitPod _dalla data del 02/01/2021_
-
-- Vai a [GitPod Docs - Feature Preview](https://www.gitpod.io/docs/feature-preview/) per vedere come attivare la _Feature Preview_
-
-### 2. Assicurati che l'ambiente di sviluppo sia in esecuzione
+### 1. Assicurati che l'ambiente di sviluppo sia in esecuzione
 
 Se l'avvio di GitPod non sviluppa automaticamente l'ambiente:
 
@@ -70,7 +66,7 @@ npm run seed
 npm run develop
 ```
 
-### 3. Installa Cypress Build Tools
+### 2. Installa Cypress Build Tools
 
 ```console
 npm run cypress:install-build-tools
@@ -78,4 +74,4 @@ npm run cypress:install-build-tools
 
 - Quando chiesto dal terminale, seleziona il layout della tua tastiera per lingua/area
 
-Ora, [puoi eseguire Cypress](#_2-esegui-i-test-cypress)
+Ora, [puoi eseguire Cypress](how-to-add-cypress-tests.md#_2-esegui-i-test-cypress)

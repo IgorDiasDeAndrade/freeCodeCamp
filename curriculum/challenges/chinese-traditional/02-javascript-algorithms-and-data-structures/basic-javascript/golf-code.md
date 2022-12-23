@@ -9,7 +9,7 @@ dashedName: golf-code
 
 # --description--
 
-在[高爾夫](https://en.wikipedia.org/wiki/Golf)遊戲中，每個洞都有自己的標準桿數 `par`，代表着把球打進洞所揮杆的平均次數 `strokes`。 根據你把球打進洞所揮杆的次數 `strokes` 高於或低於 `par` 多少，有一個不同的暱稱（代表打高爾夫球的水平）。
+在高爾夫遊戲中，每個洞都有自己的標準桿數`par`，意思是一個高爾夫球員爲了把球打進洞裏完成比賽，預計要揮杆的平均次數 `strokes`。 根據你把球打進洞所揮杆的次數 `strokes` 高於或低於 `par` 多少，有一個不同的暱稱（代表打高爾夫球的水平）。
 
 函數將會傳送兩個參數，`par` 和 `strokes`。 根據下表返回正確的字符串。下表列出不同揮杆次數（從高到低）對應的字符串。
 
@@ -90,7 +90,8 @@ assert(golfScore(5, 9) === 'Go Home!');
 ## --seed-contents--
 
 ```js
-var names = ["Hole-in-one!", "Eagle", "Birdie", "Par", "Bogey", "Double Bogey", "Go Home!"];
+const names = ["Hole-in-one!", "Eagle", "Birdie", "Par", "Bogey", "Double Bogey", "Go Home!"];
+
 function golfScore(par, strokes) {
   // Only change code below this line
 

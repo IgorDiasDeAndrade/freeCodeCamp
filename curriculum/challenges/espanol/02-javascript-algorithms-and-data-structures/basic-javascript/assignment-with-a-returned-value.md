@@ -9,7 +9,7 @@ dashedName: assignment-with-a-returned-value
 
 # --description--
 
-Si recuerdas de nuestra discusión sobre [almacenar valores con el operador de asignación](/learn/javascript-algorithms-and-data-structures/basic-javascript/storing-values-with-the-assignment-operator), todo a la derecha del signo de igualdad se resuelve antes de asignar el valor. Esto significa que podemos tomar el valor devuelto de una función y asignarlo a una variable.
+Si recuerda nuestra discusión sobre <a href="/learn/javascript-algorithms-and-data-structures/basic-javascript/storing-values-with-the-assignment-operator" target="_blank" rel="noopener noreferrer nofollow">el almacenamiento de valores con el operador de asignación</a>, todo lo que está a la derecha del signo de igualdad se resuelve antes de asignar el valor. Esto significa que podemos tomar el valor devuelto de una función y asignarlo a una variable.
 
 Supongamos que hemos predefinido una función `sum` que suma dos números juntos, entonces:
 
@@ -49,13 +49,14 @@ assert(/processed\s*=\s*processArg\(\s*7\s*\)/.test(code));
 
 ```js
 // Setup
-var processed = 0;
+let processed = 0;
 
 function processArg(num) {
   return (num + 3) / 5;
 }
 
 // Only change code below this line
+
 ```
 
 # --solutions--

@@ -12,11 +12,11 @@ import {
   certTypeTitleMap,
   certTypeIdMap,
   certIds,
-  oldDataVizId,
-  superBlockCertTypeMap
+  oldDataVizId
 } from '../../../../config/certification-settings';
 import { reportError } from '../middlewares/sentry-error-handler.js';
 
+import { deprecatedEndpoint } from '../utils/disabled-endpoints';
 import { getChallenges } from '../utils/get-curriculum';
 import { ifNoUser401 } from '../utils/middleware';
 import { observeQuery } from '../utils/rx';
@@ -36,7 +36,8 @@ const {
   infosecV7Id,
   sciCompPyV7Id,
   dataAnalysisPyV7Id,
-  machineLearningPyV7Id
+  machineLearningPyV7Id,
+  relationalDatabaseV8Id
 } = certIds;
 
 const log = debug('fcc:certification');
@@ -48,21 +49,26 @@ export default function bootCertificate(app) {
   const certTypeIds = createCertTypeIds(getChallenges());
   const showCert = createShowCert(app);
   const verifyCert = createVerifyCert(certTypeIds, app);
-  const verifyCanClaimCert = createVerifyCanClaim(certTypeIds, app);
 
   api.put('/certificate/verify', ifNoUser401, ifNoSuperBlock404, verifyCert);
   api.get('/certificate/showCert/:username/:certSlug', showCert);
-  api.get('/certificate/verify-can-claim-cert', verifyCanClaimCert);
-
+  api.get('/certificate/verify-can-claim-cert', deprecatedEndpoint);
   app.use(api);
 }
 
-export function getFallbackFrontEndDate(completedChallenges, completedDate) {
-  var chalIds = [...Object.values(certTypeIdMap), oldDataVizId];
+export function getFallbackFullStackDate(completedChallenges, completedDate) {
+  var chalIds = [
+    certTypeIdMap[certTypes.respWebDesign],
+    certTypeIdMap[certTypes.jsAlgoDataStruct],
+    certTypeIdMap[certTypes.frontEndDevLibsId],
+    certTypeIdMap[certTypes.dataVis2018],
+    certTypeIdMap[certTypes.apisMicroservicesId],
+    certTypeIdMap[certTypes.legacyInfosecQaId]
+  ];
 
   const latestCertDate = completedChallenges
     .filter(chal => chalIds.includes(chal.id))
-    .sort((a, b) => b.completedDate - a.completedDate)[0].completedDate;
+    .sort((a, b) => b.completedDate - a.completedDate)[0]?.completedDate;
 
   return latestCertDate ? latestCertDate : completedDate;
 }
@@ -112,6 +118,10 @@ function createCertTypeIds(allChallenges) {
     [certTypes.machineLearningPyV7]: getCertById(
       machineLearningPyV7Id,
       allChallenges
+    ),
+    [certTypes.relationalDatabaseV8]: getCertById(
+      relationalDatabaseV8Id,
+      allChallenges
     )
   };
 }
@@ -147,7 +157,8 @@ function sendCertifiedEmail(
     isInfosecCertV7,
     isSciCompPyCertV7,
     isDataAnalysisPyCertV7,
-    isMachineLearningPyCertV7
+    isMachineLearningPyCertV7,
+    isRelationalDatabaseCertV8
   },
   send$
 ) {
@@ -162,7 +173,8 @@ function sendCertifiedEmail(
     !isInfosecCertV7 ||
     !isSciCompPyCertV7 ||
     !isDataAnalysisPyCertV7 ||
-    !isMachineLearningPyCertV7
+    !isMachineLearningPyCertV7 ||
+    !isRelationalDatabaseCertV8
   ) {
     return Observable.just(false);
   }
@@ -198,7 +210,8 @@ function getUserIsCertMap(user) {
     isFullStackCert = false,
     isSciCompPyCertV7 = false,
     isDataAnalysisPyCertV7 = false,
-    isMachineLearningPyCertV7 = false
+    isMachineLearningPyCertV7 = false,
+    isRelationalDatabaseCertV8 = false
   } = user;
 
   return {
@@ -216,7 +229,8 @@ function getUserIsCertMap(user) {
     isFullStackCert,
     isSciCompPyCertV7,
     isDataAnalysisPyCertV7,
-    isMachineLearningPyCertV7
+    isMachineLearningPyCertV7,
+    isRelationalDatabaseCertV8
   };
 }
 
@@ -343,6 +357,7 @@ function createShowCert(app) {
     const certTitle = certTypeTitleMap[certType];
     const completionTime = completionHours[certType] || 300;
     return findUserByUsername$(username, {
+      isBanned: true,
       isCheater: true,
       isFrontEndCert: true,
       isBackEndCert: true,
@@ -359,6 +374,7 @@ function createShowCert(app) {
       isSciCompPyCertV7: true,
       isDataAnalysisPyCertV7: true,
       isMachineLearningPyCertV7: true,
+      isRelationalDatabaseCertV8: true,
       isHonest: true,
       username: true,
       name: true,
@@ -376,25 +392,26 @@ function createShowCert(app) {
           ]
         });
       }
-      const { isLocked, showCerts, showName } = user.profileUI;
+      const { isLocked, showCerts, showName, showTimeLine } = user.profileUI;
 
-      if (!user.name) {
-        return res.json({
-          messages: [
-            {
-              type: 'info',
-              message: 'flash.add-name'
-            }
-          ]
-        });
-      }
-
-      if (user.isCheater) {
+      if (user.isCheater || user.isBanned) {
         return res.json({
           messages: [
             {
               type: 'info',
               message: 'flash.not-eligible'
+            }
+          ]
+        });
+      }
+
+      if (!user.isHonest) {
+        return res.json({
+          messages: [
+            {
+              type: 'info',
+              message: 'flash.not-honest',
+              variables: { username: username }
             }
           ]
         });
@@ -412,6 +429,17 @@ function createShowCert(app) {
         });
       }
 
+      if (!user.name) {
+        return res.json({
+          messages: [
+            {
+              type: 'info',
+              message: 'flash.add-name'
+            }
+          ]
+        });
+      }
+
       if (!showCerts) {
         return res.json({
           messages: [
@@ -424,12 +452,12 @@ function createShowCert(app) {
         });
       }
 
-      if (!user.isHonest) {
+      if (!showTimeLine) {
         return res.json({
           messages: [
             {
               type: 'info',
-              message: 'flash.not-honest',
+              message: 'flash.timeline-private',
               variables: { username: username }
             }
           ]
@@ -458,7 +486,7 @@ function createShowCert(app) {
 
         // if fullcert is not found, return the latest completedDate
         if (certType === 'isFullStackCert' && !certChallenge) {
-          completedDate = getFallbackFrontEndDate(
+          completedDate = getFallbackFullStackDate(
             completedChallenges,
             completedDate
           );
@@ -493,78 +521,5 @@ function createShowCert(app) {
         ]
       });
     }, next);
-  };
-}
-
-function createVerifyCanClaim(certTypeIds, app) {
-  const { User } = app.models;
-
-  function findUserByUsername$(username, fields) {
-    return observeQuery(User, 'findOne', {
-      where: { username },
-      fields
-    });
-  }
-  return function verifyCert(req, res, next) {
-    const { superBlock, username } = req.query;
-    log(superBlock);
-    let certType = superBlockCertTypeMap[superBlock];
-    log(certType);
-
-    return findUserByUsername$(username, {
-      isFrontEndCert: true,
-      isBackEndCert: true,
-      isFullStackCert: true,
-      isRespWebDesignCert: true,
-      isFrontEndLibsCert: true,
-      isJsAlgoDataStructCert: true,
-      isDataVisCert: true,
-      is2018DataVisCert: true,
-      isApisMicroservicesCert: true,
-      isInfosecQaCert: true,
-      isQaCertV7: true,
-      isInfosecCertV7: true,
-      isSciCompPyCertV7: true,
-      isDataAnalysisPyCertV7: true,
-      isMachineLearningPyCertV7: true,
-      username: true,
-      name: true,
-      isHonest: true,
-      completedChallenges: true
-    }).subscribe(user => {
-      return Observable.of(certTypeIds[certType])
-        .flatMap(challenge => {
-          const certName = certTypeTitleMap[certType];
-          const { tests = [] } = challenge;
-          const { isHonest, completedChallenges } = user;
-          const isProjectsCompleted = canClaim(tests, completedChallenges);
-          let result = 'incomplete-requirements';
-          let status = false;
-
-          if (isHonest && isProjectsCompleted) {
-            status = true;
-            result = 'requirements-met';
-          } else if (isProjectsCompleted) {
-            result = 'projects-completed';
-          } else if (isHonest) {
-            result = 'is-honest';
-          }
-          return Observable.just({
-            type: 'success',
-            message: { status, result },
-            variables: { name: certName }
-          });
-        })
-        .subscribe(message => {
-          return res.status(200).json({
-            response: message,
-            isCertMap: getUserIsCertMap(user),
-            // send back the completed challenges
-            // NOTE: we could just send back the latest challenge, but this
-            // ensures the challenges are synced.
-            completedChallenges: user.completedChallenges
-          });
-        }, next);
-    });
   };
 }

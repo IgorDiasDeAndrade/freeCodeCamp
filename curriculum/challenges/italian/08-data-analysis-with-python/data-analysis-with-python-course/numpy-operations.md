@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c155
 title: Operazioni con Numpy
 challengeType: 11
 videoId: eqSVcJbaPdk
+bilibiliIds:
+  aid: 378057123
+  bvid: BV13f4y1w7od
+  cid: 409012507
 dashedName: numpy-operations
 ---
 
@@ -12,8 +16,8 @@ dashedName: numpy-operations
 
 Altre risorse:
 
--   [Notebook su GitHub](https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-numpy)
--   [Come aprire Notebooks da GitHub usando Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-numpy" target="_blank" rel="noopener noreferrer nofollow">Notebook su GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Come aprire Notebooks da GitHub usando Google Colab.</a>
 
 # --question--
 

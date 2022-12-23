@@ -14,7 +14,7 @@ A volte potresti voler memorizzare i dati in una <dfn>struttura di dati</dfn> fl
 Ecco un esempio di struttura di dati complessa:
 
 ```js
-var ourMusic = [
+const ourMusic = [
   {
     "artist": "Daft Punk",
     "title": "Homework",
@@ -29,21 +29,7 @@ var ourMusic = [
 ];
 ```
 
-Questo è un array che contiene un oggetto al suo interno. L'oggetto ha vari pezzi di <dfn>metadati</dfn> riguardanti un album. Ha anche un array annidato `formats`. Se volessi aggiungere più record di tipo album, potresti farlo aggiungendo dei record all'array di livello superiore. Gli oggetti contengono i dati nelle proprietà, che hanno un formato chiave-valore (key-value). Nell'esempio sopra, `"artist": "Daft Punk"` è una proprietà che ha una chiave `artist` e un valore `Daft Punk`. [JavaScript Object Notation](http://www.json.org/) o `JSON` è un formato di scambio di dati, utilizzato per memorizzare dati.
-
-```json
-{
-  "artist": "Daft Punk",
-  "title": "Homework",
-  "release_year": 1997,
-  "formats": [ 
-    "CD",
-    "Cassette",
-    "LP"
-  ],
-  "gold": true
-}
-```
+Questo è un array che contiene un oggetto al suo interno. L'oggetto ha vari pezzi di <dfn>metadati</dfn> riguardanti un album. Ha anche un array annidato `formats`. Se volessi aggiungere più record di tipo album, potresti farlo aggiungendo dei record all'array di livello superiore. Gli oggetti contengono i dati nelle proprietà, che hanno un formato chiave-valore (key-value). Nell'esempio sopra, `"artist": "Daft Punk"` è una proprietà che ha una chiave `artist` e un valore `Daft Punk`.
 
 **Nota:** Dovrai inserire una virgola dopo ogni oggetto nell'array, a meno che non sia l'ultimo.
 
@@ -135,7 +121,7 @@ myMusic.forEach(object => {
 ## --seed-contents--
 
 ```js
-var myMusic = [
+const myMusic = [
   {
     "artist": "Billy Joel",
     "title": "Piano Man",
@@ -153,7 +139,7 @@ var myMusic = [
 # --solutions--
 
 ```js
-var myMusic = [
+const myMusic = [
   {
     "artist": "Billy Joel",
     "title": "Piano Man",

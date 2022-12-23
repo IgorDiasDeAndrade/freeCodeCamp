@@ -6,7 +6,6 @@ import Helmet from 'react-helmet';
 import { ObserveKeys } from 'react-hotkeys';
 import { TFunction, withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import YouTube from 'react-youtube';
 import { bindActionCreators } from 'redux';
 import type { Dispatch } from 'redux';
 import { createSelector } from 'reselect';
@@ -15,22 +14,20 @@ import { createSelector } from 'reselect';
 import Loader from '../../../components/helpers/loader';
 import Spacer from '../../../components/helpers/spacer';
 import LearnLayout from '../../../components/layouts/learn';
-import {
-  ChallengeNodeType,
-  ChallengeMetaType
-} from '../../../redux/prop-types';
+import { ChallengeNode, ChallengeMeta } from '../../../redux/prop-types';
 import ChallengeDescription from '../components/Challenge-Description';
 import Hotkeys from '../components/Hotkeys';
+import VideoPlayer from '../components/VideoPlayer';
 import ChallengeTitle from '../components/challenge-title';
 import CompletionModal from '../components/completion-modal';
 import PrismFormatted from '../components/prism-formatted';
 import {
-  isChallengeCompletedSelector,
   challengeMounted,
   updateChallengeMeta,
   openModal,
   updateSolutionFormValues
-} from '../redux';
+} from '../redux/actions';
+import { isChallengeCompletedSelector } from '../redux/selectors';
 
 // Styles
 import './show.css';
@@ -56,15 +53,15 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 // Types
 interface ShowVideoProps {
   challengeMounted: (arg0: string) => void;
-  data: { challengeNode: ChallengeNodeType };
+  data: { challengeNode: ChallengeNode };
   description: string;
   isChallengeCompleted: boolean;
   openCompletionModal: () => void;
   pageContext: {
-    challengeMeta: ChallengeMetaType;
+    challengeMeta: ChallengeMeta;
   };
   t: TFunction;
-  updateChallengeMeta: (arg0: ChallengeMetaType) => void;
+  updateChallengeMeta: (arg0: ChallengeMeta) => void;
   updateSolutionFormValues: () => void;
 }
 
@@ -100,7 +97,9 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
     const {
       challengeMounted,
       data: {
-        challengeNode: { title, challengeType, helpCategory }
+        challengeNode: {
+          challenge: { title, challengeType, helpCategory }
+        }
       },
       pageContext: { challengeMeta },
       updateChallengeMeta
@@ -118,13 +117,17 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
   componentDidUpdate(prevProps: ShowVideoProps): void {
     const {
       data: {
-        challengeNode: { title: prevTitle }
+        challengeNode: {
+          challenge: { title: prevTitle }
+        }
       }
     } = prevProps;
     const {
       challengeMounted,
       data: {
-        challengeNode: { title: currentTitle, challengeType, helpCategory }
+        challengeNode: {
+          challenge: { title: currentTitle, challengeType, helpCategory }
+        }
       },
       pageContext: { challengeMeta },
       updateChallengeMeta
@@ -162,7 +165,7 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
     });
   };
 
-  videoIsReady = () => {
+  onVideoLoad = () => {
     this.setState({
       videoIsLoaded: true
     });
@@ -172,14 +175,19 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
     const {
       data: {
         challengeNode: {
-          fields: { blockName },
-          title,
-          description,
-          superBlock,
-          block,
-          translationPending,
-          videoId,
-          question: { text, answers, solution }
+          challenge: {
+            fields: { blockName },
+            title,
+            description,
+            superBlock,
+            certification,
+            block,
+            translationPending,
+            videoId,
+            videoLocaleIds,
+            bilibiliIds,
+            question: { text, answers, solution }
+          }
         }
       },
       openCompletionModal,
@@ -190,7 +198,9 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
       isChallengeCompleted
     } = this.props;
 
-    const blockNameTitle = `${blockName} - ${title}`;
+    const blockNameTitle = `${t(
+      `intro:${superBlock}.blocks.${block}.title`
+    )} - ${title}`;
     return (
       <Hotkeys
         executeChallenge={() => {
@@ -208,9 +218,7 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
             <Row>
               <Spacer />
               <ChallengeTitle
-                block={block}
                 isCompleted={isChallengeCompleted}
-                superBlock={superBlock}
                 translationPending={translationPending}
               >
                 {title}
@@ -223,22 +231,13 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
                       <Loader />
                     </div>
                   ) : null}
-                  <YouTube
-                    className={
-                      this.state.videoIsLoaded
-                        ? 'display-youtube-video'
-                        : 'hide-youtube-video'
-                    }
-                    onReady={this.videoIsReady}
-                    opts={{
-                      playerVars: {
-                        rel: 0
-                      },
-                      width: 'auto',
-                      height: 'auto'
-                    }}
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                  <VideoPlayer
+                    bilibiliIds={bilibiliIds}
+                    onVideoLoad={this.onVideoLoad}
+                    title={title}
                     videoId={videoId}
+                    videoIsLoaded={this.state.videoIsLoaded}
+                    videoLocaleIds={videoLocaleIds}
                   />
                 </div>
               </Col>
@@ -302,6 +301,7 @@ class ShowVideo extends Component<ShowVideoProps, ShowVideoState> {
               <CompletionModal
                 block={block}
                 blockName={blockName}
+                certification={certification}
                 superBlock={superBlock}
               />
             </Row>
@@ -321,24 +321,37 @@ export default connect(
 
 export const query = graphql`
   query VideoChallenge($slug: String!) {
-    challengeNode(fields: { slug: { eq: $slug } }) {
-      videoId
-      title
-      description
-      challengeType
-      helpCategory
-      superBlock
-      block
-      fields {
-        blockName
-        slug
+    challengeNode(challenge: { fields: { slug: { eq: $slug } } }) {
+      challenge {
+        videoId
+        videoLocaleIds {
+          espanol
+          italian
+          portuguese
+        }
+        bilibiliIds {
+          aid
+          bvid
+          cid
+        }
+        title
+        description
+        challengeType
+        helpCategory
+        superBlock
+        certification
+        block
+        fields {
+          blockName
+          slug
+        }
+        question {
+          text
+          answers
+          solution
+        }
+        translationPending
       }
-      question {
-        text
-        answers
-        solution
-      }
-      translationPending
     }
   }
 `;

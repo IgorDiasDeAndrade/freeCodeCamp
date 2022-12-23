@@ -12,30 +12,32 @@ import { createSelector } from 'reselect';
 
 import Spacer from '../../../../components/helpers/spacer';
 import LearnLayout from '../../../../components/layouts/learn';
-import { isSignedInSelector } from '../../../../redux';
+import { isSignedInSelector } from '../../../../redux/selectors';
 import {
-  ChallengeMetaType,
-  ChallengeNodeType,
+  ChallengeMeta,
+  ChallengeNode,
   Test
 } from '../../../../redux/prop-types';
 import ChallengeDescription from '../../components/Challenge-Description';
 import Hotkeys from '../../components/Hotkeys';
-import TestSuite from '../../components/Test-Suite';
 import ChallengeTitle from '../../components/challenge-title';
 import CompletionModal from '../../components/completion-modal';
 import HelpModal from '../../components/help-modal';
 import Output from '../../components/output';
+import TestSuite from '../../components/test-suite';
 import {
   challengeMounted,
-  challengeTestsSelector,
-  consoleOutputSelector,
   executeChallenge,
   initConsole,
   initTests,
-  isChallengeCompletedSelector,
   updateChallengeMeta,
   updateSolutionFormValues
-} from '../../redux';
+} from '../../redux/actions';
+import {
+  challengeTestsSelector,
+  consoleOutputSelector,
+  isChallengeCompletedSelector
+} from '../../redux/selectors';
 import { getGuideUrl } from '../../utils';
 import SolutionForm from '../solution-form';
 import ProjectToolPanel from '../tool-panel';
@@ -73,9 +75,9 @@ const mapDispatchToActions = {
 // Types
 interface BackEndProps {
   challengeMounted: (arg0: string) => void;
-  data: { challengeNode: ChallengeNodeType };
+  data: { challengeNode: ChallengeNode };
   description: string;
-  executeChallenge: (arg0: boolean) => void;
+  executeChallenge: (options: { showCompletionModal: boolean }) => void;
   forumTopicId: number;
   id: string;
   initConsole: () => void;
@@ -84,12 +86,12 @@ interface BackEndProps {
   isSignedIn: boolean;
   output: string[];
   pageContext: {
-    challengeMeta: ChallengeMetaType;
+    challengeMeta: ChallengeMeta;
   };
   t: TFunction;
   tests: Test[];
   title: string;
-  updateChallengeMeta: (arg0: ChallengeMetaType) => void;
+  updateChallengeMeta: (arg0: ChallengeMeta) => void;
   updateSolutionFormValues: () => void;
 }
 
@@ -123,16 +125,20 @@ class BackEnd extends Component<BackEndProps> {
     const {
       data: {
         challengeNode: {
-          title: prevTitle,
-          fields: { tests: prevTests }
+          challenge: {
+            title: prevTitle,
+            fields: { tests: prevTests }
+          }
         }
       }
     } = prevProps;
     const {
       data: {
         challengeNode: {
-          title: currentTitle,
-          fields: { tests: currTests }
+          challenge: {
+            title: currentTitle,
+            fields: { tests: currTests }
+          }
         }
       }
     } = this.props;
@@ -149,10 +155,12 @@ class BackEnd extends Component<BackEndProps> {
       updateChallengeMeta,
       data: {
         challengeNode: {
-          fields: { tests },
-          title,
-          challengeType,
-          helpCategory
+          challenge: {
+            fields: { tests },
+            title,
+            challengeType,
+            helpCategory
+          }
         }
       },
       pageContext: { challengeMeta }
@@ -169,26 +177,31 @@ class BackEnd extends Component<BackEndProps> {
   }
 
   handleSubmit({
-    isShouldCompletionModalOpen
+    showCompletionModal
   }: {
-    isShouldCompletionModalOpen: boolean;
+    showCompletionModal: boolean;
   }): void {
-    this.props.executeChallenge(isShouldCompletionModalOpen);
+    this.props.executeChallenge({
+      showCompletionModal
+    });
   }
 
   render() {
     const {
       data: {
         challengeNode: {
-          fields: { blockName },
-          challengeType,
-          forumTopicId,
-          title,
-          description,
-          instructions,
-          translationPending,
-          superBlock,
-          block
+          challenge: {
+            fields: { blockName },
+            challengeType,
+            forumTopicId,
+            title,
+            description,
+            instructions,
+            translationPending,
+            certification,
+            superBlock,
+            block
+          }
         }
       },
       isChallengeCompleted,
@@ -201,7 +214,9 @@ class BackEnd extends Component<BackEndProps> {
       updateSolutionFormValues
     } = this.props;
 
-    const blockNameTitle = `${blockName} - ${title}`;
+    const blockNameTitle = `${t(
+      `intro:${superBlock}.blocks.${block}.title`
+    )} - ${title}`;
 
     return (
       <Hotkeys
@@ -218,9 +233,7 @@ class BackEnd extends Component<BackEndProps> {
               <Col md={8} mdOffset={2} sm={10} smOffset={1} xs={12}>
                 <Spacer />
                 <ChallengeTitle
-                  block={block}
                   isCompleted={isChallengeCompleted}
-                  superBlock={superBlock}
                   translationPending={translationPending}
                 >
                   {title}
@@ -254,9 +267,10 @@ class BackEnd extends Component<BackEndProps> {
               <CompletionModal
                 block={block}
                 blockName={blockName}
+                certification={certification}
                 superBlock={superBlock}
               />
-              <HelpModal />
+              <HelpModal challengeTitle={title} challengeBlock={blockName} />
             </Row>
           </Grid>
         </LearnLayout>
@@ -274,22 +288,25 @@ export default connect(
 
 export const query = graphql`
   query BackendChallenge($slug: String!) {
-    challengeNode(fields: { slug: { eq: $slug } }) {
-      forumTopicId
-      title
-      description
-      instructions
-      challengeType
-      helpCategory
-      superBlock
-      block
-      translationPending
-      fields {
-        blockName
-        slug
-        tests {
-          text
-          testString
+    challengeNode(challenge: { fields: { slug: { eq: $slug } } }) {
+      challenge {
+        forumTopicId
+        title
+        description
+        instructions
+        challengeType
+        helpCategory
+        certification
+        superBlock
+        block
+        translationPending
+        fields {
+          blockName
+          slug
+          tests {
+            text
+            testString
+          }
         }
       }
     }

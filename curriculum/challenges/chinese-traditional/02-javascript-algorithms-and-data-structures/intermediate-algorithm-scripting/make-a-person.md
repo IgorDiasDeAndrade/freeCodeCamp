@@ -1,7 +1,7 @@
 ---
 id: a2f1d72d9b908d0bd72bb9f6
 title: 創建一個人員對象
-challengeType: 5
+challengeType: 1
 forumTopicId: 16020
 dashedName: make-a-person
 ---
@@ -23,10 +23,19 @@ setFullName(firstAndLast)
 
 # --hints--
 
-`Object.keys(bob).length` 應返回 6。
+不應添加屬性。 `Object.keys(bob).length` 應返回 6。
 
 ```js
-assert.deepEqual(Object.keys(bob).length, 6);
+assert.strictEqual(
+  Object.keys((function () {
+    let bob = new Person('Bob Ross');
+    bob.setFirstName('Haskell');
+    bob.setLastName('Curry');
+    bob.setFullName('John Smith');
+    return bob;
+  })()).length,
+  6
+ );
 ```
 
 `bob instanceof Person` 應返回 `true`。
@@ -128,18 +137,10 @@ assert.strictEqual(
 
 # --seed--
 
-## --after-user-code--
-
-```js
-if(bob){
-  bob = new Person("Bob Ross");
-}
-```
-
 ## --seed-contents--
 
 ```js
-var Person = function(firstAndLast) {
+const Person = function(firstAndLast) {
   // Only change code below this line
   // Complete the method below and implement the others similarly
   this.getFullName = function() {
@@ -148,16 +149,16 @@ var Person = function(firstAndLast) {
   return firstAndLast;
 };
 
-var bob = new Person('Bob Ross');
+const bob = new Person('Bob Ross');
 bob.getFullName();
 ```
 
 # --solutions--
 
 ```js
-var Person = function(firstAndLast) {
+const Person = function(firstAndLast) {
 
-  var firstName, lastName;
+  let firstName, lastName;
 
   function updateName(str) {
     firstName = str.split(" ")[0];
@@ -192,6 +193,6 @@ var Person = function(firstAndLast) {
   };
 };
 
-var bob = new Person('Bob Ross');
+const bob = new Person('Bob Ross');
 bob.getFullName();
 ```

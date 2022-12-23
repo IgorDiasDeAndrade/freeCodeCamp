@@ -8,27 +8,27 @@ dashedName: build-a-light-bright-app
 
 # --description--
 
-**Objetivo:** criar uma aplicação no [CodePen.io](https://codepen.io) que tenha função semelhante a esta: <https://codepen.io/freeCodeCamp/full/eyLYXE>.
+**Objetivo:** criar uma aplicação que funcione de modo semelhante ao que vemos em: <https://codepen.io/freeCodeCamp/full/eyLYXE>.
 
 **Regra nº 1:** não olhe o código do projeto de exemplo. Descubra por conta própria.
 
-**Regra nº 2:** atenda às [especificações de usuário abaixo](https://en.wikipedia.org/wiki/User_story). Use quaisquer bibliotecas ou APIs de que você precisar. Dê a ele o seu próprio estilo pessoal.
+**Regra nº 2:** preencha as histórias de usuários abaixo e faça com que todos os testes passem. Use quaisquer bibliotecas ou APIs de que você precisar. Dê ao projeto o seu próprio estilo pessoal.
 
-**Especificação de usuário:** posso clicar ou arrastar o cursor do mouse para colorir os círculos.
+**História de usuário:** posso clicar ou arrastar o cursor do mouse para colorir os círculos.
 
-**Especificação de usuário:** posso clicar duas vezes em um círculo colorido para remover a cor.
+**História de usuário:** posso clicar duas vezes em um círculo colorido para remover a cor.
 
-**Especificação de usuário:** posso clicar em um círculo colorido para mudar a cor dele.
+**História de usuário:** posso clicar em um círculo colorido para mudar a cor dele.
 
-**Especificação de usuário:** eu devo pegar um círculo de cor diferente em cada clique.
+**História de usuário:** eu devo pegar um círculo de cor diferente em cada clique.
 
-**Especificação de usuário:** posso clicar no botão 'Reset' para remover a cor recente.
+**História de usuário:** posso clicar no botão 'Reset' para remover a cor recente.
 
-**Especificação de usuário:** posso clicar no botão 'Reset All' para remover todas as cores dos círculos.
+**História de usuário:** posso clicar no botão 'Reset All' para remover todas as cores dos círculos.
 
 Quando terminar, inclua um link para o seu projeto no CodePen e clique no botão "Eu completei esse desafio".
 
-Você pode obter feedback sobre o seu projeto compartilhando-o no [fórum do freeCodeCamp](https://forum.freecodecamp.org/c/project-feedback/409).
+Você pode obter feedback sobre o seu projeto compartilhando-o no <a href="https://forum.freecodecamp.org/c/project-feedback/409" target="_blank" rel="noopener noreferrer nofollow">fórum freeCodeCamp</a>.
 
 # --solutions--
 

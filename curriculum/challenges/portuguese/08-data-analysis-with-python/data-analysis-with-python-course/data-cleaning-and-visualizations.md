@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c160
 title: Limpar e visualizar dados
 challengeType: 11
 videoId: mHjxzFS5_Z0
+bilibiliIds:
+  aid: 933107558
+  bvid: BV1KM4y137Ny
+  cid: 409019632
 dashedName: data-cleaning-and-visualizations
 ---
 
@@ -12,8 +16,8 @@ dashedName: data-cleaning-and-visualizations
 
 Mais recursos:
 
--   [Notebooks no GitHub](https://github.com/ine-rmotr-curriculum/data-cleaning-rmotr-freecodecamp)
--   [Como abrir notebooks do GitHub usando o Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/data-cleaning-rmotr-freecodecamp" target="_blank" rel="noopener noreferrer nofollow">Notebooks no GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Como abrir notebooks do GitHub usando o Google Colab.</a>
 
 # --question--
 

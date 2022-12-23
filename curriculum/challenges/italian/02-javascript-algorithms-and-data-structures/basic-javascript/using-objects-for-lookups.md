@@ -11,27 +11,26 @@ dashedName: using-objects-for-lookups
 
 Gli oggetti possono essere pensati come una memorizzazione di coppie chiave / valore, come in un dizionario. Se hai dei dati tabulari, puoi usare un oggetto per cercare valori piuttosto che un'istruzione `switch` o una catena `if/else`. Questo è maggiormente utile quando sai che i dati di input sono limitati a un determinato intervallo.
 
-Ecco l'esempio di una semplice ricerca in un alfabeto inverso:
+Ecco un esempio di un oggetto article:
 
 ```js
-var alpha = {
-  1:"Z",
-  2:"Y",
-  3:"X",
-  4:"W",
-  ...
-  24:"C",
-  25:"B",
-  26:"A"
+const article = {
+  "title": "How to create objects in JavaScript",
+  "link": "https://www.freecodecamp.org/news/a-complete-guide-to-creating-objects-in-javascript-b0e2450655e8/",
+  "author": "Kaashan Hussain",
+  "language": "JavaScript",
+  "tags": "TECHNOLOGY",
+  "createdAt": "NOVEMBER 28, 2018"
 };
-alpha[2];
-alpha[24];
 
-var value = 2;
-alpha[value];
+const articleAuthor = article["author"];
+const articleLink = article["link"];
+
+const value = "title";
+const valueLookup = article[value];
 ```
 
-`alpha[2]` è la stringa `Y`, `alpha[24]` è la stringa `C`, e `alpha[value]` è la stringa `Y`.
+`articleAuthor` è la stringa `Kaashan Hussain`, `articleLink` è la stringa `https://www.freecodecamp.org/news/a-complete-guide-to-creating-objects-in-javascript-b0e2450655e8/` e `valueLookup` è la stringa `How to create objects in JavaScript`.
 
 # --instructions--
 
@@ -102,7 +101,7 @@ assert(
 ```js
 // Setup
 function phoneticLookup(val) {
-  var result = "";
+  let result = "";
 
   // Only change code below this line
   switch(val) {
@@ -136,9 +135,9 @@ phoneticLookup("charlie");
 
 ```js
 function phoneticLookup(val) {
-  var result = "";
+  let result = "";
 
-  var lookup = {
+  const lookup = {
     alpha: "Adams",
     bravo: "Boston",
     charlie: "Chicago",

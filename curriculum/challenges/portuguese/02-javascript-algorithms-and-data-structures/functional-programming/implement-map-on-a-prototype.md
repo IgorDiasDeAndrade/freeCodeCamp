@@ -20,10 +20,28 @@ Escreva o seu próprio `Array.prototype.myMap()` e faça com que ele se comporte
 
 # --hints--
 
-`new_s` deve ser `[46, 130, 196, 10]`.
+`[23, 65, 98, 5, 13].myMap(item => item * 2)` deve ser igual a `[46, 130, 196, 10, 26]`.
 
 ```js
-assert(JSON.stringify(new_s) === JSON.stringify([46, 130, 196, 10]));
+const _test_s = [23, 65, 98, 5, 13];
+const _callback = item => item * 2;
+assert(JSON.stringify(_test_s.map(_callback)) === JSON.stringify(_test_s.myMap(_callback)));
+```
+
+`["naomi", "quincy", "camperbot"].myMap(element => element.toUpperCase())` deve retornar `["NAOMI", "QUINCY", "CAMPERBOT"]`.
+
+```js
+const _test_s = ["naomi", "quincy", "camperbot"];
+const _callback = element => element.toUpperCase();
+assert(JSON.stringify(_test_s.map(_callback)) === JSON.stringify(_test_s.myMap(_callback)));
+```
+
+`[1, 1, 2, 5, 2].myMap((element, index, array) => array[index + 1] || array[0])` deve retornar `[1, 2, 5, 2, 1]`.
+
+```js
+const _test_s = [1, 1, 2, 5, 2];
+const _callback = (element, index, array) => array[index + 1] || array[0];
+assert(JSON.stringify(_test_s.map(_callback)) === JSON.stringify(_test_s.myMap(_callback)));
 ```
 
 Você não deve usar o método `map`.
@@ -37,39 +55,27 @@ assert(!code.match(/\.?[\s\S]*?map/g));
 ## --seed-contents--
 
 ```js
-// The global variable
-var s = [23, 65, 98, 5];
-
 Array.prototype.myMap = function(callback) {
-  var newArray = [];
+  const newArray = [];
   // Only change code below this line
 
   // Only change code above this line
   return newArray;
 };
-
-var new_s = s.myMap(function(item) {
-  return item * 2;
-});
 ```
 
 # --solutions--
 
 ```js
-// the global Array
-var s = [23, 65, 98, 5];
-
 Array.prototype.myMap = function(callback) {
-  var newArray = [];
-  // Only change code below this line
-  for (var elem of this) {
-    newArray.push(callback(elem));
+  const newArray = [];
+  for (let i = 0; i < this.length; i++) {
+    newArray.push(callback(this[i], i, this));
   }
-  // Only change code above this line
   return newArray;
 };
 
-var new_s = s.myMap(function(item) {
-  return item * 2;
-});
+// Test case
+const s = [23, 65, 98, 5];
+const doubled_s = s.myMap(item => item * 2);
 ```

@@ -18,14 +18,12 @@ Os índices de um array são escritos na mesma notação com colchetes que as st
 **Exemplo**
 
 ```js
-var array = [50,60,70];
-array[0];
-var data = array[1];
+const array = [50, 60, 70];
+console.log(array[0]);
+const data = array[1];
 ```
 
-`array[0]` agora é `50` e `data` tem o valor `60`.
-
-**Observação:** não deve haver nenhum espaço entre o nome do array e os colchetes, como `array [0]`. Embora JavaScript seja capaz de processar isso corretamente, isso pode confundir outros programadores lendo seu código.
+O `console.log(array[0])` exibirá `50` e `data` terá o valor de `60`.
 
 # --instructions--
 
@@ -76,7 +74,7 @@ if(typeof myArray !== "undefined" && typeof myData !== "undefined"){(function(y,
 ## --seed-contents--
 
 ```js
-var myArray = [50,60,70];
+const myArray = [50, 60, 70];
 
 
 ```
@@ -84,6 +82,6 @@ var myArray = [50,60,70];
 # --solutions--
 
 ```js
-var myArray = [50,60,70];
-var myData = myArray[0];
+const myArray = [50, 60, 70];
+const myData = myArray[0];
 ```

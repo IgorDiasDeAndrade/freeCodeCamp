@@ -1,7 +1,7 @@
 ---
 id: a8e512fbe388ac2f9198f0fa
 title: 找出包含特定键值对的对象
-challengeType: 5
+challengeType: 1
 forumTopicId: 16092
 dashedName: wherefore-art-thou
 ---
@@ -97,18 +97,22 @@ assert.deepEqual(
 );
 ```
 
+`whatIsInAName([{"a": 1, "b": 2, "c": 3, "d": 9999}], {"a": 1, "b": 9999, "c": 3})` 应该返回 `[]`。
+
+```js
+assert.deepEqual(
+  whatIsInAName([{ a: 1, b: 2, c: 3, d: 9999 }], { a: 1, b: 9999, c: 3 }),
+  []
+);
+```
+
 # --seed--
 
 ## --seed-contents--
 
 ```js
 function whatIsInAName(collection, source) {
-  var arr = [];
-  // Only change code below this line
 
-
-  // Only change code above this line
-  return arr;
 }
 
 whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
@@ -118,8 +122,8 @@ whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: 
 
 ```js
 function whatIsInAName(collection, source) {
-  var arr = [];
-  var keys = Object.keys(source);
+  const arr = [];
+  const keys = Object.keys(source);
   collection.forEach(function(e) {
     if(keys.every(function(key) {return e[key] === source[key];})) {
       arr.push(e);

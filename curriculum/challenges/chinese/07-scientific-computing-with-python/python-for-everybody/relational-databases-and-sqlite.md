@@ -3,18 +3,28 @@ id: 5e7b9f170b6c005b0e76f08a
 title: 关系数据库和 SQLite
 challengeType: 11
 videoId: QlNod5-kFpA
+bilibiliIds:
+  aid: 249449958
+  bvid: BV12v411E74H
+  cid: 377530805
 dashedName: relational-databases-and-sqlite
 ---
+
+# --description--
+
+<a href="https://www.sqlite.org/download.html" target="_blank" rel="noopener noreferrer nofollow">下载 SQLite</a>  
+<a href="https://sqlitebrowser.org/dl/" target="_blank" rel="noopener noreferrer nofollow">下载 DB Browser for SQLite</a>  
+<a href="https://www.sqlite.org/famous.html" target="_blank" rel="noopener noreferrer nofollow">使用 SQLite</a>
 
 # --question--
 
 ## --text--
 
-哪个不是数据库中主要的数据结构？
+哪一个不是数据库中的主要数据结构？
 
 ## --answers--
 
-指数
+索引
 
 ---
 
@@ -22,11 +32,11 @@ dashedName: relational-databases-and-sqlite
 
 ---
 
-一行
+行
 
 ---
 
-一列
+列
 
 ## --video-solution--
 

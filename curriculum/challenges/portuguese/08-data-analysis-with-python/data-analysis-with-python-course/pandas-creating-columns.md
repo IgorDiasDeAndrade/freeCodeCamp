@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c15c
 title: Criar colunas com o Pandas
 challengeType: 11
 videoId: _sSo2XZoB3E
+bilibiliIds:
+  aid: 975568901
+  bvid: BV1b44y1b7Cg
+  cid: 409018052
 dashedName: pandas-creating-columns
 ---
 
@@ -12,8 +16,8 @@ dashedName: pandas-creating-columns
 
 Mais recursos:
 
--   [Notebooks no GitHub](https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-pandas)
--   [Como abrir notebooks do GitHub usando o Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/ine-rmotr-curriculum/freecodecamp-intro-to-pandas" target="_blank" rel="noopener noreferrer nofollow">Notebooks no GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Como abrir notebooks do GitHub usando o Google Colab.</a>
 
 # --question--
 

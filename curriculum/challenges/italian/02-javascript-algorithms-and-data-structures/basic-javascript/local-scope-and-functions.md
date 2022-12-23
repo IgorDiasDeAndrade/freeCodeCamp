@@ -15,14 +15,15 @@ Ecco una funzione `myTest` con una variabile locale chiamata `loc`.
 
 ```js
 function myTest() {
-  var loc = "foo";
+  const loc = "foo";
   console.log(loc);
 }
+
 myTest();
 console.log(loc);
 ```
 
-La chiamata alla funzione `myTest()` mostrerà la stringa `foo` nella console. La linea `console.log(loc)` genererà un errore, perché `loc` non è definita al di fuori della funzione.
+La chiamata alla funzione `myTest()` mostrerà la stringa `foo` nella console. La riga `console.log(loc)` (al di fuori della funzione `myTest`) lancerà un errore visto che `loc` non è definito al di fuori della funzione.
 
 # --instructions--
 
@@ -38,6 +39,7 @@ Il codice non dovrebbe contenere una variabile globale `myVar`.
 function declared() {
   myVar;
 }
+
 assert.throws(declared, ReferenceError);
 ```
 
@@ -57,7 +59,6 @@ assert(
 
 ```js
 function myLocalScope() {
-
   // Only change code below this line
 
   console.log('inside myLocalScope', myVar);
@@ -73,9 +74,8 @@ console.log('outside myLocalScope', myVar);
 
 ```js
 function myLocalScope() {
-
   // Only change code below this line
-  var myVar;
+  let myVar;
   console.log('inside myLocalScope', myVar);
 }
 myLocalScope();

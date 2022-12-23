@@ -5,16 +5,19 @@ import Helmet from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { bindActionCreators, Dispatch } from 'redux';
 
 import Intro from '../components/Intro';
 import Map from '../components/Map';
 import { Spacer } from '../components/helpers';
 import LearnLayout from '../components/layouts/learn';
 import {
-  userFetchStateSelector,
   isSignedInSelector,
-  userSelector
-} from '../redux';
+  userSelector,
+  userFetchStateSelector
+} from '../redux/selectors';
+
+import { executeGA } from '../redux/actions';
 
 interface FetchState {
   pending: boolean;
@@ -26,6 +29,7 @@ interface User {
   name: string;
   username: string;
   completedChallengeCount: number;
+  isDonating: boolean;
 }
 
 const mapStateToProps = createSelector(
@@ -48,25 +52,43 @@ interface LearnPageProps {
   fetchState: FetchState;
   state: Record<string, unknown>;
   user: User;
+  executeGA: (payload: Record<string, unknown>) => void;
   data: {
     challengeNode: {
-      fields: Slug;
+      challenge: {
+        fields: Slug;
+      };
     };
   };
 }
 
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators({ executeGA }, dispatch);
+
 function LearnPage({
   isSignedIn,
+  executeGA,
   fetchState: { pending, complete },
-  user: { name = '', completedChallengeCount = 0 },
+  user: { name = '', completedChallengeCount = 0, isDonating = false },
   data: {
     challengeNode: {
-      fields: { slug }
+      challenge: {
+        fields: { slug }
+      }
     }
   }
 }: LearnPageProps) {
   const { t } = useTranslation();
 
+  const onDonationAlertClick = () => {
+    executeGA({
+      type: 'event',
+      data: {
+        category: 'Donation Related',
+        action: `learn donation alert click`
+      }
+    });
+  };
   return (
     <LearnLayout>
       <Helmet title={t('metaTags:title')} />
@@ -80,6 +102,8 @@ function LearnPage({
               name={name}
               pending={pending}
               slug={slug}
+              onDonationAlertClick={onDonationAlertClick}
+              isDonating={isDonating}
             />
             <Map />
             <Spacer size={2} />
@@ -92,13 +116,21 @@ function LearnPage({
 
 LearnPage.displayName = 'LearnPage';
 
-export default connect(mapStateToProps)(LearnPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LearnPage);
 
 export const query = graphql`
   query FirstChallenge {
-    challengeNode(order: { eq: 0 }, challengeOrder: { eq: 0 }) {
-      fields {
-        slug
+    challengeNode(
+      challenge: {
+        superOrder: { eq: 0 }
+        order: { eq: 0 }
+        challengeOrder: { eq: 0 }
+      }
+    ) {
+      challenge {
+        fields {
+          slug
+        }
       }
     }
   }

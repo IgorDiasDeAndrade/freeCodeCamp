@@ -1,6 +1,6 @@
 {
   "responsive-web-design": {
-    "title": "响应式网页设计",
+    "title": "（旧版）响应式网页设计",
     "intro": [
       "在响应式网页设计认证中，你将学习开发者用来编写网页的语言：HTML（超文本标记语言）用于创建内容，CSS（级联样式表）用于样式设计。",
       "首先，你将通过编写一个展示猫咪图片的应用，学习 HTML 和 CSS 的基本知识。 然后，通过画企鹅来学习像 CSS 变量这样的现代技术，以及通过构建网页表单来学习无障碍的最佳实践。",
@@ -63,47 +63,155 @@
           "是时候使用你新学到的技能了。通过构建这些项目，你将有机会应用之前学到的所有技巧、原则和概念：HTML、CSS、视觉设计、无障碍等等。",
           "完成下面的五个网页编程项目，获得响应式网页设计认证。"
         ]
-      },
-      "basic-html-cat-photo-app": {
-        "title": "基础 HTML 猫图应用",
+      }
+    }
+  },
+  "2022/responsive-web-design": {
+    "title": "（新版）响应式网页设计",
+    "intro": [
+      "在响应式网页设计的认证课程中，你将学习用于构建网页的语言： HTML（超文本标记语言）用于创建内容，CSS（级联样式表）用于样式设计。",
+      "首先，你将通过编写一个展示猫咪图片的应用来学习 HTML 和 CSS 的基本知识。 然后，通过构建一只企鹅来学习像 CSS 变量这样的现代技术，并通过搭建网页表单来学习无障碍的最佳实践。",
+      "最后，你将通过编写一个 Twitter 卡片，学习如何使用 Flexbox 实现适应不同屏幕大小的网页 ，以及如何用 CSS Grid 实现一个复杂的博客布局。"
+    ],
+    "note": "注意：某些浏览器扩展程序（例如广告拦截器和深色模式）可能干扰测试。如果遇到问题，我们建议你在学习课程时禁用那些修改网页内容或布局的扩展程序。",
+    "blocks": {
+      "build-a-tribute-page-project": {
+        "title": "致敬页",
         "intro": [
-          "",
-          ""
+          "这是你获得认证的必做项目。",
+          "在这个项目中，你将为你所选择的主题编写一个致敬页（无论是虚构的还是真实的）。"
         ]
       },
-      "basic-css-cafe-menu": {
-        "title": "基础 CSS 咖啡菜单",
+      "build-a-personal-portfolio-webpage-project": {
+        "title": "个人作品集展示页",
         "intro": [
-          "",
-          ""
+          "这是你获得认证的必做项目。",
+          "在这个项目中，你将制作自己的个人作品集展示页。"
         ]
       },
-      "css-box-model": {
-        "title": "CSS Box Model",
+      "build-a-product-landing-page-project": {
+        "title": "产品登录页",
         "intro": [
-          "Mark Rothko was known for his abstract style of painting. Rothko paintings commonly depicted rectangular regions of color in varying sizes.",
-          "In this lesson, you will be using CSS to create your own painting in Rothko's style. You will use many of the skills you have already been practicing, as well as new CSS tool such as blur and transform."
+          "这是你获得认证的必做项目。",
+          "在这个项目中，你将编写一个产品登录页来推销你选择的产品。"
         ]
       },
-      "css-variables-skyline": {
-        "title": "CSS 变量 Skyline",
+      "build-a-survey-form-project": {
+        "title": "调查表单",
         "intro": [
-          "",
-          ""
+          "这是你获得认证的必做项目。",
+          "在这个项目中，你将编写一个用于收集用户数据的调查表单。"
         ]
       },
-      "css-picasso-painting": {
-        "title": "CSS Picasso Painting",
+      "build-a-technical-documentation-page-project": {
+        "title": "技术文档页",
         "intro": [
-          "Pablo Picasso was known for his Cubism style of painting, a style recognized by representations of objects broken down and reassembled from multiple perspectives. Picasso's paintings are often highly abstract and thought provoking.",
-          "In this course, you will use CSS to create your own painting in the style of Picasso. You will learn about FontAwesome SVG icons, CSS positioning, and reinforce the skills you have already been learning."
+          "这是你获得认证的必做项目。",
+          "在这个项目中，你将编写一个技术文档页，作为一个主题的指导或参考。"
         ]
       },
-      "css-piano": {
-        "title": "CSS Piano",
+      "learn-html-by-building-a-cat-photo-app": {
+        "title": "通过编写猫咪相册应用学习 HTML",
         "intro": [
-          "",
-          ""
+          "HTML 标签赋予了网页结构。你可以使用 HTML 标签添加照片、按钮和其它元素到你的网页。",
+          "在这门课程中，你将通过编写一个猫咪相册应用，学习最常见的 HTML 标签。"
+        ]
+      },
+      "learn-basic-css-by-building-a-cafe-menu": {
+        "title": "通过编写咖啡店菜单学习基础 CSS",
+        "intro": [
+          "CSS 负责告诉浏览器如何展示你的网页。你可以使用 CSS 设置 HTML 元素的颜色、字体、大小等属性。",
+          "在这门课程中，你将通过为一个咖啡店网站设计菜单页来学习 CSS。"
+        ]
+      },
+      "learn-the-css-box-model-by-building-a-rothko-painting": {
+        "title": "通过创作罗斯科绘画学习 CSS 盒子模型",
+        "intro": [
+          "每个 HTML 元素都是一个盒子，它拥有着自己的间距和边框。这叫作“盒子模型”。",
+          "在这门课程中，你将使用 CSS 和盒子模型，创作属于你自己的罗斯科风格的矩形艺术作品。"
+        ]
+      },
+      "learn-css-variables-by-building-a-city-skyline": {
+        "title": "通过建立城市轮廓学习 CSS 变量",
+        "intro": [
+          "CSS 变量负责帮助组织你的样式和重复使用它们。",
+          "在这门课程中，你将建立一座城市的轮廓。你将学习如何配置 CSS 变量，以便你可以随时重复使用它们。"
+        ]
+      },
+      "learn-html-forms-by-building-a-registration-form": {
+        "title": "通过编写注册表单学习 HTML 表单",
+        "intro": [
+          "你可以使用 HTML 表单收集访问网页的用户的信息。",
+          "在这门课程中，你将通过编写一个注册页学习 HTML 表单。你将学习如何控制人们在表单中可以输入的数据类型，以及使用一些新的 CSS 工具装饰你的页面。"
+        ]
+      },
+      "learn-accessibility-by-building-a-quiz": {
+        "title": "通过编写小测验学习无障碍",
+        "intro": [
+          "无障碍环境正在使你的网页便于所有人使用——甚至是残疾人。",
+          "在这个课程中，你将建立一个测验网页。你将学习诸如键盘快捷键、ARIA 属性和设计最佳实践等无障碍工具。"
+        ]
+      },
+      "learn-intermediate-css-by-building-a-picasso-painting": {
+        "title": "创建一副毕加索绘画来学习中级 CSS",
+        "intro": [
+          "在本课程中，你将通过代码创建一幅自己的毕加索绘画网页来掌握中级 CSS 技术。课程涉及 SVG 图标、CSS 定位和对已学 CSS 知识的回顾。"
+        ]
+      },
+      "learn-responsive-web-design-by-building-a-piano": {
+        "title": "通过创建一架钢琴来学习响应式网页设计",
+        "intro": [
+          "响应式设计使得你的网页适应不同屏幕尺寸的显示。",
+          "在本课程中，你将围绕一架钢琴编写代码学习 CSS 响应式设计。你将同时学会媒体条件和伪选择器的知识。"
+        ]
+      },
+      "learn-css-flexbox-by-building-a-photo-gallery": {
+        "title": "通过创建照片集来学习 CSS 弹性盒子",
+        "intro": [
+          "通过弹性盒子你可以设计适应不同屏幕大小的网页。",
+          "在本课程中，你将使用弹性盒子创建一个响应式的照片集网页。"
+        ]
+      },
+      "learn-css-grid-by-building-a-magazine": {
+        "title": "通过创建杂志学习 CSS 网格布局",
+        "intro": [
+          "在网页设计时，CSS 网格布局使你能够控制网页的行、列。",
+          "在这门课程中，你将编写一篇杂志文章。你将学习如何使用 CSS Grid，其中包括了像网格行和网格列这样的概念。"
+        ]
+      },
+      "learn-typography-by-building-a-nutrition-label": {
+        "title": "通过建立营养标签来学习排版",
+        "intro": [
+          "排版是将文本样式设置为易于阅读并适合其目的的艺术。",
+          "在本课程中，你将使用排版来构建营养标签网页。你将学习如何使用 CSS 设置文本样式、调整行高和定位文本。"
+        ]
+      },
+      "learn-css-transforms-by-building-a-penguin": {
+        "title": "通过构建企鹅来学习 CSS 变换",
+        "intro": [
+          "你可以转换 HTML 元素以创建吸引读者眼球的吸引人的设计。你可以使用变换来旋转元素、缩放它们等等。",
+          "在本课程中，你将构建一只企鹅。你将使用 CSS 变换来定位企鹅的各个部分并调整其大小、创建背景并为你的作品设置动画。"
+        ]
+      },
+      "learn-css-animation-by-building-a-ferris-wheel": {
+        "title": "通过构建摩天轮学习 CSS 动画",
+        "intro": [
+          "你可以使用 CSS 动画将注意力吸引到网页的特定部分并使其更具吸引力。",
+          "在本课程中，你将建造一个摩天轮。你将学习如何使用 CSS 为元素设置动画、转换它们并调整它们的速度。"
+        ]
+      },
+      "learn-more-about-css-pseudo-selectors-by-building-a-balance-sheet": {
+        "title": "通过构建资产负债表了解有关 CSS 伪选择器的更多信息",
+        "intro": [
+          "你可以使用 CSS 伪选择器来更改特定的 HTML 元素。",
+          "在本课程中，你将使用伪选择器构建资产负债表。你将学习如何在将鼠标悬停在元素上时更改其样式，并触发网页上的其他事件。"
+        ]
+      },
+      "learn-css-colors-by-building-a-set-of-colored-markers": {
+        "title": "通过构建一组彩色标记来学习 CSS 颜色",
+        "intro": [
+          "为你的网页选择正确的颜色可以大大提高对读者的审美吸引力。",
+          "在本课程中，你将构建一组彩色标记。你将学习设置颜色值的不同方法以及如何将颜色相互配对。"
         ]
       }
     }
@@ -113,9 +221,9 @@
     "intro": [
       "HTML 和 CSS 控制页面的内容和样式，JavaScript 则用于页面交互。在 JavaScript 算法和数据结构认证中，你将学习 JavaScript 的基础知识，包括变量、 数组、 对象、 循环和函数。",
       "打好基础之后，你将会通过创建算法来操作字符串、进行阶乘运算甚至计算国际空间站的轨道来应用这些知识。",
-      "Along the way, you'll also learn two important programming styles or paradigms: Object Oriented Programming (OOP) and Functional Programming (FP)."
+      "在这个过程中，你将会学习两种重要的编程方式或模式：面向对象的编程（OOP）和函数式编程（FP）。"
     ],
-    "note": "Note: Some browser extensions, such as ad-blockers and script-blockers can interfere with the tests. If you face issues, we recommend disabling extensions that modify or block the content of pages while taking the course.",
+    "note": "注意：某些浏览器扩展，例如广告拦截器和脚本拦截器，可能干扰测试。如果你遇到问题，我们建议你在学习时禁用修改或阻止页面内容的扩展。",
     "blocks": {
       "basic-javascript": {
         "title": "基础 JavaScript",
@@ -128,8 +236,8 @@
         "title": "ES6",
         "intro": [
           "ECMAScript（ES）是 JavaScript 的标准。因为所有主流浏览器都遵循此规范，所以 ECMAScript 和 JavaScript 是可以互换的。",
-          "Most of the JavaScript you've learned up to this point was in ES5 (ECMAScript 5), which was finalized in 2009. While you can still write programs in ES5, JavaScript is constantly evolving, and new features are released every year.",
-          "2015 年发布的 ES6 为该语言增加了许多强大的新功能。在这个课程中，你将学习这些新功能，包括 <code>let</code>、<code>const</code>、箭头函数、类、promises 和模块。"
+          "截至目前你所学到的 JavaScript 大多是在 2009 年定稿的 ES5（ECMAScript5）。你仍然可以使用 ES5 编写程序。JavaScript 在不断迭代，每年都会发布新功能。",
+          "2015 年发布的 ES6 为该语言添加了许多强大的新功能。在本课程中，你将学习这些新特性，包括箭头函数、解构、类、promise 和模块。"
         ]
       },
       "regular-expressions": {
@@ -158,15 +266,15 @@
         "title": "基础算法",
         "intro": [
           "算法是描述如何处理某个问题的一系列步骤。",
-          "To write an effective algorithm, it helps to break a problem down into smaller parts and think carefully about how to solve each part with code.",
+          "要写一个有效的算法，你需要先将一个特定的问题分解为小的部分，并仔细思考如何用代码解决每个部分。",
           "在这个课程中，你将通过编写算法来实现诸如转换温度、处理复杂的二维数组等，来学习算法思维的基础知识。"
         ]
       },
       "object-oriented-programming": {
         "title": "面向对象编程",
         "intro": [
-          "OOP, or Object Oriented Programming, is one of the major approaches to the software development process. In OOP, objects and classes organize code to describe things and what they can do.",
-          "In this course, you'll learn the basic principles of OOP in JavaScript, including the <code>this</code> keyword, prototype chains, constructors, and inheritance."
+          "OOP，即面向对象编程，是软件开发过程的主要方法之一。在 OOP 中，我们用对象和类来组织代码，以描述事物的特点以及它们可以做什么。",
+          "在这个课程中，你将会学习 JavaScript 中面向对象编程的基本原则，例如 <code>this</code> 关键词、原型链、构造器和继承。"
         ]
       },
       "functional-programming": {
@@ -188,89 +296,107 @@
           "是时候用上你新学到的 JavaScript 技能了！接下来的项目和前面的算法挑战很相近，但是难度会更高。",
           "完成这 5 个 JavaScript 项目，以获得 JavaScript 算法和数据结构认证。"
         ]
+      }
+    }
+  },
+  "2022/javascript-algorithms-and-data-structures": {
+    "title": "JavaScript 算法和数据结构项目（Beta 测试版本）",
+    "intro": ["占位符", "占位符"],
+    "note": "",
+    "blocks": {
+      "build-a-caesars-cipher-project": {
+        "title": "构建一个恺撒密码项目",
+        "intro": ["", ""]
       },
-      "basic-javascript-rpg-game": {
-        "title": "基础 JavaScript RPG 游戏",
-        "intro": [
-          "",
-          ""
-        ]
+      "build-a-cash-register-project": {
+        "title": "构建一个收银机项目",
+        "intro": ["", ""]
       },
-      "intermediate-javascript-calorie-counter": {
-        "title": "中级 JavaScript 卡路里计算器",
-        "intro": [
-          "",
-          ""
-        ]
+      "build-a-palindrome-checker-project": {
+        "title": "构建一个回文检测器项目",
+        "intro": ["", ""]
       },
-      "functional-programming-spreadsheet": {
-        "title": "函数式编程电子表格",
-        "intro": [
-          "",
-          ""
-        ]
+      "build-a-roman-numeral-converter-project": {
+        "title": "搭建一个罗马数字转换器项目",
+        "intro": ["", ""]
+      },
+      "build-a-telephone-number-validator-project": {
+        "title": "构建一个电话号码检验器项目",
+        "intro": ["", ""]
+      },
+      "learn-basic-javascript-by-building-a-role-playing-game": {
+        "title": "通过构建角色扮演游戏来学习 JavaScript",
+        "intro": ["", ""]
+      },
+      "learn-form-validation-by-building-a-calorie-counter": {
+        "title": "通过构建卡路里计数器来学习表单验证",
+        "intro": ["", ""]
+      },
+      "learn-functional-programming-by-building-a-spreadsheet": {
+        "title": "通过构建电子表格学习函数式编程",
+        "intro": ["", ""]
       }
     }
   },
   "front-end-development-libraries": {
-    "title": "Front End Development Libraries",
+    "title": "前端开发库",
     "intro": [
-      "Now that you're familiar with HTML, CSS, and JavaScript, level up your skills by learning some of the most popular front end libraries in the industry.",
-      "In the Front End Development Libraries Certification, you'll learn how to style your site quickly with Bootstrap. You'll also learn how add logic to your CSS styles and extend them with Sass.",
-      "Later, you'll build a shopping cart and other applications to learn how to create powerful Single Page Applications (SPAs) with React and Redux."
+      "你已经熟悉了 HTML、CSS 和 JavaScript。现在学习行业中一些流行的前端库来提升你的技能吧。",
+      "在前端开发库认证中，你将学习如何使用 Bootstrap 快速设置网站样式，以及如何在 CSS 样式中添加逻辑，并使用 Sass 对其进行扩展。",
+      "稍后，你将建立一个购物车和其他应用程序，学习如何使用 React 和 Redux 创建强大的单页应用程序（SPAs）。"
     ],
     "note": "",
     "blocks": {
       "bootstrap": {
         "title": "Bootstrap",
         "intro": [
-          "Bootstrap is a front end framework used to design responsive web pages and applications. It takes a mobile-first approach to web development, and includes pre-built CSS styles and classes, plus some JavaScript functionality.",
-          "In this course, you'll learn how to build responsive websites with Bootstrap, and use its included classes to style buttons, images, forms, navigation, and other common elements."
+          "Bootstrap 一个是用于设计响应性网页和应用程序的前端框架。它对网页开发采用移动优先的方法，具有预定义的 CSS 样式和 class，以及一些 JavaScript 功能。",
+          "在这个课程中，你将学习如何使用 Bootstrap 来构建响应式网页，并使用它的 class 来设置按钮、图像、表格、导航和其他常见元素的样式。"
         ]
       },
       "jquery": {
         "title": "jQuery",
         "intro": [
-          "jQuery is one of the most widely used JavaScript libraries in the world.",
-          "In 2006 when it was released, all major browsers handled JavaScript slightly differently. jQuery simplified the process of writing client-side JavaScript, and also ensured that your code worked the same way in all browsers.",
-          "In this course, you'll learn how to use jQuery to select, remove, clone, and modify different elements on the page."
+          "jQuery 是开发者们最常用的 JavaScript 库之一。",
+          "在 jQuery 于 2006 年发布时，各种常用浏览器处理 JavaScript 的方式都略有不同。jQuery 简化了编写客户端 JavaScript 的过程，并确保代码在所有浏览器中以同样的方式运行。",
+          "在这个课程中，你将学习如何使用 jQuery 选择、移除、克隆和修改页面上的不同元素。"
         ]
       },
       "sass": {
-        "title": "SASS",
+        "title": "Sass",
         "intro": [
-          "Sass, or \"Syntactically Awesome StyleSheets\", is a language extension of CSS. It adds features that aren't available in basic CSS, which make it easier for you to simplify and maintain the style sheets for your projects.",
-          "In this Sass course, you'll learn how to store data in variables, nest CSS, create reusable styles with mixins, add logic and loops to your styles, and more."
+          "Sass，英文全称为 “Syntactically Awesome StyleSheets”，是对 CSS 的扩展。它添加了一些基础 CSS 中不具有的新特性。Sass 简化了 CSS，这让维护项目中的样式表变得更容易。",
+          "在这个 Sass 课程中，你将学习如何将数据存储在变量中、嵌套 CSS、创建可重用的样式、为样式添加逻辑和循环等等。"
         ]
       },
       "react": {
         "title": "React",
         "intro": [
-          "React is a popular JavaScript library for building reusable, component-driven user interfaces for web pages or applications.",
-          "React combines HTML with JavaScript functionality into its own markup language called JSX. React also makes it easy to manage the flow of data throughout the application.",
-          "In this course, you'll learn how to create different React components, manage data in the form of state props, use different lifecycle methods like <code>componentDidMount</code>, and much more."
+          "React 是一个流行的 JavaScript 库，用于为网页或应用程序构建可重用的组件驱动的用户界面。",
+          "React 将 HTML 与 JavaScript 结合在了一起，以此创建出一个新的标记语言 JSX。React 还使得管理整个应用程序的数据流变得更容易。",
+          "在这个课程中，你将学习如何创建不同的 React 组件，以 state props 管理数据，以及使用不同的生命周期方法（例如 <code>componentDidMount</code>）和更多内容。"
         ]
       },
       "redux": {
         "title": "Redux",
         "intro": [
-          "As applications grow in size and scope, managing shared data becomes much more difficult. Redux is defined as a \"predictable state container for JavaScript apps\" that helps ensure your apps work predictably, and are easier to test.",
-          "While you can use Redux with any view library, we introduce Redux here before combining it with React in the next set of courses.",
-          "In this course, you'll learn the fundamentals of Redux stores, actions, reducers and middleware to manage data throughout your application."
+          "随着应用程序规模和范围的扩大，管理共享数据变得更加困难。Redux 被定义为 “JavaScript 应用的可预测状态容器”，它有助于确保你的应用能够可预测地运行，并且更容易测试。",
+          "虽然你可以将 Redux 和各种库一起使用，但我们在这里介绍 Redux，然后在下一组课程中将它与 React 结合起来。",
+          "在这个课程中，你将学习 Redux stores、actions、reducers 和中间件的基础知识，来管理应用程序的数据。"
         ]
       },
       "react-and-redux": {
-        "title": "React and Redux",
+        "title": "React 和 Redux",
         "intro": [
-          "React and Redux are often mentioned together, and with good reason. The developer who created Redux was a React developer who wanted to make it easier to share data across different components.",
-          "Now that you know how to manage the flow of shared data with Redux, it's time to combine that knowledge with React. In the React and Redux courses, you'll build a React component and learn how to manage state locally at the component level, and throughout the entire application with Redux."
+          "React 和 Redux 经常一起被提及，这是有充分理由的。创建 Redux 的开发人员是一个 React 开发者，他希望简化不同组件间的数据共享。",
+          "你已经知道了如何使用 Redux 管理共享数据流，是时候将这些知识与 React 结合起来了。在 React 和 Redux 课程中，你将构建一个 React 组件，并学习如何使用 Redux 在组件级别本地管理状态，以及在整个应用程序中管理状态。"
         ]
       },
       "front-end-development-libraries-projects": {
-        "title": "Front End Development Libraries Projects",
+        "title": "前端开发库项目",
         "intro": [
-          "It's time to put your front end development libraries skills to the test. Use Bootstrap, jQuery, Sass, React, and Redux to build 5 projects that will test everything you've learned up to this point.",
-          "Complete all 5 projects, and you'll earn the Front End Development Libraries certification."
+          "现在是时候应用你的前端开发库技能进行测试。用 Bootstrap、jQuery、Sass、React、和 Redux 构建 5 个项目，测试你到现在所学到的知识。",
+          "完成全部 5 个项目，然后你会获得前端开发库认证。"
         ]
       }
     }
@@ -280,7 +406,7 @@
     "intro": [
       "数据无处不在。但是，如果没有上下文，数据就没有多大意义。",
       "在数据可视化认证中，你会用 D3.js 库来创建表格、图表和地图，以展示不同的数据。",
-      "You'll also learn about JSON (JavaScript Object Notation), and how to work with data online using an API (Application Programming Interface)."
+      "您还将了解 JSON（JavaScript 对象表示法），以及如何使用 API（应用程序编程接口）在线处理数据。"
     ],
     "note": "",
     "blocks": {
@@ -310,65 +436,156 @@
       },
       "d3-dashboard": {
         "title": "D3 面板",
-        "intro": [
-          "",
-          ""
-        ]
+        "intro": ["", ""]
       }
     }
   },
-  "relational-databases": {
-    "title": "关系型数据库",
+  "relational-database": {
+    "title": "关系数据库（Beta）",
     "intro": [
-      "占位符"
+      "对于这些课程，你将使用真正的开发人员工具和软件，包括 VS Code、PostgreSQL 和 Linux/Unix 命令行来完成交互式教程和构建项目。",
+      "这些课程从基本的 Bash 命令开始。使用终端，你将学习从导航和操作文件系统、在 Bash 中编写脚本到高级用法的所有内容。",
+      "接下来，你将学习如何使用 PostgreSQL（数据库管理系统）和 SQL（这些数据库的语言）创建和使用关系数据库。",
+      "最后，你将学习 Git，版本控制系统，每个开发人员的必备工具。"
     ],
     "blocks": {
-      "learn-relational-databases": {
-        "title": "学习关系型数据库",
+      "build-a-celestial-bodies-database-project": {
+        "title": "天体数据库",
         "intro": [
-          "占位符"
+          "这是你获得认证的必做项目。",
+          "对于这个项目，你将使用 PostgreSQL 构建一个天体数据库。"
+        ]
+      },
+      "build-a-number-guessing-game-project": {
+        "title": "猜数字游戏",
+        "intro": [
+          "这是你获得认证的必做项目。",
+          "对于这个项目，你将使用 Bash 脚本、PostgreSQL 和 Git 创建一个在终端中运行并保存用户信息的猜数游戏。"
+        ]
+      },
+      "build-a-periodic-table-database-project": {
+        "title": "元素周期表数据库",
+        "intro": [
+          "这是你获得认证的必做项目。",
+          "对于此项目，你将创建 Bash 脚本以从元素周期表数据库中获取有关化学元素的信息。"
+        ]
+      },
+      "build-a-salon-appointment-scheduler-project": {
+        "title": "沙龙预约安排程序",
+        "intro": [
+          "这是你获得认证的必做项目。",
+          "对于这个项目，你将创建一个交互式 Bash 程序，该程序使用 PostgreSQL 来跟踪你沙龙的客户和约会。"
+        ]
+      },
+      "build-a-world-cup-database-project": {
+        "title": "世界杯数据库",
+        "intro": [
+          "这是你获得认证的必做项目。",
+          "对于这个项目，你将创建一个 Bash 脚本，将世界杯赛中的信息存储到 PostgreSQL 中，然后通过查询数据库来获取有用的统计数据。"
+        ]
+      },
+      "learn-advanced-bash-by-building-a-kitty-ipsum-translator": {
+        "title": "通过构建一个 Kitty Ipsum 翻译器来学习高级 Bash",
+        "intro": [
+          "Bash 命令比你想象的更多。",
+          "在第 140 课中，你会学习一些更复杂的命令以及命令如何工作的细节。"
+        ]
+      },
+      "learn-bash-and-sql-by-building-a-bike-rental-shop": {
+        "title": "建造一家自行车出租店来学习 Bash 和 SQL",
+        "intro": [
+          "在这套 210 小节的课程中，你将建立一个交互式 Bash 程序，使用 PostgreSQL 存储自行车租赁商店的租赁信息。"
+        ]
+      },
+      "learn-bash-by-building-a-boilerplate": {
+        "title": "通过构建模版学习 Bash",
+        "intro": [
+          "终端允许您将文本命令发送到您的计算机，可以操作文件系统、运行程序、自动化任务以及更多。",
+          "在这套 170 小节的课程中，你将通过只使用命令行创建网站模板来学习终端命令。"
+        ]
+      },
+      "learn-bash-scripting-by-building-five-programs": {
+        "title": "通过构建五个程序学习 Bash 脚本",
+        "intro": [
+          "Bash 脚本将终端命令和逻辑合并到程序的可以执行任务或自动化任务等中。",
+          "在第 220 课程中，你将通过创建五个小程序来学习更多终端命令以及如何在 Bash 脚本中使用它们。"
+        ]
+      },
+      "learn-git-by-building-an-sql-reference-object": {
+        "title": "通过构建 SQL 引用对象来学习 Git",
+        "intro": [
+          "Git 是一个版本控制系统，用于跟踪您对代码片段所作的所有更改。",
+          "在第 240 课中，你将通过创建一个包含常用的 SQL 命令的对象来学习 Git 如何跟踪你的代码。"
+        ]
+      },
+      "learn-nano-by-building-a-castle": {
+        "title": "通过建造城堡学习 Nano",
+        "intro": [
+          "Nano 是一个允许你在终端编辑文件的程序。",
+          "在第 40 课中，你将学习如何在构建城堡时编辑终端中的文件。"
+        ]
+      },
+      "learn-relational-databases-by-building-a-mario-database": {
+        "title": "通过构建 Mario 数据库来学习关系型数据库",
+        "intro": [
+          "一个关系数据库将数据保存到通过关系连接起来的表格中。",
+          "在第 165 课中，你将通过创建一个充满视频游戏字符的 PostgreSQL 数据库来学习关系数据库的基础知识。"
+        ]
+      },
+      "learn-sql-by-building-a-student-database-part-1": {
+        "title": "通过构建学生数据库来学习 SQL：第 1 部分",
+        "intro": [
+          "SQL 又称结构化查询语言是与关联数据库通信的语言。",
+          "在第 140 课中，你将创建一个 Bash 脚本，使用 SQL 将你的计算机科学学生信息存储到 PostgreSQL 中。"
+        ]
+      },
+      "learn-sql-by-building-a-student-database-part-2": {
+        "title": "通过构建学生数据库来学习 SQL：第 2 部分",
+        "intro": [
+          "SQL 加入命令用于将关系数据库中多个表格中的信息合并在一起",
+          "在第 140 课课程中，你将会在更深入的 SQL 命令中完成学生数据库。"
         ]
       }
     }
   },
   "back-end-development-and-apis": {
-    "title": "Back End Development and APIs",
+    "title": "后端开发和 APIs",
     "intro": [
-      "Until this point, you've only used JavaScript on the front end to add interactivity to a page, solve algorithm challenges, or build an SPA. But JavaScript can also be used on the back end, or server, to build entire web applications.",
-      "Today, one of the popular ways to build applications is through microservices, which are small, modular applications that work together to form a larger whole.",
-      "In the Back End Development and APIs Certification, you'll learn how to write back end apps with Node.js and npm (Node Package Manager). You'll also build web applications with the Express framework, and build a People Finder microservice with MongoDB and the Mongoose library."
+      "在这之前，你只是在前端使用 JavaScript 来给页面添加交互、解决算法挑战，或构建一个 SPA（单页应用程序）。但 JavaScript 也可以用于后端或者服务器来构建整个 web 应用程序。",
+      "今天，构建应用软件的广受欢迎的方法之一是微服务，这些微服务是一种小型模块化的应用，能够共同形成一个更大的整体。",
+      "在后端开发和 APIs 认证中，你将学习如何使用 Node.js 和 npm（Node 包管理工具）来写后端。你还将使用 Express 框架构建 web 应用程序，并使用 MongoDB 和 Mongoose 库构建一个 People Finder 微服务。"
     ],
     "note": "",
     "blocks": {
       "managing-packages-with-npm": {
-        "title": "Managing Packages with NPM",
+        "title": "使用 NPM 管理软件包",
         "intro": [
-          "npm (Node Package Manager), is a command line tool to install, create, and share packages of JavaScript code written for Node.js. There are many open source packages available on npm, so before starting a project, take some time to explore so you don't end up recreating the wheel for things like working with dates or fetching data from an API.",
-          "In this course, you'll learn the basics of using npm, including how to work with the <code>package.json</code> and how to manage your installed dependencies."
+          "npm（Node 包管理工具）是一个命令行工具，用于安装、创建和分享为 Node.js 编写的 JavaScript 代码包。在 npm 上有许多开放源码软件包，所以在项目启动之前，需要一些时间来探索，这样你就不会最后重新创建轮子来处理像日期或从 API 获取数据这样的事项。",
+          "在这个课程中，你将学习使用 npm 的基本知识，包括如何使用 <code>package.json</code> 和如何管理已安装的依赖项。"
         ]
       },
       "basic-node-and-express": {
-        "title": "Basic Node and Express",
+        "title": "基础 Node 和 Express",
         "intro": [
-          "Node.js is a JavaScript runtime that allows developers to write backend (server-side) programs in JavaScript. Node.js comes with a handful of built-in modules — small, independent programs — that help with this. Some of the core modules include HTTP, which acts like a server, and File System, a module to read and modify files.",
-          "In the last set of courses you learned to install and manage packages from npm, which are collections of smaller modules. These packages can help you build larger, more complex applications.",
-          "Express is a lightweight web application framework, and is one of the most popular packages on npm. Express makes it much easier to create a server and handle routing for your application, which handles things like direct people to the correct page when they visit a certain endpoint like <pre>/blog</pre>.",
-          "In this course, you'll learn the basics of Node and Express including how to create a server, serve different files, and handle different requests from the browser."
+          "Node.js 是一个 JavaScript 运行时，它允许开发人员在 JavaScript 中写入后端（服务器侧）程序。Node.js 有几个内置的模块——小型、独立的程序——来帮助实现这一点，一些核心模块包括像服务器一样运作的 HTTP 和文件系统，一个读取和修改文件的模块。",
+          "在上一组课程中，你学到了怎么从 npm下载和管理软件包。这些软件包是较小模块的集合，可以帮助你构建更大更复杂的程序。",
+          "Express 是一个轻量级的 Web 应用程序框架，是 npm 上最流行的包之一。 Express 可以更轻松地为你的应用程序创建服务器和处理路由，例如在人们访问特定端点（如 <pre>/blog</pre>）时将人们引导到正确页面。",
+          "在这个课程中，你将学习 Node 和 Express 的基础知识，包括如何创建服务器、处理不同的文件，以及处理不同的浏览器请求。"
         ]
       },
       "mongodb-and-mongoose": {
-        "title": "MongoDB and Mongoose",
+        "title": "MongoDB 和 Mongoose",
         "intro": [
-          "MongoDB is a database application that stores JSON documents (or records) that you can use in your application. Unlike SQL, another type of database, Mongo is a non-relational or \"NoSQL\" database. This means Mongo stores all associated data within one record, instead of storing it across many preset tables as in a SQL database.",
-          "Mongoose is a popular npm package that is often installed alongside Mongo. With Mongoose, you can use plain JavaScript objects instead of JSON, which makes it easier to work with Mongo. Also, it allows you to create blueprints for your documents called schemas, so you don't accidentally save the wrong type of data and cause bugs later.",
-          "In the MongoDB and Mongoose courses, you'll learn the fundamentals of working with persistent data including how to set up a model, and save, delete, and find documents in the database."
+          "MongoDB 是一个存储 JSON 文件（或记录）的数据库程序，你可以在自己的程序中使用这些 JSON 文件。与 SQL——另一种类型的数据库——所不同的是，MongoDB 是一个非关系型数据库，也被称为 “NoSQL”。这意味着 MongoDB 将所有相关数据都存储在一个记录中，而不是像 SQL 数据库中那样把数据存储在许多预设表中。",
+          "Mongoose 是一个广泛使用的 npm 包，通常和 Mongo 一起安装。通过 Mongoose，你可以使用 JavaScript 对象而不是 JSON ，这样就更容易与 Mongo 配合使用。此外，它允许你创建文件架构，即 schema，所以你不会意外地保存错误的数据类型并出现 bug。",
+          "在 MongoDB 和 Mongoose 课程中，你将学习处理数据的基本知识，包括如何建立模型，保存、删除并在数据库中查找文档。"
         ]
       },
       "back-end-development-and-apis-projects": {
-        "title": "Back End Development and APIs Projects",
+        "title": "后端开发和 APIs 项目",
         "intro": [
-          "You've worked with APIs before, but now that you know npm, Node, Express, MongoDB, and Mongoose, it's time to build your own. Draw on everything you've learned up to this point to create 5 different microservices, which are smaller applications that are limited in scope.",
-          "After creating these, you'll have 5 cool microservice APIs you can show off to friends, family, and potential employers. Oh, and you'll have a shiny new Back End Development and APIs Certification, too."
+          "你之前用过 API，但是现在你知道 npm、Node、Express、MongoDB 和 Mongoose，是时候创建应用了。用你到现在所学的所有知识来创建 5 个不同的微服务，这些微服务是使用范围有限的小应用。",
+          "在创建这些项目后，你会有 5 个很酷的微服务 API，你可以向朋友、家人和潜在的雇主展示。同时，你也会获得后端开发和 APIs 认证。"
         ]
       }
     }
@@ -557,7 +774,8 @@
         "title": "罗塞塔代码",
         "intro": [
           "通过完成经典的罗塞塔代码库中的这些免费编程任务来提升你的创造性问题解决能力。",
-          "这些挑战可能很困难，但是它们会将进一步提升你的算法逻辑。"
+          "这些挑战可能很困难，但是它们会将进一步提升你的算法逻辑。",
+          "<a href='https://rosettacode.org/wiki/Rosetta_Code' target='_blank' rel='noopener noreferrer nofollow'>属性：Rosetta 代码</a>"
         ]
       },
       "project-euler": {
@@ -574,7 +792,17 @@
     "browse-other": "浏览我们的其他免费认证\n（我们建议你按顺序学习）",
     "courses": "课程",
     "steps": "步骤",
-    "expand": "展开",
-    "collapse": "折叠"
+    "expand": "展开课程",
+    "collapse": "收起课程",
+    "legacy-header": "旧版课程",
+    "legacy-desc": "这些课程不再是认证路径的一部分，但仍可供你进一步学习。",
+    "legacy-go-back": "进入当前版本的课程。",
+    "new-rwd-desc": "我们更新了响应式网页设计课程。 如果你之前正在使用该课程，你的进度仍然可以保存！你可以在旧版响应式网页设计课程里找到你的进度。",
+    "new-rwd-article": "我们希望你阅读我们所作的修改，并能考虑探索新课程。",
+    "viewing-upcoming-change": "你正在查看Beta页面。 ",
+    "go-back-to-learn": "回到正式版课程",
+    "read-database-cert-article": "请在继续之前阅读这个论坛帖子。",
+    "enable-cookies": "你必须在开始之前启用第三方 cookies。",
+    "english-only": "本部分的课程只提供英文。我们目前只能翻译标题和介绍，而不能翻译课程本身。"
   }
 }

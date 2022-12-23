@@ -16,7 +16,7 @@ for (let user in users) {
 }
 ```
 
-This would log `Alan`, `Jeff`, `Sarah`, and `Ryan` - each value on its own line.
+This would log `Alan`, `Jeff`, and `Sarah` - each value on its own line.
 
 In this statement, we defined a variable `user`, and as you can see, this variable was reset during each iteration to each of the object's keys as the statement looped through the object, resulting in each user's name being printed to the console.
 
@@ -116,11 +116,25 @@ const usersObj3 = {
 ## --seed-contents--
 
 ```js
+const users = {
+  Alan: {
+    online: false
+  },
+  Jeff: {
+    online: true
+  },
+  Sarah: {
+    online: false
+  }
+}
+
 function countOnline(usersObj) {
   // Only change code below this line
 
   // Only change code above this line
 }
+
+console.log(countOnline(users));
 ```
 
 # --solutions--

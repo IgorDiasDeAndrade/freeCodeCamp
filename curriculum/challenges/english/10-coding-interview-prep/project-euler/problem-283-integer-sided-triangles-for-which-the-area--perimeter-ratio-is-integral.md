@@ -1,9 +1,8 @@
 ---
 id: 5900f4881000cf542c50ff9a
 title: >-
-  Problem 283: Integer sided triangles for which the area * perimeter ratio is
-  integral
-challengeType: 5
+  Problem 283: Integer sided triangles for which the area / perimeter ratio is integral
+challengeType: 1
 forumTopicId: 301934
 dashedName: >-
   problem-283-integer-sided-triangles-for-which-the-area--perimeter-ratio-is-integral

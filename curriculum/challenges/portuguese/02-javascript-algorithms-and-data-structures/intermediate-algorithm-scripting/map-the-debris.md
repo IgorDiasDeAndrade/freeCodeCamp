@@ -1,18 +1,25 @@
 ---
 id: af4afb223120f7348cdfc9fd
 title: Mapear órbitas
-challengeType: 5
+challengeType: 1
 forumTopicId: 16021
 dashedName: map-the-debris
 ---
 
 # --description--
 
+De acordo com a Terceira Lei de Kepler, o período orbital $T$ de dois pontos de massa orbitando uma à outra em uma órbita circular ou elíptica é:
+
+$$ T = 2 \pi \sqrt{\frac{a^{3}}{\mu}} $$
+
+- $a$ é o eixo semimaior da órbita
+- $μ = GM$ é o parâmetro gravitacional padrão
+- $G$ é a constante gravitacional,
+- $M$ é a massa do maior corpo.
+
 Retorna um novo array que transforma a altitude média dos elementos em seus períodos órbita (em segundos).
 
 O array conterá objetos no formato `{name: 'name', avgAlt: avgAlt}`.
-
-Você pode ler sobre períodos de órbita [na Wikipedia](http://en.wikipedia.org/wiki/Orbital_period).
 
 Os valores devem estar arredondados para o número inteiro mais próximo. O corpo sendo orbitado é a Terra.
 
@@ -51,8 +58,8 @@ assert.deepEqual(
 
 ```js
 function orbitalPeriod(arr) {
-  var GM = 398600.4418;
-  var earthRadius = 6367.4447;
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
   return arr;
 }
 
@@ -63,9 +70,9 @@ orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 
 ```js
 function orbitalPeriod(arr) {
-  var GM = 398600.4418;
-  var earthRadius = 6367.4447;
-  var TAU = 2 * Math.PI;
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  const TAU = 2 * Math.PI;
   return arr.map(function(obj) {
     return {
       name: obj.name,
@@ -73,6 +80,4 @@ function orbitalPeriod(arr) {
     };
   });
 }
-
-orbitalPeriod([{name : "sputkin", avgAlt : 35873.5553}]);
 ```

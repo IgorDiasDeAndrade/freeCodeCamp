@@ -1,7 +1,7 @@
 ---
 id: 5900f39c1000cf542c50feaf
 title: 'Problema 48: Elevado à base'
-challengeType: 5
+challengeType: 1
 forumTopicId: 302157
 dashedName: problem-48-self-powers
 ---
@@ -10,7 +10,7 @@ dashedName: problem-48-self-powers
 
 A série, 1<sup>1</sup> + 2<sup>2</sup> + 3<sup>3</sup> + ... + 10<sup>10</sup> = 10405071317.
 
-Encontre os últimos dez dígitos da série, 1<sup>1</sup> + 2<sup>2</sup> + 3<sup>3</sup> + ... + 1000<sup>1000</sup>.
+Encontre os últimos dez algarismos da série, 1<sup>1</sup> + 2<sup>2</sup> + 3<sup>3</sup> + ... + 1000<sup>1000</sup>.
 
 # --hints--
 

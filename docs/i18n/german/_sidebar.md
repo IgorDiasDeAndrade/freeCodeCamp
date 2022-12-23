@@ -1,0 +1,43 @@
+- **Erste Schritte**
+  - [Einführung](index.md "Zur FreeCodeCamp.org Community beitragen")
+  - [Häufig gestellte Fragen](FAQ.md)
+  - [Eine Schwachstelle melden](security.md)
+- **Mitwirkung an der Übersetzung**
+  - [Helfe bei der Übersetzung von Ressourcen](how-to-translate-files.md)
+  - [Helfe beim Korrekturlesen von Übersetzungen](how-to-proofread-files.md)
+- **Mitwirkung am Code**
+  - [Set up freeCodeCamp](how-to-setup-freecodecamp-locally.md)
+  - [Follow best-practices](codebase-best-practices.md)
+  - [Open a pull request](how-to-open-a-pull-request.md)
+  - [Work on Codebase](how-to-contribute-to-the-codebase.md)
+  - [Work on Coding Challenges](how-to-work-on-coding-challenges.md)
+  - [Work on Component Library](how-to-work-on-the-component-library.md)
+  - [Work on Practice Projects](how-to-work-on-practice-projects.md)
+  - [Work on Mobile app](how-to-setup-freecodecamp-mobile-app-locally.md)
+  - [Work on tutorials with CodeRoad](how-to-work-on-tutorials-that-use-coderoad.md)
+  - [Work on Localized Web App](how-to-work-on-localized-client-webapp.md)
+  - [Work on Cypress tests](how-to-add-cypress-tests.md)
+  - [Work on Video Challenges](how-to-help-with-video-challenges.md)
+  - [Work on Documentation](how-to-work-on-the-docs-theme.md)
+- **Zusätzliche Leitfäden**
+  - [Curriculum-Dateistruktur verstehen](curriculum-file-structure.md)
+  - [Ausgehende E-Mails lokal debuggen](how-to-catch-outgoing-emails-locally.md)
+  - [freeCodeCamp unter Windows einrichten (WSL)](how-to-setup-wsl.md)
+  - [Benutzer-Token Workflow](user-token-workflow.md)
+  - [Troubleshooting Development Issues](troubleshooting-development-issues.md)
+
+---
+
+- **Handbücher** (für Mitarbeiter & Moderatoren)
+  - [Moderatorenhandbuch](moderator-handbook.md)
+  - [Language Lead Handbuch](language-lead-handbook.md)
+  - [DevOps-Handbuch](devops.md)
+  - [Kurse VSCode Erweiterung](courses-vscode-extension.md)
+  - [Eine neue Sprache aktivieren](how-to-enable-new-languages.md)
+
+---
+
+- **Unsere Community**
+  - [**GitHub**](https://github.com/freecodecamp/freecodecamp)
+  - [**Diskussionsforum**](https://freecodecamp.org/forum/c/contributors)
+  - [**Chatserver**](https://discord.gg/PRyKn3Vbay)

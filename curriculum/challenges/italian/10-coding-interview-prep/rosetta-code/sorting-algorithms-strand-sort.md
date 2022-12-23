@@ -1,50 +1,62 @@
 ---
 id: 5a23c84252665b21eecc8013
-title: Sorting algorithms/Strand sort
-challengeType: 5
+title: Algoritmi di ordinamento/Strand sort
+challengeType: 1
 forumTopicId: 302319
 dashedName: sorting-algorithmsstrand-sort
 ---
 
 # --description--
 
-Write a function to sort an array using the [Strand sort](https://en.wikipedia.org/wiki/Strand sort). The function should return the sorted array.
+L'algoritmo **strand sort** crea dei sottoinsiemi ordinati che sono uniti per creare il risultato finale.
 
-This is a way of sorting numbers by extracting shorter sequences of already sorted numbers from an unsorted list.
+Considera un array non ordinato `unsortedArray = [3, 1, 4, 2]`. Scegli il primo elemento `3` e copialo in un array separato. Cerca per qualsiasi elemento più grande che segue questo elemento. Quando trovi un elemento più grande, in questo caso `4`, copialo nell'array separato, `[3, 4]` e compara gli elementi successivi a questo nuovo valore, `4`.
+
+Una volta che hai raggiunto la fine dell'array, rimuovi gli elementi che hai copiato, `[3, 4]`, e inizia di nuovo con il primo elemento rimasto nel array non ordinato, `unsortedArray`, in questo caso `1`.
+
+Seguendo questo processo si ottengono due array ordinati, `[3, 4]` e `[1, 2]`. Unisci questi due array per creare `strandSortedArray`.
+
+```js
+const unsortedArray = [3, 1, 4, 2];
+const strandsortedArray = [1, 2, 3, 4];
+```
+
+Scrivi una funzione per ordinare un array usando l'ordinamento **Strand sort**. La funzione dovrebbe restituire l'array ordinato.
+
 
 # --hints--
 
-`strandSort` should be a function.
+`strandSort` dovrebbe essere una funzione.
 
 ```js
 assert(typeof strandSort == 'function');
 ```
 
-`strandSort([25, 32, 12, 7, 20])` should return an array.
+`strandSort([25, 32, 12, 7, 20])` dovrebbe restituire un array.
 
 ```js
 assert(Array.isArray(strandSort([25, 32, 12, 7, 20])));
 ```
 
-`strandSort([25, 32, 12, 7, 20])` should return `[7, 12, 20, 25, 32]`.
+`strandSort([25, 32, 12, 7, 20])` dovrebbe restituire `[7, 12, 20, 25, 32]`.
 
 ```js
 assert.deepEqual(strandSort([25, 32, 12, 7, 20]), [7, 12, 20, 25, 32]);
 ```
 
-`strandSort([38, 45, 35, 8, 13])` should return `[8, 13, 35, 38, 45]`.
+`strandSort([38, 45, 35, 8, 13])` dovrebbe restituire `[8, 13, 35, 38, 45]`.
 
 ```js
 assert.deepEqual(strandSort([38, 45, 35, 8, 13]), [8, 13, 35, 38, 45]);
 ```
 
-`strandSort([43, 36, 20, 34, 24])` should return `[20, 24, 34, 36, 43]`.
+`strandSort([43, 36, 20, 34, 24])` dovrebbe restituire `[20, 24, 34, 36, 43]`.
 
 ```js
 assert.deepEqual(strandSort([43, 36, 20, 34, 24]), [20, 24, 34, 36, 43]);
 ```
 
-`strandSort([12, 33, 26, 18, 1, 16, 38])` should return `[1, 12, 16, 18, 26, 33, 38]`.
+`strandSort([12, 33, 26, 18, 1, 16, 38])` dovrebbe restituire `[1, 12, 16, 18, 26, 33, 38]`.
 
 ```js
 assert.deepEqual(strandSort([12, 33, 26, 18, 1, 16, 38]), [
@@ -58,7 +70,7 @@ assert.deepEqual(strandSort([12, 33, 26, 18, 1, 16, 38]), [
 ]);
 ```
 
-`strandSort([3, 39, 48, 16, 1, 4, 29])` should return `[1, 3, 4, 16, 29, 39, 48]`.
+`strandSort([3, 39, 48, 16, 1, 4, 29])` dovrebbe restituire `[1, 3, 4, 16, 29, 39, 48]`.
 
 ```js
 assert.deepEqual(strandSort([3, 39, 48, 16, 1, 4, 29]), [

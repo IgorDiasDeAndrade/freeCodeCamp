@@ -21,7 +21,7 @@ console.log(typeof {});
 
 Em ordem, o console exibirá as strings `string`, `number`, `object` e `object`.
 
-JavaScript reconhece seis tipos de dados primitivos (imutável): `Boolean`, `Null`, `Undefined`, `Number`, `String` e `Symbol` (novo em ES6) e um tipo para itens mutáveis: `Object`. Note que em JavaScript, arrays são tecnicamente um tipo de objeto.
+JavaScript reconhece sete tipos de dados primitivos (imutáveis): `Boolean`, `Null`, `Undefined`, `Number`, `String`, `Symbol` (novo na ES6) e `BigInt` (novo na ES2020), além de um tipo para itens mutáveis: `Object`. Note que em JavaScript, arrays são tecnicamente um tipo de objeto.
 
 # --instructions--
 
@@ -32,7 +32,7 @@ Adicione duas instruções `console.log()` para verificar o `typeof` de cada uma
 O código deve usar `typeof` em duas instruções `console.log()` para verificar o tipo das variáveis.
 
 ```js
-assert(code.match(/console\.log\(typeof[\( ].*\)?\)/g).length == 2);
+assert(code.match(/console\.log\s*\(typeof[\( ].*\)?\)/g).length == 2);
 ```
 
 O código deve usar `typeof` para verificar o tipo da variável `seven`.

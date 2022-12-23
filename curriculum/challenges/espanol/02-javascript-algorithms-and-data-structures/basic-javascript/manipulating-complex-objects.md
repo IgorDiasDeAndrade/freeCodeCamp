@@ -14,7 +14,7 @@ A veces, es posible que desees almacenar datos en una <dfn>estructura de datos</
 Este es un ejemplo de una estructura de datos compleja:
 
 ```js
-var ourMusic = [
+const ourMusic = [
   {
     "artist": "Daft Punk",
     "title": "Homework",
@@ -29,21 +29,7 @@ var ourMusic = [
 ];
 ```
 
-Esto es una arreglo que contiene un objeto en su interior. El objeto tiene varias piezas de <dfn>metadatos</dfn> sobre un álbum. También tiene un arreglo anidado de `formats`. Si desea añadir más registros de álbumes, puede hacerlo añadiendo registros a la parte superior del arreglo. Los objetos almacenan datos en una propiedad, con formato clave-valor. En el ejemplo anterior, `"artist": "Daft Punk"` es una propiedad que tiene como clave `artist` y su valor es `Daft Punk`. [JavaScript Object Notation](http://www.json.org/) o `JSON` es un formato de intercambio de datos relacionado utilizado para almacenar información.
-
-```json
-{
-  "artist": "Daft Punk",
-  "title": "Homework",
-  "release_year": 1997,
-  "formats": [ 
-    "CD",
-    "Cassette",
-    "LP"
-  ],
-  "gold": true
-}
-```
+Esto es una arreglo que contiene un objeto en su interior. El objeto tiene varias piezas de <dfn>metadatos</dfn> sobre un álbum. También tiene un arreglo anidado de `formats`. Si desea añadir más registros de álbumes, puede hacerlo añadiendo registros a la parte superior del arreglo. Los objetos almacenan datos en una propiedad, con formato clave-valor. En el ejemplo anterior, `"artist": "Daft Punk"` es una propiedad que tiene como clave `artist` y su valor es `Daft Punk`.
 
 **Nota:** Deberás colocar una coma después de cada objeto en el arreglo, a menos que sea el último objeto.
 
@@ -135,7 +121,7 @@ myMusic.forEach(object => {
 ## --seed-contents--
 
 ```js
-var myMusic = [
+const myMusic = [
   {
     "artist": "Billy Joel",
     "title": "Piano Man",
@@ -153,7 +139,7 @@ var myMusic = [
 # --solutions--
 
 ```js
-var myMusic = [
+const myMusic = [
   {
     "artist": "Billy Joel",
     "title": "Piano Man",

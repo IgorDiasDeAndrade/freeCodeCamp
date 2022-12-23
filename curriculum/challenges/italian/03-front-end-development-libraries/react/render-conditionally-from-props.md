@@ -8,7 +8,7 @@ dashedName: render-conditionally-from-props
 
 # --description--
 
-Finora, hai visto come usare `if/else`, `&&`, e l'operatore ternario (`condition ? expressionIfTrue : expressionIfFalse`) per prendere decisioni condizionali su cosa presentare e quando. Tuttavia, c'è ancora un argomento importante da discutere che consente di combinare uno o tutti questi concetti con un'altra potente funzionalità di React: le props. Usare le proprietà (props) per presentare il codice condizionalmente è molto comune tra gli sviluppatori di React — cioè essi usano il valore di una determinata proprietà per prendere automaticamente delle decisioni su cosa presentare.
+Fino ad ora hai visto come usare `if/else`, `&&`, e l'operatore ternario (`condition ? expressionIfTrue : expressionIfFalse`) per fare decisioni condizionali su cosa e quando presentare. Tuttavia, c'è ancora un argomento importante da discutere che consente di combinare uno o tutti questi concetti con un'altra potente funzionalità di React: le props. Usare le proprietà (props) per presentare il codice condizionalmente è molto comune tra gli sviluppatori di React — cioè essi usano il valore di una determinata proprietà per prendere automaticamente delle decisioni su cosa presentare.
 
 In questa sfida, configurerai un componente figlio per prendere decisioni di rendering basate sulle props. Utilizzerai anche l'operatore ternario, ma puoi vedere come molti degli altri concetti che sono stati trattati nelle ultime sfide potrebbero essere altrettanto utili in questo contesto.
 
@@ -123,7 +123,7 @@ Ogni volta che viene fatto click sul pulsante, lo stato del contatore deve esser
 })();
 ```
 
-Quando il componente `GameOfChance` viene montato per la prima volta nel DOM e ogni volta che il bottone viene cliccato successivamente, dovrebbe essere restituito un singolo elemento `h1` che scrive casualmente `You Win!` o `You Lose!`.
+Quando il componente `GameOfChance` viene montato per la prima volta nel DOM e, successivamente, ogni volta che il bottone viene cliccato, dovrebbe essere restituito un singolo elemento `h1` che restituisce casualmente `You Win!` o `You Lose!`. Nota: può fallire casualmente. Se ciò accade, riprova.
 
 ```js
 (() => {
@@ -265,6 +265,11 @@ class GameOfChance extends React.Component {
 # --solutions--
 
 ```jsx
+// We want this to be deterministic for testing purposes.
+const randomSequence = [true, false, false, true, true, false, false, true, true, false];
+let index = 0;
+const fiftyFifty = () => randomSequence[index++ % randomSequence.length];
+
 class Results extends React.Component {
   constructor(props) {
     super(props);
@@ -290,11 +295,10 @@ class GameOfChance extends React.Component {
     });
   }
   render() {
-    const expression = Math.random() >= 0.5;
     return (
       <div>
         <button onClick={this.handleClick}>Play Again</button>
-        <Results fiftyFifty={expression} />
+        <Results fiftyFifty={fiftyFifty()} />
         <p>{'Turn: ' + this.state.counter}</p>
       </div>
     );

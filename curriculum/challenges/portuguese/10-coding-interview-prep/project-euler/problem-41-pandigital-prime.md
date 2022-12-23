@@ -1,14 +1,14 @@
 ---
 id: 5900f3951000cf542c50fea8
 title: 'Problema 41: Número primo pandigital'
-challengeType: 5
+challengeType: 1
 forumTopicId: 302078
 dashedName: problem-41-pandigital-prime
 ---
 
 # --description--
 
-Dizemos que um número de `n` dígitos é pandigital se ele usar todos os dígitos de 1 a `n` exatamente uma vez. Por exemplo, 2143 é um número pandigital de 4 algarismos e também é um número primo.
+Dizemos que um número de `n` algarismos é pandigital se ele usar todos os algarismos de 1 a `n` exatamente uma vez. Por exemplo, 2143 é um número pandigital de 4 algarismos e também é um número primo.
 
 Qual é o maior número primo pandigital de comprimento `n` que existe?
 

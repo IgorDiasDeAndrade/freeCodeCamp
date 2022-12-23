@@ -5,7 +5,6 @@ import {
   calcCurrentStreak,
   calcLongestStreak
 } from '../utils/user-stats';
-import { addPlaceholderImage } from './';
 
 export const publicUserProps = [
   'about',
@@ -26,6 +25,7 @@ export const publicUserProps = [
   'isQaCertV7',
   'isInfosecCertV7',
   'isJsAlgoDataStructCert',
+  'isRelationalDatabaseCertV8',
   'isRespWebDesignCert',
   'isSciCompPyCertV7',
   'isDataAnalysisPyCertV7',
@@ -33,10 +33,12 @@ export const publicUserProps = [
   'linkedin',
   'location',
   'name',
+  'partiallyCompletedChallenges',
   'points',
   'portfolio',
   'profileUI',
   'projects',
+  'savedChallenges',
   'streak',
   'twitter',
   'username',
@@ -52,6 +54,8 @@ export const userPropsForSession = [
   'id',
   'sendQuincyEmail',
   'theme',
+  'sound',
+  'keyboardShortcuts',
   'completedChallengeCount',
   'completedProjectCount',
   'completedCertCount',
@@ -62,7 +66,7 @@ export const userPropsForSession = [
 
 export function normaliseUserFields(user) {
   const about = user.bio && !user.about ? user.bio : user.about;
-  const picture = user.picture || addPlaceholderImage(user.username);
+  const picture = user.picture || '';
   const twitter =
     user.twitter && isURL(user.twitter)
       ? user.twitter

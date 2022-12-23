@@ -13,9 +13,9 @@ dashedName: record-collection
 以 `updateRecords` 函數開始，這個函數需要一個對象 `records`，包含一個音樂專輯集合，一個 `id`，一個 `prop`（如 `artist` 或 `tracks`），和一個 `value`。 使用下面的規則完成函數來修改傳遞給函數的對象。
 
 -   函數必須始終返回整個音樂專輯集合對象。
--   如果 `prop` 不是 `tracks` 並且 `value` 不是一個空字符串， 將相冊的 `prop` 更新或設置爲 `value`。
+-   如果 `prop` 不是 `tracks` 並且 `value` 不是一個空字符串， 將專輯的 `prop` 更新或設置爲 `value`。
 -   如果 `prop` 是 `tracks` 但專輯沒有 `tracks` 屬性，則應創建空數組併爲其添加 `value`。
--   如果 `prop` 是 `tracks` 並且 `value` 不是一個空字符串，將 `value` 添加到相冊現有 `tracks` 數組的末尾。
+-   如果 `prop` 是 `tracks` 並且 `value` 不是一個空字符串，將 `value` 添加到專輯現有 `tracks` 數組的末尾。
 -   如果 `value` 是空字符串，從專輯裏刪除指定的 `prop`。
 
 **注意：** 用 `recordCollection` 對象做爲測試參數對象。
@@ -31,13 +31,13 @@ assert(
 );
 ```
 
-執行 `updateRecords(recordCollection, 5439, "tracks", "Take a Chance on Me")` 後，`tracks` 的最後一個元素應該爲字符串 `Take a Chance on Me`。
+在 `updateRecords(recordCollection, 5439, "tracks", "Take a Chance on Me")` 之後，`tracks` 應該有字符串 `Take a Chance on Me` 作爲最後一個也是唯一的元素。
 
 ```js
 assert(
-  updateRecords(_recordCollection, 5439, 'tracks', 'Take a Chance on Me')[5439][
-    'tracks'
-  ].pop() === 'Take a Chance on Me'
+  updateRecords(_recordCollection, 5439, 'tracks', 'Take a Chance on Me') &&
+  _recordCollection[5439]['tracks'].length === 1 &&
+  _recordCollection[5439]['tracks'].pop() === 'Take a Chance on Me'
 );
 ```
 
@@ -115,7 +115,7 @@ const _recordCollection = {
 
 ```js
 // Setup
-var recordCollection = {
+const recordCollection = {
   2548: {
     albumTitle: 'Slippery When Wet',
     artist: 'Bon Jovi',
@@ -146,7 +146,7 @@ updateRecords(recordCollection, 5439, 'artist', 'ABBA');
 # --solutions--
 
 ```js
-var recordCollection = {
+const recordCollection = {
   2548: {
     albumTitle: 'Slippery When Wet',
     artist: 'Bon Jovi',

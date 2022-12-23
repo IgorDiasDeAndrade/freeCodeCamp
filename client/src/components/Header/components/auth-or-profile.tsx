@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, AvatarRenderer } from '../../helpers';
 import Login from './Login';
 
-export interface AuthOrProfileProps {
+interface AuthOrProfileProps {
   user?: Record<string, unknown>;
 }
 const AuthOrProfile = ({ user }: AuthOrProfileProps): JSX.Element => {

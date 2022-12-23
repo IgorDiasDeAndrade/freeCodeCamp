@@ -3,6 +3,10 @@ id: 5e9a093a74c4063ca6f7c162
 title: Ler dados de CSV e TXT
 challengeType: 11
 videoId: ViGEv0zOzUk
+bilibiliIds:
+  aid: 505575354
+  bvid: BV1tg411c7GH
+  cid: 409020451
 dashedName: reading-data-csv-and-txt
 ---
 
@@ -12,8 +16,8 @@ dashedName: reading-data-csv-and-txt
 
 Mais recursos:
 
--   [Notebooks no GitHub](https://github.com/ine-rmotr-curriculum/RDP-Reading-Data-with-Python-and-Pandas/tree/master/unit-1-reading-data-with-python-and-pandas/lesson-1-reading-csv-and-txt-files/files)
--   [Como abrir notebooks do GitHub usando o Google Colab.](https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb)
+-  <a href="https://github.com/krishnatray/RDP-Reading-Data-with-Python-and-Pandas" target="_blank" rel="noopener noreferrer nofollow">Notebooks no GitHub</a>
+-  <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb" target="_blank" rel="noopener noreferrer nofollow">Como abrir notebooks do GitHub usando o Google Colab.</a>
 
 # --question--
 

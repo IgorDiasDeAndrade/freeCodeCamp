@@ -11,13 +11,13 @@ dashedName: global-scope-and-functions
 
 在 JavaScript 中，<dfn>作用域</dfn>涉及到變量的作用範圍。 在函數外定義的變量具有 <dfn>全局</dfn> 作用域。 這意味着，具有全局作用域的變量可以在代碼的任何地方被調用。
 
-這些沒有使用 `var` 關鍵字定義的變量，會被自動創建在 `global` 作用域中，形成全局變量。 當在代碼其他地方無意間定義了一個變量，剛好變量名與全局變量相同，這時會產生意想不到的後果。 因此你應該總是使用 `var` 關鍵字來聲明你的變量。
+未使用 `let` 或 `const` 關鍵字聲明的變量會在 `global` 範圍內自動創建。 當在代碼其他地方無意間定義了一個變量，剛好變量名與全局變量相同，這時會產生意想不到的後果。 你應該總是用 `let` 或 `const` 聲明你的變量。
 
 # --instructions--
 
-使用 `var`，在函數外聲明一個全局變量 `myGlobal`， 並給它一個初始值 `10`。
+使用 `let` 或 `const`，在任何函數之外聲明一個名爲 `myGlobal` 的全局變量。 並給它一個初始值 `10`。
 
-在函數 `fun1` 的內部，***不***使用 `var` 關鍵字，聲明 `oopsGlobal`，並給它賦值爲 `5`。
+在函數 `fun1`中，賦值 `5` 給 `oopsGlobal`，***不使用*** `var`、`let` 或 `const` 關鍵字。
 
 # --hints--
 
@@ -33,10 +33,10 @@ assert(typeof myGlobal != 'undefined');
 assert(myGlobal === 10);
 ```
 
-應使用 `var` 關鍵字定義 `myGlobal`。
+`myGlobal` 應該使用 `let` 或 `const` 關鍵字聲明
 
 ```js
-assert(/var\s+myGlobal/.test(code));
+assert(/(let|const)\s+myGlobal/.test(code));
 ```
 
 `oopsGlobal` 應爲全局變量，值爲 `5`。
@@ -95,7 +95,7 @@ function fun1() {
 // Only change code above this line
 
 function fun2() {
-  var output = "";
+  let output = "";
   if (typeof myGlobal != "undefined") {
     output += "myGlobal: " + myGlobal;
   }
@@ -109,14 +109,14 @@ function fun2() {
 # --solutions--
 
 ```js
-var myGlobal = 10;
+const myGlobal = 10;
 
 function fun1() {
   oopsGlobal = 5;
 }
 
 function fun2() {
-  var output = "";
+  let output = "";
   if(typeof myGlobal != "undefined") {
     output += "myGlobal: " + myGlobal;
   }

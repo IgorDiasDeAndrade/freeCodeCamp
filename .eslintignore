@@ -3,4 +3,8 @@ client/static/**
 client/public/**
 api-server/src/public/**
 api-server/lib/**
-tools/contributor/**
+config/i18n.js
+config/certification-settings.js
+config/superblock-order.js
+web/**
+docs/**/*.md

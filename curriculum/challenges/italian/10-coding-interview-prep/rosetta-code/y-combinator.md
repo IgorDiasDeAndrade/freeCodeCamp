@@ -1,56 +1,54 @@
 ---
 id: 594810f028c0303b75339ad5
-title: Y combinator
-challengeType: 5
+title: Combinatore Y
+challengeType: 1
 forumTopicId: 302345
 dashedName: y-combinator
 ---
 
 # --description--
 
-In strict [functional programming](https://en.wikipedia.org/wiki/Functional programming "wp: functional programming") and the [lambda calculus](https://en.wikipedia.org/wiki/lambda calculus "wp: lambda calculus"), functions (lambda expressions) don't have state and are only allowed to refer to arguments of enclosing functions. This rules out the usual definition of a recursive function wherein a function is associated with the state of a variable and this variable's state is used in the body of the function. The [Y combinator](https://mvanier.livejournal.com/2897.html) is itself a stateless function that, when applied to another stateless function, returns a recursive version of the function. The Y combinator is the simplest of the class of such functions, called [fixed-point combinators](https://en.wikipedia.org/wiki/Fixed-point combinator "wp: fixed-point combinator").
+In <a href="https://www.freecodecamp.org/news/the-principles-of-functional-programming/" target="_blank" rel="noopener noreferrer nofollow">programmazione funzionale</a> stretta e calcolo lambda, le funzioni (espressioni lambda) non hanno uno stato e possono solo fare riferimento agli argomenti di funzioni che le racchiudono. Questo esclude la definizione abituale di una funzione ricorsiva in cui una funzione è associata allo stato di una variabile e lo stato di questa variabile è usato nel corpo della funzione.
+
+Il combinatore Y è esso stesso una funzione senza stato che, quando applicata ad altre funzioni senza stato, restituisce una versione ricorsiva della funzione. Il combinatore Y è la più semplice delle classi di queste funzioni, chiamate combinatori a punto fisso.
 
 # --instructions--
 
-Define the stateless Y combinator function and use it to compute [factorial](https://en.wikipedia.org/wiki/Factorial "wp: factorial"). The `factorial(N)` function is already given to you. **See also:**
-
-<ul>
-  <li><a href="https://vimeo.com/45140590" target="_blank">Jim Weirich: Adventures in Functional Programming</a>.</li>
-</ul>
+Definisci la funzione combinatore senza stato Y e usala per calcolare i fattoriali. La funzione `factorial(N)` ti è già stata fornita.
 
 # --hints--
 
-Y should return a function.
+Y dovrebbe restituire una funzione.
 
 ```js
 assert.equal(typeof Y((f) => (n) => n), 'function');
 ```
 
-factorial(1) should return 1.
+factorial(1) dovrebbe restituire 1.
 
 ```js
 assert.equal(factorial(1), 1);
 ```
 
-factorial(2) should return 2.
+factorial(2) dovrebbe restituire 2.
 
 ```js
 assert.equal(factorial(2), 2);
 ```
 
-factorial(3) should return 6.
+factorial(3) dovrebbe restituire 6.
 
 ```js
 assert.equal(factorial(3), 6);
 ```
 
-factorial(4) should return 24.
+factorial(4) dovrebbe restituire 24.
 
 ```js
 assert.equal(factorial(4), 24);
 ```
 
-factorial(10) should return 3628800.
+factorial(10) dovrebbe restituire 3628800.
 
 ```js
 assert.equal(factorial(10), 3628800);

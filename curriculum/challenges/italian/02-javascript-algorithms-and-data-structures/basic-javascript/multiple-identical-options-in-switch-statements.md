@@ -12,8 +12,8 @@ dashedName: multiple-identical-options-in-switch-statements
 Se l'istruzione `break` viene omessa da un'istruzione `switch` e in particolare da un suo `case`, le istruzione `case` successive sono eseguite fino a quando non si incontra un `break`. Se hai diversi input con lo stesso output, potrai rappresentarli in un'istruzione `switch` come la seguente:
 
 ```js
-var result = "";
-switch(val) {
+let result = "";
+switch (val) {
   case 1:
   case 2:
   case 3:
@@ -109,7 +109,7 @@ assert(code.match(/case/g).length === 9);
 
 ```js
 function sequentialSizes(val) {
-  var answer = "";
+  let answer = "";
   // Only change code below this line
 
 
@@ -125,9 +125,9 @@ sequentialSizes(1);
 
 ```js
 function sequentialSizes(val) {
-  var answer = "";
+  let answer = "";
 
-  switch(val) {
+  switch (val) {
     case 1:
     case 2:
     case 3:

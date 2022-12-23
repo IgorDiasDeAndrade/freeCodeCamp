@@ -1,7 +1,17 @@
+#learn-app-wrapper,
+#learn-app-wrapper .desktop-layout,
+#learn-app-wrapper .reflex-container.vertical {
+  height: 100%;
+}
+
 #learn-app-wrapper .desktop-layout {
-  height: calc(
-    100vh - var(--header-height, 0px) - var(--flash-message-height, 0px)
-  );
+  display: flex;
+  flex-direction: column;
+}
+
+#learn-app-wrapper .reflex-container.vertical {
+  min-height: 0;
+  flex-grow: 1;
 }
 
 #learn-app-wrapper .reflex-container.vertical > .reflex-splitter,

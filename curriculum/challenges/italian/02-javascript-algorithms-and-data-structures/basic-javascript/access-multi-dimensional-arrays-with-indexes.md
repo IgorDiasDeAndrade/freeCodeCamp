@@ -14,18 +14,19 @@ dashedName: access-multi-dimensional-arrays-with-indexes
 **Esempio**
 
 ```js
-var arr = [
-  [1,2,3],
-  [4,5,6],
-  [7,8,9],
-  [[10,11,12], 13, 14]
+const arr = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [[10, 11, 12], 13, 14]
 ];
-arr[3];
-arr[3][0];
-arr[3][0][1];
+
+const subarray = arr[3];
+const nestedSubarray = arr[3][0];
+const element = arr[3][0][1];
 ```
 
-`arr[3]` è `[[10, 11, 12], 13, 14]`, `arr[3][0]` è `[10, 11, 12]`, e `arr[3][0][1]` è `11`.
+In quest'esempio, `subarray` ha il valore `[[10, 11, 12], 13, 14]`, `nestedSubarray` ha il valore `[10, 11, 12]` e `element` ha il valore `11`.
 
 **Nota:** Non ci dovrebbero essere spazi tra il nome dell'array e le parentesi quadre, come `array [0][0]` e anche questo non è permesso: `array [0] [0]`. Anche se JavaScript è in grado di elaborarlo correttamente, questo potrebbe confondere altri programmatori che leggono il tuo codice.
 
@@ -58,14 +59,19 @@ if(typeof myArray !== "undefined"){(function(){return "myData: " + myData + " my
 ## --seed-contents--
 
 ```js
-var myArray = [[1,2,3], [4,5,6], [7,8,9], [[10,11,12], 13, 14]];
+const myArray = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+  [[10, 11, 12], 13, 14],
+];
 
-var myData = myArray[0][0];
+const myData = myArray[0][0];
 ```
 
 # --solutions--
 
 ```js
-var myArray = [[1,2,3],[4,5,6], [7,8,9], [[10,11,12], 13, 14]];
-var myData = myArray[2][1];
+const myArray = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [[10, 11, 12], 13, 14]];
+const myData = myArray[2][1];
 ```

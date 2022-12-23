@@ -9,13 +9,13 @@ dashedName: constructing-strings-with-variables
 
 # --description--
 
-有時候你需要創建一個類似 [Mad Libs](https://en.wikipedia.org/wiki/Mad_Libs)（填詞遊戲）風格的字符串。 通過使用連接運算符（`+`），你可以插入一個或多個變量來組成一個字符串。
+有時候你需要構建一個字符串。 通過使用連接運算符（`+`），你可以插入一個或多個變量來組成一個字符串。
 
 例如：
 
 ```js
-var ourName = "freeCodeCamp";
-var ourStr = "Hello, our name is " + ourName + ", how are you?";
+const ourName = "freeCodeCamp";
+const ourStr = "Hello, our name is " + ourName + ", how are you?";
 ```
 
 `ourStr` 值爲 `Hello, our name is freeCodeCamp, how are you?`
@@ -63,13 +63,13 @@ assert(code.match(/["']\s*\+\s*myName\s*\+\s*["']/g).length > 0);
 
 ```js
 // Only change code below this line
-var myName;
-var myStr;
+const myName = "";
+const myStr = "";
 ```
 
 # --solutions--
 
 ```js
-var myName = "Bob";
-var myStr = "My name is " + myName + " and I am well!";
+const myName = "Bob";
+const myStr = "My name is " + myName + " and I am well!";
 ```

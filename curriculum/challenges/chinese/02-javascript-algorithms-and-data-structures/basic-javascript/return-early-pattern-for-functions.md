@@ -29,47 +29,47 @@ myFun();
 修改函数 `abTest` 当 `a` 或 `b` 小于 `0` 时，函数立即返回一个 `undefined` 并退出。
 
 **提示**  
-记住 [`undefined` 是一个关键字](/javascript-algorithms-and-data-structures/basic-javascript/understanding-uninitialized-variables)，而不是一个字符串。
+记住 <a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/understanding-uninitialized-variables" target="_blank" rel="noopener noreferrer nofollow"><code>undefined</code> 是关键字 </a>，不是字符串.
 
 # --hints--
 
-`abTest(2,2)` 应该返回一个数字
+`abTest(2, 2)` 应该返回一个数字
 
 ```js
 assert(typeof abTest(2, 2) === 'number');
 ```
 
-`abTest(2,2)` 应该返回 `8`
+`abTest(2, 2)` 应该返回 `8`
 
 ```js
 assert(abTest(2, 2) === 8);
 ```
 
-`abTest(-2,2)` 应该返回 `undefined`
+`abTest(-2, 2)` 应该返回 `undefined`
 
 ```js
 assert(abTest(-2, 2) === undefined);
 ```
 
-`abTest(2,-2)` 应该返回 `undefined`
+`abTest(2, -2)` 应该返回 `undefined`
 
 ```js
 assert(abTest(2, -2) === undefined);
 ```
 
-`abTest(2,8)` 应该返回 `18`
+`abTest(2, 8)` 应该返回 `18`
 
 ```js
 assert(abTest(2, 8) === 18);
 ```
 
-`abTest(3,3)` 应该返回 `12`
+`abTest(3, 3)` 应该返回 `12`
 
 ```js
 assert(abTest(3, 3) === 12);
 ```
 
-`abTest(0,0)` 应该返回 `0`
+`abTest(0, 0)` 应该返回 `0`
 
 ```js
 assert(abTest(0, 0) === 0);
