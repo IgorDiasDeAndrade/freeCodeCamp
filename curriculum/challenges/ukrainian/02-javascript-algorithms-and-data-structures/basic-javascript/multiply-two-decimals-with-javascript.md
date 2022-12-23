@@ -25,7 +25,7 @@ dashedName: multiply-two-decimals-with-javascript
 assert(product === 5.0);
 ```
 
-Ви повинні використати оператор `*`
+Вам слід використовувати оператор `*`
 
 ```js
 assert(/\*/.test(code));

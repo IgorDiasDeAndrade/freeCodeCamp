@@ -1,6 +1,6 @@
 ---
 id: 587d7dac367417b2b2512b74
-title: استخدام رمز النقطة (Dot Notation) للحصول على خصائص الكائن (Object)
+title: Use Dot Notation to Access the Properties of an Object
 challengeType: 1
 forumTopicId: 301333
 dashedName: use-dot-notation-to-access-the-properties-of-an-object
@@ -8,7 +8,7 @@ dashedName: use-dot-notation-to-access-the-properties-of-an-object
 
 # --description--
 
-أنشئ التحدي السابق كائن (object) ذو خصائص (properties) مختلفة. الآن سترى كيف تصل إلى قيم تلك الخصائص. إليك مثال:
+أحدث التحدي الأخير object ذو خصائص مختلفة. الآن سترى كيفية الوصول إلى قيم هذه الخواص. إليك مثال:
 
 ```js
 let duck = {
@@ -18,21 +18,21 @@ let duck = {
 console.log(duck.name);
 ```
 
-تستخدم رمز النقطة (dot notation) على اسم الكائن `duck`، يليها اسم الخاصية `name`، للوصول إلى قيمة `Aflac`.
+يتم استخدام تدوين Dot على اسم الكائن، `duck`، يليها اسم الخاصية، `name`، للوصول إلى قيمة `Aflac`.
 
 # --instructions--
 
-أطبع خواص كائن `dog` إلى وحدتك التحكم (console).
+قم بطباعة خواص كائن `dog` إلى وحدة التحكم الخاصة بك.
 
 # --hints--
 
-يجب أن يستخدم كودك `console.log` لطباعة قيمة خاصية `name` لكائن `dog`.
+يجب أن يستخدم الكود الخاص بك `console.log` لطباعة قيمة خاصية `name` لكائن `dog`.
 
 ```js
 assert(/console.log\(.*dog\.name.*\)/g.test(code));
 ```
 
-يجب أن يستخدم كودك `console.log` لطباعة قيمة خاصية `numLegs` لكائن `dog`.
+يجب أن يستخدم الكود الخاص بك `console.log` لطباعة قيمة خاصية `numLegs` لكائن `dog`.
 
 ```js
 assert(/console.log\(.*dog\.numLegs.*\)/g.test(code));

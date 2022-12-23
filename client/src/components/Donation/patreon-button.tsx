@@ -1,23 +1,21 @@
 import React from 'react';
 import {
   donationUrls,
-  patreonDefaultPledgeAmount,
-  PaymentProvider
+  patreonDefaultPledgeAmount
 } from '../../../../config/donation-settings';
 import envData from '../../../../config/env.json';
 import PatreonLogo from '../../assets/images/components/patreon-logo';
-import { PostPayment } from './types';
 
 const { patreonClientId }: { patreonClientId: string | null } = envData as {
   patreonClientId: string | null;
 };
 
 interface PatreonButtonProps {
-  postPayment: (arg0: PostPayment) => void;
+  postPatreonRedirect: () => void;
 }
 
 const PatreonButton = ({
-  postPayment
+  postPatreonRedirect
 }: PatreonButtonProps): JSX.Element | null => {
   if (
     !patreonClientId ||
@@ -38,7 +36,7 @@ const PatreonButton = ({
       className='patreon-button link-button'
       data-patreon-widget-type='become-patron-button'
       href={href}
-      onClick={() => postPayment({ paymentProvider: PaymentProvider.Patreon })}
+      onClick={postPatreonRedirect}
       rel='noreferrer'
       target='_blank'
     >

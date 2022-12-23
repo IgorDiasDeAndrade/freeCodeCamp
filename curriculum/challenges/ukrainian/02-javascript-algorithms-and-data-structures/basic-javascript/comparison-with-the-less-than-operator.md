@@ -1,6 +1,6 @@
 ---
 id: 56533eb9ac21ba0edf2244d6
-title: Порівняння з оператором «менше ніж»
+title: Порівняння з оператором "менше ніж"
 challengeType: 1
 videoUrl: 'https://scrimba.com/c/cNVRWtB'
 forumTopicId: 16789
@@ -9,9 +9,9 @@ dashedName: comparison-with-the-less-than-operator
 
 # --description--
 
-Оператор «менше ніж» (`<`) порівнює значення двох чисел. Якщо число ліворуч менше за число праворуч, оператор повертає `true`. В іншому випадку він повертає `false`. Як і оператор «дорівнює», «менше ніж» перетворює типи даних під час порівняння.
+Оператор "менше ніж" (`<`) порівнює значення двох чисел. Якщо число ліворуч менше за число праворуч, то видається результат `true`. В іншому випадку видається результат `false`. Так само, як і оператор "дорівнює", оператор "менше ніж" конвертує типи даних під час їх порівняння.
 
-**Приклади**
+**Наприклад:**
 
 ```js
 2   < 5 // true
@@ -23,7 +23,7 @@ dashedName: comparison-with-the-less-than-operator
 
 # --instructions--
 
-Додайте оператор «менше ніж» до вказаних рядків, щоб повернені інструкції мали сенс.
+Add the less than operator to the indicated lines so that the return statements make sense.
 
 # --hints--
 
@@ -63,7 +63,7 @@ assert(testLessThan(55) === '55 or Over');
 assert(testLessThan(99) === '55 or Over');
 ```
 
-Ви повинні використати оператор `<` принаймні двічі
+You should use the `<` operator at least twice
 
 ```js
 assert(code.match(/val\s*<\s*('|")*\d+('|")*/g).length > 1);

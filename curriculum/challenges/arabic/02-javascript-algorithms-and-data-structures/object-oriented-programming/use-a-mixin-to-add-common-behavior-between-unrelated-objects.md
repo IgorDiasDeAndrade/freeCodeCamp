@@ -54,7 +54,7 @@ plane.fly();
 
 # --hints--
 
-يجب أن يعلن كودك إن متغير `glideMixin` وظيفة (function).
+يجب أن يعرف الكود الخاص بك عن متغير `glideMixin` وهو function.
 
 ```js
 assert(typeof glideMixin === 'function');

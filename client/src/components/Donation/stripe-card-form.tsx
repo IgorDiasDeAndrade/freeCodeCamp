@@ -9,21 +9,29 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 import type {
   StripeCardNumberElementChangeEvent,
-  StripeCardExpiryElementChangeEvent
+  StripeCardExpiryElementChangeEvent,
+  PaymentIntentResult
 } from '@stripe/stripe-js';
 import React, { useState } from 'react';
 
-import { PaymentProvider } from '../../../../config/donation-settings';
 import envData from '../../../../config/env.json';
 import { Themes } from '../settings/theme';
-import { DonationApprovalData, PostPayment } from './types';
+import { AddDonationData } from './paypal-button';
 import SecurityLockIcon from './security-lock-icon';
 
 const { stripePublicKey }: { stripePublicKey: string | null } = envData;
 
+export type HandleAuthentication = (
+  clientSecret: string,
+  paymentMethod: string
+) => Promise<PaymentIntentResult | { error: { type: string } }>;
+
 interface FormPropTypes {
-  onDonationStateChange: (donationState: DonationApprovalData) => void;
-  postPayment: (arg0: PostPayment) => void;
+  onDonationStateChange: (donationState: AddDonationData) => void;
+  postStripeCardDonation: (
+    paymentMethodId: string,
+    handleAuthentication: HandleAuthentication
+  ) => void;
   t: (label: string) => string;
   theme: Themes;
   processing: boolean;
@@ -42,7 +50,7 @@ const StripeCardForm = ({
   theme,
   t,
   onDonationStateChange,
-  postPayment,
+  postStripeCardDonation,
   processing,
   isVariantA
 }: FormPropTypes): JSX.Element => {
@@ -116,11 +124,7 @@ const StripeCardForm = ({
             error: t('donate.went-wrong')
           });
         } else if (paymentMethod)
-          postPayment({
-            paymentProvider: PaymentProvider.StripeCard,
-            paymentMethodId: paymentMethod.id,
-            handleAuthentication
-          });
+          postStripeCardDonation(paymentMethod.id, handleAuthentication);
       }
     }
     return setTokenizing(false);

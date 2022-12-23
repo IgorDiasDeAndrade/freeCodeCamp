@@ -8,8 +8,7 @@ import type { Token, PaymentRequest } from '@stripe/stripe-js';
 import React, { useState, useEffect } from 'react';
 import envData from '../../../../config/env.json';
 import { Themes } from '../settings/theme';
-import { PaymentProvider } from '../../../../config/donation-settings';
-import { DonationApprovalData, PostPayment } from './types';
+import { AddDonationData } from './paypal-button';
 
 const { stripePublicKey }: { stripePublicKey: string | null } = envData;
 
@@ -17,8 +16,12 @@ interface WrapperProps {
   label: string;
   amount: number;
   theme: Themes;
-  postPayment: (arg0: PostPayment) => void;
-  onDonationStateChange: (donationState: DonationApprovalData) => void;
+  postStripeDonation: (
+    token: Token,
+    payerEmail: string | undefined,
+    payerName: string | undefined
+  ) => void;
+  onDonationStateChange: (donationState: AddDonationData) => void;
   refreshErrorMessage: string;
   handlePaymentButtonLoad: (provider: 'stripe' | 'paypal') => void;
 }
@@ -32,7 +35,7 @@ const WalletsButton = ({
   amount,
   theme,
   refreshErrorMessage,
-  postPayment,
+  postStripeDonation,
   onDonationStateChange,
   handlePaymentButtonLoad
 }: WalletsButtonProps) => {
@@ -60,12 +63,7 @@ const WalletsButton = ({
       const { token, payerEmail, payerName } = event;
       setToken(token);
       event.complete('success');
-      postPayment({
-        paymentProvider: PaymentProvider.Stripe,
-        token,
-        payerEmail,
-        payerName
-      });
+      postStripeDonation(token, payerEmail, payerName);
     });
 
     void pr.canMakePayment().then(canMakePaymentRes => {
@@ -76,7 +74,7 @@ const WalletsButton = ({
         checkpaymentPossiblity(false);
       }
     });
-  }, [label, amount, stripe, postPayment, handlePaymentButtonLoad]);
+  }, [label, amount, stripe, postStripeDonation, handlePaymentButtonLoad]);
 
   const displayRefreshError = (): void => {
     onDonationStateChange({

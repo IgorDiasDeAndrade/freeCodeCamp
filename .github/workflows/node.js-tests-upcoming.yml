@@ -19,10 +19,11 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-20.04
+
     strategy:
-      matrix:
-        node-version: [18.x]
       fail-fast: false
+      matrix:
+        node-version: [16.x]
 
     steps:
       - name: Checkout Source Files
@@ -57,7 +58,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x]
+        node-version: [16.x]
 
     steps:
       - name: Checkout Source Files

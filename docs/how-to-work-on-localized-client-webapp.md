@@ -18,8 +18,8 @@ Let's understand how the i18n frameworks and tooling work.
 Most of files for translating the platform are located in the [`client/i18n`](https://github.com/freeCodeCamp/freeCodeCamp/tree/main/client/i18n) folder. Each language has a directory within that containing JSON files with the translations.
 
 ```console
-  config
-  └── i18n.ts
+  config/i18n
+  └── all-langs.ts
   ...
   client/i18n
   ├── configForTests.js
@@ -30,33 +30,37 @@ Most of files for translating the platform are located in the [`client/i18n`](ht
   │   │   ├── links.json
   │   │   ├── meta-tags.json
   │   │   ├── motivation.json
-  │   │   └── translations.json
+  │   │   ├── translations.json
+  │   │   └── trending.json
   ... ...
   │   ├── dothraki
   │   │   ├── intro.json
   │   │   ├── links.json
   │   │   ├── meta-tags.json
   │   │   ├── motivation.json
-  │   │   └── translations.json
+  │   │   ├── translations.json
+  │   │   └── trending.json
   ... ...
   │   ├── english
   │   │   ├── intro.json
   │   │   ├── links.json
   │   │   ├── meta-tags.json
   │   │   ├── motivation.json
-  │   │   └── translations.json
+  │   │   ├── translations.json
+  │   │   └── trending.json
   │   └── espanol
   │       ├── intro.json
   │       ├── links.json
   │       ├── meta-tags.json
   │       ├── motivation.json
-  │       └── translations.json
+  │       ├── translations.json
+  │       └── trending.json
   ├── locales.test.js
   ├── schema-validation.js
   └── validate-keys.ts
 ```
 
-Some of these files are translated on our translation platform (Crowdin), some are translated or created via PR's on GitHub.
+Some of these files are translated on our translation platform (Crowdin), some are not.
 
 **Files translated on our translation platform:**
 
@@ -70,27 +74,28 @@ Some of these files are translated on our translation platform (Crowdin), some a
 
 - The `motivation.json` files are not required to have the same quotes, compliments, or array length. Just the same JSON structure.
 
+- The `trending.json` file contains the titles and links for the trending news articles in the website's footer.
+
 - The `meta-tags.json` file contains the information for our website's meta tag information.
 
   Changes to these files are typically done by the staff team. If you see something out of the ordinary we recommend you reach us in the [contributors chat room](https://discord.gg/PRyKn3Vbay).
 
 ## Testing the client app in a world language
 
-You can test the client app in any language available in the [list of `availableLangs` here](https://github.com/freeCodeCamp/freeCodeCamp/blob/main/config/i18n.ts).
+You can test the client app in any language available in the [list of languages here](https://github.com/freeCodeCamp/freeCodeCamp/blob/main/config/i18n/all-langs.ts).
 
 ```js
-export const availableLangs = {
+  export const availableLangs = {
   client: [
-    Languages.English,
-    Languages.Espanol,
-    Languages.Chinese,
-    Languages.ChineseTrandational,
-    Languages.Italian,
-    Languages.Portuguese,
-    Languages.Ukrainian,
-    Languages.Japanese,
-    Languages.German,
-    Languages.Arabic
+    'english',
+    'espanol',
+    'chinese',
+    'chinese-traditional',
+    'italian',
+    'portuguese',
+    'ukrainian',
+    'japanese',
+    'german'
   ],
   ...
 };
@@ -98,11 +103,11 @@ export const availableLangs = {
 
 If you are testing a new language, create a folder with the language name as the title next to the other languages and copy the JSON files from another language into your new folder.
 
-Add the new language to the `Languages` enum and the `client` array at the top of the [`config/i18n.ts`](https://github.com/freeCodeCamp/freeCodeCamp/blob/main/config/i18n.ts) file.
+Add the language to the `client` array as seen above in the [`config/i18n/all-langs.ts`](https://github.com/freeCodeCamp/freeCodeCamp/blob/main/config/i18n/all-langs.ts) file.
 
 Next, follow the instructions in the comments in the same file to add/update the rest of the variables as needed.
 
-Finally, set the `CLIENT_LOCALE` variable in your `.env` file to the string of the locale you want to build from the `Languages` enum in the above file.
+Finally, set the `CLIENT_LOCALE` variable in your `.env` file to the locale you want to build and you're ready.
 
 ## How to Structure Components
 

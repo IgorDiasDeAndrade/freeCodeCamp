@@ -1,6 +1,6 @@
 ---
 id: 56bbb991ad1ed5201cd392cf
-title: كتابة JavaScript قابلة لإعادة الاستخدام مع الوظائف (Functions)
+title: كتابة JavaScript قابل لإعادة الاستخدام مع الوظائف (Write Reusable JavaScript with Functions)
 challengeType: 1
 videoUrl: 'https://scrimba.com/c/cL6dqfy'
 forumTopicId: 18378
@@ -9,7 +9,7 @@ dashedName: write-reusable-javascript-with-functions
 
 # --description--
 
-في JavaScript، يمكننا تقسيم الكود إلى أجزاء قابلة لإعادة الاستخدام تسمى <dfn>وظائف (functions)</dfn>.
+في JavaScript، يمكننا تقسيم الكود إلى أجزاء قابلة لإعادة الاستخدام تسمى <dfn>وظائف</dfn>.
 
 إليك مثال لوظيفة:
 
@@ -19,16 +19,16 @@ function functionName() {
 }
 ```
 
-يمكنك تنفيذ أو <dfn>تفعيل</dfn> هذه الوظيفة باستخدام اسمه متبوعا بقوسين، هكذا: `functionName();` في كل مرة تنفذ الوظيفة، ستطبع الرسالة `Hello World` في وحدة التحكم (console). سيتم تنفيذ الكود بين الأقواس المتعرجة في كل مرة تنفيذ الوظيفة.
+يمكنك استدعاء أو <dfn>تفعيل</dfn> هذه الوظيفة باستخدام اسمه متبوعا بقوسين، هكذا: `functionName();` في كل مرة يستدعي الوظيفة، ستطبع الرسالة `Hello World` في وحدة التحكم. سيتم تنفيذ الكود بين الأقواس المتعرجة في كل مرة يستدعي الوظيفة.
 
 # --instructions--
 
 <ol>
   <li>
-    أنشئ وظيفة تسمى <code>reusableFunction</code> التي تطبع مقطع <code>Hi World</code> في وحدة التحكم.
+    أنشئ وظيفة تسمى <code>reusableFunction</code> الذي يطبع مقطع <code>Hi World</code> إلى وحدة التحكم.
   </li>
   <li>
-    نفذ الوظيفة.
+    أستدعي الوظيفة.
   </li>
 </ol>
 
@@ -40,7 +40,7 @@ function functionName() {
 assert(typeof reusableFunction === 'function');
 ```
 
-إذا تم استدعاء `reusableFunction`، فيجب طباعة مقطع `Hi World` في وحدة التحكم.
+إذا تم استدعاء `reusableFunction`، فيجب طباعة مقطع `Hi World` علي وحدة التحكم.
 
 ```js
 assert(testConsole());

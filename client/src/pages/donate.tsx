@@ -19,7 +19,6 @@ import { Spacer, Loader } from '../components/helpers';
 import CampersImage from '../components/landing/components/campers-image';
 import { executeGA } from '../redux/actions';
 import { signInLoadingSelector, userSelector } from '../redux/selectors';
-import { PaymentContext } from '../../../config/donation-settings';
 
 export interface ExecuteGaArg {
   type: string;
@@ -69,6 +68,18 @@ function DonatePage({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function handleProcessing(duration: string, amount: number, action: string) {
+    executeGA({
+      type: 'event',
+      data: {
+        category: 'Donation',
+        action: `donate page ${action}`,
+        label: duration,
+        value: amount
+      }
+    });
+  }
+
   return showLoading ? (
     <Loader fullScreen={true} />
   ) : (
@@ -99,7 +110,7 @@ function DonatePage({
               <DonationText />
               <Row>
                 <Col xs={12}>
-                  <DonateForm paymentContext={PaymentContext.DonatePage} />
+                  <DonateForm handleProcessing={handleProcessing} />
                 </Col>
               </Row>
               <Spacer size={3} />

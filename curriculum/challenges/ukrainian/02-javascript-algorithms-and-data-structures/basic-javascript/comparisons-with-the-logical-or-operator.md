@@ -1,6 +1,6 @@
 ---
 id: 56533eb9ac21ba0edf2244d9
-title: Порівняння з логічним оператором or
+title: Порівняння з оператором "більше ніж"
 challengeType: 1
 videoUrl: 'https://scrimba.com/c/cEPrGTN'
 forumTopicId: 16800
@@ -9,11 +9,11 @@ dashedName: comparisons-with-the-logical-or-operator
 
 # --description--
 
-<dfn>Логічний оператор or</dfn> (`||`) повертає `true`, якщо один з <dfn>операндів</dfn> є `true`. В іншому випадку він повертає `false`.
+<dfn>Логічний оператор or</dfn> (`||`) повертає `true`, якщо один з <dfn>операндів</dfn> є `true`. В іншому випадку перетворюється на `false`.
 
-<dfn>Логічний оператор or</dfn> складається з двох вертикальних рисок: (`||`). Як правило, цей символ можна знайти на клавіатурі між клавішами backspace та enter.
+Оператор <dfn>логічний або</dfn> складається з двох символів труби (`||`). Зазвичай його можна знайти на клавіатурі між клавіш Backspace та Enter.
 
-Наведений нижче шаблон має виглядати знайомим за пунктами з попередніх уривків:
+Шаблон нижче повинен бути схожим з етапами вище:
 
 ```js
 if (num > 10) {
@@ -25,7 +25,7 @@ if (num < 5) {
 return "Yes";
 ```
 
-поверне `Yes` лише за умови, що `num` знаходиться між `5` та `10` (включно з 5 і 10). Цю саму логіку можна записати як:
+стає `Yes` тільки, якщо `num` між `5` та `10` (5 та 10 включно). Приклад оператора наведено нижче:
 
 ```js
 if (num > 10 || num < 5) {
@@ -36,65 +36,65 @@ return "Yes";
 
 # --instructions--
 
-Об'єднайте дві інструкції `if` в одну інструкцію, яка поверне рядок `Outside`, якщо `val` не знаходиться між `10` та `20` (включно). В іншому випадку поверніть рядок `Inside`.
+Об'єднайте два оператори `if` в один оператор який перетворить рядок `Outside`, якщо `val` не знаходиться в діапазоні від `10` до `20` включно. В іншому випадку значення рядка стане `Inside`.
 
 # --hints--
 
-Ви повинні використати оператор `||` лише раз
+Використовуйте оператор `||` лише раз
 
 ```js
 assert(code.match(/\|\|/g).length === 1);
 ```
 
-Ви повинні мати лише одну інструкцію `if`
+У вас має бути лише один елемент `if`
 
 ```js
 assert(code.match(/if/g).length === 1);
 ```
 
-`testLogicalOr(0)` повинен повертати рядок `Outside`
+`testLogicalOr(0)` перетворюється на `Outside`
 
 ```js
 assert(testLogicalOr(0) === 'Outside');
 ```
 
-`testLogicalOr(9)` повинен повертати рядок `Outside`
+`testLogicalOr(9)` перетворюється на `Outside`
 
 ```js
 assert(testLogicalOr(9) === 'Outside');
 ```
 
-`testLogicalOr(10)` повинен повертати рядок `Inside`
+`testLogicalOr(10)` перетворюється на `Inside`
 
 ```js
 assert(testLogicalOr(10) === 'Inside');
 ```
 
-`testLogicalOr(15)` повинен повертати рядок `Inside`
+`testLogicalOr(15)` перетворюється на `Inside`
 
 ```js
 assert(testLogicalOr(15) === 'Inside');
 ```
 
-`testLogicalOr(19)` повинен повертати рядок `Inside`
+`testLogicalOr(19)` перетворюється на `Inside`
 
 ```js
 assert(testLogicalOr(19) === 'Inside');
 ```
 
-`testLogicalOr(20)` повинен повертати рядок `Inside`
+`testLogicalOr(20)` перетворюється на `Inside`
 
 ```js
 assert(testLogicalOr(20) === 'Inside');
 ```
 
-`testLogicalOr(21)` повинен повертати рядок `Outside`
+`testLogicalOr(21)` перетворюється на `Outside`
 
 ```js
 assert(testLogicalOr(21) === 'Outside');
 ```
 
-`testLogicalOr(25)` повинен повертати рядок `Outside`
+`testLogicalOr(25)` перетворюється на `Outside`
 
 ```js
 assert(testLogicalOr(25) === 'Outside');

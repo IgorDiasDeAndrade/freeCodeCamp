@@ -1,6 +1,6 @@
 ---
 id: 56533eb9ac21ba0edf2244d1
-title: Порівняння з оператором «строго дорівнює»
+title: Порівняння з Оператором Абсолютної Рівності
 challengeType: 1
 videoUrl: 'https://scrimba.com/c/cy87atr'
 forumTopicId: 16790
@@ -9,44 +9,44 @@ dashedName: comparison-with-the-strict-equality-operator
 
 # --description--
 
-Строга рівність (`===`) є аналогом оператора рівності (`==`). Однак на відміну від оператора «дорівнює», який намагається перетворити обидва значення в порівнянні зі звичайним типом, оператор строгої рівності не перетворює типи даних.
+Абсолютна рівність (`===`) є аналогом оператора рівності (`==`). Однак, на відміну від оператора рівності, який намагається перетворити обидва значення в порівнянні зі звичайним типом, оператор абсолютної рівності не виконує перетворення типів.
 
-Якщо порівнювані значення мають різні типи, вони вважаються нерівними і оператор строгої рівності поверне false.
+Якщо значення, які перетворюються, мають різні типи, вони вважаються нерівними і оператор абсолютної рівності видасть помилку.
 
-**Приклади**
+**Наприклад**
 
 ```js
 3 ===  3  // true
 3 === '3' // false
 ```
 
-У другому прикладі `3` є типом `Number`, а `'3'` є типом `String`.
+In the second example, `3` is a `Number` type and `'3'` is a `String` type.
 
 # --instructions--
 
-Використайте оператор «строго дорівнює» в інструкції `if`, щоб функція повернула рядок `Equal`, якщо `val` строго дорівнює `7`.
+Use the strict equality operator in the `if` statement so the function will return the string `Equal` when `val` is strictly equal to `7`.
 
 # --hints--
 
-`testStrict(10)` повинен повертати рядок `Not Equal`
+`testStrict(10)` should return the string `Not Equal`
 
 ```js
 assert(testStrict(10) === 'Not Equal');
 ```
 
-`testStrict(7)` повинен повертати рядок `Equal`
+`testStrict(7)` should return the string `Equal`
 
 ```js
 assert(testStrict(7) === 'Equal');
 ```
 
-`testStrict("7")` повинен повертати рядок `Not Equal`
+`testStrict("7")` should return the string `Not Equal`
 
 ```js
 assert(testStrict('7') === 'Not Equal');
 ```
 
-Ви повинні використати оператор `===`
+You should use the `===` operator
 
 ```js
 assert(code.match(/(val\s*===\s*\d+)|(\d+\s*===\s*val)/g).length > 0);

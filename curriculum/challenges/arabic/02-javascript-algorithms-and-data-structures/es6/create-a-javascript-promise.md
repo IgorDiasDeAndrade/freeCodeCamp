@@ -22,7 +22,7 @@ const myPromise = new Promise((resolve, reject) => {
 
 # --hints--
 
-يجب عليك تخصص وعد (promise) إلى متغير المعلن اسمه `makeServerRequest`.
+يجب عليك تعيين وعد إلى متغير معرف اسمه `makeServerRequest`.
 
 ```js
 assert(makeServerRequest instanceof Promise);

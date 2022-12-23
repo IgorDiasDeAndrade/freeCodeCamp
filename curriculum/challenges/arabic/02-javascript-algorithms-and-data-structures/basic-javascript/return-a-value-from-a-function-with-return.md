@@ -1,6 +1,6 @@
 ---
 id: 56533eb9ac21ba0edf2244c2
-title: إنتاج قيمة من وظيفة (Function)
+title: إرجاع قيمة من وظيفة (Return a Value from a Function with Return)
 challengeType: 1
 videoUrl: 'https://scrimba.com/c/cy87wue'
 forumTopicId: 18271
@@ -9,7 +9,7 @@ dashedName: return-a-value-from-a-function-with-return
 
 # --description--
 
-يمكننا نقل القيم إلى وظيفة باستخدام <dfn>معطيات (arguments)</dfn>. يمكنك استخدام تعبير `return` للحصول على قيمة من وظيفة (function).
+يمكننا نقل القيم إلى وظيفة باستخدام <dfn>حجج</dfn>. يمكنك استخدام `return` لإرسال قيمة إلى خارج الوظيفة.
 
 **مثال**
 
@@ -21,13 +21,13 @@ function plusThree(num) {
 const answer = plusThree(5);
 ```
 
-يحتوي `answer` على قيمة `8`.
+لدي `answer` القيمة `8` الآن.
 
-يأخذ `plusThree` قيمة <dfn>معطى</dfn> من `num` وينتج قيمة تساوي `num + 3`.
+يأخذ `plusThree` من <dfn>الحجج</dfn> ما يقابل `num` وينتج قيمة تساوي `num + 3`.
 
 # --instructions--
 
-أنشئ الوظيفة `timesFive` التي تقبل معطى واحد، وتضربه في `5`، وتنتج قيمة جديدة.
+أنشئ وظيفة `timesFive` التي تقبل حجة واحد، وتضربه في `5`، وترجع القيمة الجديدة.
 
 # --hints--
 

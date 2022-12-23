@@ -1,6 +1,6 @@
 ---
 id: 56533eb9ac21ba0edf2244b7
-title: Об'єднання рядків за допомогою оператора +
+title: Об'єднання рядків за допомогою оператора "плюс"
 challengeType: 1
 videoUrl: 'https://scrimba.com/c/cNpM8AN'
 forumTopicId: 16802
@@ -9,54 +9,54 @@ dashedName: concatenating-strings-with-plus-operator
 
 # --description--
 
-Оператором <dfn>об'єднання (конкатенації)</dfn> у JavaScript називають оператор `+`, який використовується зі значенням `String`. З рядків можна створити новий рядок, <dfn>об'єднавши</dfn> їх.
+В JavaScript, коли оператор `+` використовується зі значенням `String`, це називається оператором <dfn>об'єднання</dfn>. З рядків можна створити новий рядок, <dfn>об'єднавши</dfn> їх.
 
-**Приклад**
+**Наприклад:**
 
 ```js
 'My name is Alan,' + ' I concatenate.'
 ```
 
-**Примітка:** зверніть увагу на пробіли. Конкатенація не додає пробіли між об'єднаними рядками, вам потрібно додавати їх самостійно.
+**Примітка:** Зверніть увагу на пробіли. Під час об'єднання між рядками відсутні пробіли, вам потрібно буде додати їх самостійно.
 
-Приклад:
+Наприклад:
 
 ```js
 const ourStr = "I come first. " + "I come second.";
 ```
 
-На консолі відображатиметься рядок `I come first. I come second.`.
+The string `I come first. I come second.` would be displayed in the console.
 # --instructions--
 
-Побудуйте `myStr` з рядків `This is the start.` та `This is the end.`, використовуючи оператор `+`. Не забудьте використати пробіл між двома рядками.
+Створіть `myStr` з рядків `This is the start.` й `This is the end.` за допомогою `+` оператору. Обов'язково використовуйте пробіл між двома рядками.
 
 # --hints--
 
-`myStr` повинен містити один пробіл між двома рядками.
+`myStr` should have a single space character between the two strings.
 
 ```js
 assert(/start\. This/.test(myStr));
 ```
 
-`myStr` повинен мати значення рядка `This is the start. This is the end.`
+`myStr` should have a value of the string `This is the start. This is the end.`
 
 ```js
 assert(myStr === 'This is the start. This is the end.');
 ```
 
-Ви повинні використати оператор `+`, щоб побудувати `myStr`.
+You should use the `+` operator to build `myStr`.
 
 ```js
 assert(code.match(/(["']).*\1\s*\+\s*(["']).*\2/g));
 ```
 
-Ви повинні використати ключове слово `const`, щоб створити `myStr`.
+`myStr` should be created using the `const` keyword.
 
 ```js
 assert(/const\s+myStr/.test(code));
 ```
 
-Ви повинні присвоїти результат до змінної `myStr`.
+You should assign the result to the `myStr` variable.
 
 ```js
 assert(/myStr\s*=/.test(code));
